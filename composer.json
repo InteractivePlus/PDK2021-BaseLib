@@ -17,7 +17,7 @@
     },
     "autoload-dev":{
         "psr-4":{
-            "InteractivePlus\\PDK2020Test\\": "test/"
+            "InteractivePlus\\PDK2021BaseTest\\": "test/"
         }
     }
 }

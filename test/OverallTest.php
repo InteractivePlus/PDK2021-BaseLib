@@ -1,4 +1,5 @@
 <?php declare(strict_types=1);
+namespace InteractivePlus\PDK2021BaseTest;
 
 use InteractivePlus\PDK2021Base\DataOperations\MultipleResult;
 use PHPUnit\Framework\TestCase;
