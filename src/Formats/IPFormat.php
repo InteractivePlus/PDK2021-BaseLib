@@ -30,7 +30,7 @@ class IPFormat{
         return strtolower($transformedVal);
     }
 
-    function ipAddressEquals(string $ip1, string $ip2) : bool{
+    public static function ipAddressEquals(string $ip1, string $ip2) : bool{
         $ip1Byte = inet_pton($ip1);
         $ip2Byte = inet_pton($ip2);
         if($ip1Byte === false || $ip2Byte === false){
