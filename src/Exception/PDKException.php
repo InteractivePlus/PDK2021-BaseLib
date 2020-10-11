@@ -2,7 +2,7 @@
 namespace InteractivePlus\PDK2021Base\Exception;
 
 class PDKException extends \Exception{
-    private $err_params = null;
+    private ?array $err_params = null;
     public function __construct(int $code = PDKErrCode::NO_ERROR, string $message = '', ?array $errParams = null, ?\Exception $previous = null){
         $this->err_params = $errParams;
         parent::__construct($message,$code,$previous);

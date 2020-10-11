@@ -1,15 +1,15 @@
 <?php
 namespace InteractivePlus\PDK2021Base\Logger;
 class LogEntity{
-    public $actionID = 0;
-    private $_appuid = 0;
-    public $time = 0;
-    private $_logLevel = PDKLogLevel::INFO;
-    public $message = NULL;
-    public $success = false;
-    public $PDKExceptionCode = 0;
-    private $_context = array();
-    public $clientAddr = NULL;
+    public int $actionID = 0;
+    private int $_appuid = 0;
+    public int $time = 0;
+    private int $_logLevel = PDKLogLevel::INFO;
+    public ?string $message = NULL;
+    public bool $success = false;
+    public int $PDKExceptionCode = 0;
+    private ?array $_context = array();
+    public ?string $clientAddr = NULL;
 
     public function __construct(
         int $actionID, 
@@ -22,9 +22,6 @@ class LogEntity{
         ?string $message = NULL, 
         ?array $context = NULL
     ){
-        if($context === NULL){
-            $context = array();
-        }
         $this->actionID = $actionID;
         $this->_appuid = $appUID;
         $this->time = $time;
