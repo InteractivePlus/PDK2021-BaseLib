@@ -1,6 +1,8 @@
 <?php
 namespace InteractivePlus\PDK2021Base\Logger;
 
+use InteractivePlus\PDK2021Base\Constants\APPSystemConstants;
+use InteractivePlus\PDK2021Base\Constants\UserSystemConstants;
 use InteractivePlus\PDK2021Base\DataOperations\MultipleResult;
 use InteractivePlus\PDK2021Base\Exception\ExceptionTypes\PDKInnerError;
 use InteractivePlus\PDK2021Base\Exception\PDKErrCode;
@@ -46,7 +48,8 @@ abstract class LoggerStorage extends \Psr\Log\AbstractLogger{
         try{
             $entity = new LogEntity(
                 ActionID::PSRLog,
-                0,
+                APPSystemConstants::NO_APP_RELATED_APPUID,
+                UserSystemConstants::NO_USER_RELATED_UID,
                 time(),
                 PDKLogLevel::fromPSRLogLevel($level),
                 true,

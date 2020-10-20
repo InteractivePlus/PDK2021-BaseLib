@@ -8,6 +8,8 @@ class PDKErrCode{
     const UNKNOWN_INNER_ERROR = 1;
     const STORAGE_ENGINE_ERROR = 2;
     const INNER_ARGUMENT_ERROR = 3;
+    const ITEM_NOT_FOUND_ERROR = 10;
+    const ITEM_ALREADY_EXIST_ERROR = 11;
 
     /**
      * get an error code's name

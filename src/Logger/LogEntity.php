@@ -3,6 +3,7 @@ namespace InteractivePlus\PDK2021Base\Logger;
 class LogEntity{
     public int $actionID = 0;
     private int $_appuid = 0;
+    private int $_uid = 0;
     public int $time = 0;
     private int $_logLevel = PDKLogLevel::INFO;
     public ?string $message = NULL;
@@ -14,6 +15,7 @@ class LogEntity{
     public function __construct(
         int $actionID, 
         int $appUID, 
+        int $uid,
         int $time, 
         int $logLevel, 
         bool $success,
@@ -24,6 +26,7 @@ class LogEntity{
     ){
         $this->actionID = $actionID;
         $this->_appuid = $appUID;
+        $this->_uid = $uid;
         $this->time = $time;
         $this->_logLevel = PDKLogLevel::fixLogLevel($logLevel);
         $this->success = $success;
@@ -38,6 +41,14 @@ class LogEntity{
     public function withAPPUID(int $appuid) : LogEntity{
         $clonedEntity = clone $this;
         $clonedEntity->_appuid = $appuid;
+        return $clonedEntity;
+    }
+    public function getUID() : int{
+        return $this->_uid;
+    }
+    public function withUID(int $uid) : LogEntity{
+        $clonedEntity = clone $this;
+        $clonedEntity->_uid = $uid;
         return $clonedEntity;
     }
     public function getLogLevel() : int{
