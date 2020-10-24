@@ -1,5 +1,5 @@
 <?php
-namespace InteractivePlus\PDK2021Base\Exception;
+namespace InteractivePlus\PDK2021\Base\Exception;
 
 use ReflectionClass;
 

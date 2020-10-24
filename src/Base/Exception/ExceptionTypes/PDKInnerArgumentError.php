@@ -1,8 +1,8 @@
 <?php
-namespace InteractivePlus\PDK2021Base\Exception\ExceptionTypes;
+namespace InteractivePlus\PDK2021\Base\Exception\ExceptionTypes;
 
-use InteractivePlus\PDK2021Base\Exception\PDKErrCode;
-use InteractivePlus\PDK2021Base\Exception\PDKException;
+use InteractivePlus\PDK2021\Base\Exception\PDKErrCode;
+use InteractivePlus\PDK2021\Base\Exception\PDKException;
 
 class PDKInnerArgumentError extends PDKException{
     private string $param;

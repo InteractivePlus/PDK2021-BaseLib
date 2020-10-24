@@ -1,6 +1,6 @@
 {
-    "name": "interactiveplus/interactivepdk-2021-baselib",
-    "description": "Base Library for InteractivePDK2021",
+    "name": "interactiveplus/interactivepdk-2021-corelib",
+    "description": "Core Library for InteractivePDK2021",
     "type": "library",
     "license": "MIT",
     "require":{
@@ -12,12 +12,12 @@
     },
     "autoload":{
         "psr-4":{
-            "InteractivePlus\\PDK2021Base\\": "src/"
+            "InteractivePlus\\PDK2021\\": "src/"
         }
     },
     "autoload-dev":{
         "psr-4":{
-            "InteractivePlus\\PDK2021BaseTest\\": "test/"
+            "InteractivePlus\\PDK2021Test\\": "test/"
         }
     }
 }

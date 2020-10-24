@@ -1,7 +1,7 @@
 <?php
-namespace InteractivePlus\PDK2021Base;
+namespace InteractivePlus\PDK2021\Base;
 
-use InteractivePlus\PDK2021Base\Logger\LoggerStorage;
+use InteractivePlus\PDK2021\Base\Logger\LoggerStorage;
 
 class PDKBase{
     private LoggerStorage $universalLogger;

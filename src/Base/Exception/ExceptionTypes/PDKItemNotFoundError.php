@@ -1,17 +1,17 @@
 <?php
-namespace InteractivePlus\PDK2021Base\Exception\ExceptionTypes;
+namespace InteractivePlus\PDK2021\Base\Exception\ExceptionTypes;
 
-use InteractivePlus\PDK2021Base\Exception\PDKErrCode;
-use InteractivePlus\PDK2021Base\Exception\PDKException;
+use InteractivePlus\PDK2021\Base\Exception\PDKErrCode;
+use InteractivePlus\PDK2021\Base\Exception\PDKException;
 
-class PDKItemAlreadyExistError extends PDKException{
+class PDKItemNotFoundError extends PDKException{
     private string $item;
     public function __construct(string $item, string $message = '', ?array $errParams = null, ?\Exception $previous = null){
         $this->item = $item;
         if(empty($message)){
-            $message = 'Item ' . $item . ' already exist';
+            $message = 'Item ' . $item . ' not found';
         }
-        parent::__construct(PDKErrCode::ITEM_ALREADY_EXIST_ERROR,$message,$errParams,$previous);
+        parent::__construct(PDKErrCode::ITEM_NOT_FOUND_ERROR,$message,$errParams,$previous);
     }
     public function toReponseJSON() : string{
         $response_Array = array(

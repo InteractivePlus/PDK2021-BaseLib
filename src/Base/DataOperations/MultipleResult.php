@@ -1,5 +1,5 @@
 <?php
-namespace InteractivePlus\PDK2021Base\DataOperations;
+namespace InteractivePlus\PDK2021\Base\DataOperations;
 class MultipleResult{
     private int $numResults;
     private ?array $results;
