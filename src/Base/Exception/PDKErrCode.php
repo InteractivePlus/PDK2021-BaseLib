@@ -10,6 +10,7 @@ class PDKErrCode{
     const INNER_ARGUMENT_ERROR = 3;
     const ITEM_NOT_FOUND_ERROR = 10;
     const ITEM_ALREADY_EXIST_ERROR = 11;
+    const REQUEST_PARAM_FORMAT_ERROR = 20;
 
     /**
      * get an error code's name
