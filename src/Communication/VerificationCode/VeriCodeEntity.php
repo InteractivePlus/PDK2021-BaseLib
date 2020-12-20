@@ -6,15 +6,12 @@ use InteractivePlus\PDK2021\Base\Formats\IPFormat;
 use InteractivePlus\PDK2021\Communication\CommunicationMethods\SentMethod;
 
 class VeriCodeEntity{
-    protected static function fixParamToMatchVeriCodeID(int $veriCodeID, ?array $param) : ?array{
+    protected static function fixParamToMatchVeriCodeID(VeriCodeID $veriCodeID, ?array $param) : ?array{
         if(empty($param)){
             return null;
         }
-        if(!VeriCodeID::isValidVeriCodeID($veriCodeID)){
-            return null;
-        }
         $newParam = array();
-        $mProperty = VeriCodeProperties::getProperty($veriCodeID);
+        $mProperty = $veriCodeID->getProperty();
         foreach($param as $paramKey => $paramVal){
             if($mProperty->isParamNameAssociatedOrRequired($paramKey)){
                 $newParam[$paramKey] = $paramVal;
@@ -23,7 +20,7 @@ class VeriCodeEntity{
         return $newParam;
     }
 
-    private int $veriCodeID;
+    private VeriCodeID $veriCodeID;
     private ?array $param = null;
     private ?string $triggerClientIP = null;
     private string $veriCodeStr;
@@ -35,7 +32,7 @@ class VeriCodeEntity{
     private int $related_appuid = 0;
 
     public function __construct(
-        int $veriCodeID,
+        VeriCodeID $veriCodeID,
         int $issueUTCTime,
         int $expireUTCTime,
         int $related_uid,
@@ -46,9 +43,6 @@ class VeriCodeEntity{
         int $sentMethod = SentMethod::NOT_SENT,
         bool $used = false
     ){
-        if(!VeriCodeID::isValidVeriCodeID($veriCodeID)){
-            throw new PDKInnerArgumentError('veriCodeID');
-        }
         if(!empty($customVeriCodeStrOverride) && !VeriCodeFormat::isValidVerificationCode($customVeriCodeStrOverride)){
             throw new PDKInnerArgumentError('customVeriCodeStrOverride');
         }
@@ -74,7 +68,7 @@ class VeriCodeEntity{
         $this->used = $used;
     }
 
-    public function getVeriCodeID() : int{
+    public function getVeriCodeID() : VeriCodeID{
         return $this->veriCodeID;
     }
     
@@ -112,7 +106,7 @@ class VeriCodeEntity{
 
     public function withVeriCodeParam(string $name, $value) : VeriCodeEntity{
         $newEntity = clone $this;
-        $mProperty = VeriCodeProperties::getProperty($newEntity->veriCodeID);
+        $mProperty = $newEntity->veriCodeID->getProperty();
         if(!$mProperty->isParamNameAssociatedOrRequired($name)){
             return $newEntity;
         }

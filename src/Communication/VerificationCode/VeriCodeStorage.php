@@ -14,9 +14,9 @@ abstract class VeriCodeStorage{
      * Updates an vericode entity
      * @param VeriCodeEntity $veriCode
      * @throws InteractivePlus\PDK2021Base\Exception\ExceptionTypes\PDKStorageEngineError
-     * @return ?VeriCodeEntity updated VeriCodeEntity, if not updated (because item not found) null is returned
+     * @return bool if the update was successful
      */
-    public abstract function updateVeriCodeEntity(VeriCodeEntity $veriCode) : ?VeriCodeEntity;
+    public abstract function updateVeriCodeEntity(VeriCodeEntity $veriCode) : bool;
     
     public abstract function useVeriCodeEntity(string $veriCodeString) : void;
 
@@ -43,6 +43,8 @@ abstract class VeriCodeStorage{
      */
     public abstract function clearVeriCode(int $issueTimeMin = 0, int $issueTimeMax = 0, int $expireTimeMin = 0, int $expireTimeMax =0, int $uid = UserSystemConstants::NO_USER_RELATED_UID, int $appuid = APPSystemConstants::NO_APP_RELATED_APPUID) : void;
     
+    public abstract function getVeriCodeCount() : int;
+
     /**
      * Adds a VeriCodeEntity to the storage
      * @param VeriCodeEntity $veriCode the entity to store

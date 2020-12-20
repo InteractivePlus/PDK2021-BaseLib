@@ -2,9 +2,10 @@
 namespace InteractivePlus\PDK2021\User\UserInfo;
 
 use InteractivePlus\PDK2021\Base\Exception\ExceptionTypes\PDKInnerArgumentError;
-use InteractivePlus\PDK2021\Base\Exception\ExceptionTypes\PDKRequestParamFormatError;
+use InteractivePlus\PDK2021\Base\Formats\IPFormat;
 use InteractivePlus\PDK2021\User\Login\LoginFailedReasons;
-use InteractivePlus\PDK2021\User\UserFormat;
+use InteractivePlus\PDK2021\User\Formats\UserFormat;
+use InteractivePlus\PDK2021\User\Formats\UserPhoneUtil;
 use InteractivePlus\PDK2021\User\UserSystemFormatSetting;
 use libphonenumber\PhoneNumber;
 
@@ -21,7 +22,10 @@ class UserEntity{
     private int $_accountCreateTime = 0;
     private string $_accountCreateIP;
     private bool $_accountFrozen = false;
-    private ?UserSystemFormatSetting $_formatSetting = null;
+    private UserSystemFormatSetting $_formatSetting = null;
+    /**
+     * This function should never ever be called outside of a UserEntityStorage class as it has absolutely no check on its parameters
+     */
     public function __construct(
         int $uid,
         string $username,
@@ -34,7 +38,8 @@ class UserEntity{
         bool $phoneVerified,
         int $accountCreateTime,
         string $accountCreateIP,
-        bool $accountFrozen
+        bool $accountFrozen,
+        UserSystemFormatSetting $formatSetting
     ){
         $this->_uid = $uid;
         $this->_username = $username;
@@ -48,6 +53,7 @@ class UserEntity{
         $this->_accountCreateTime = $accountCreateTime;
         $this->_accountCreateIP = $accountCreateIP;
         $this->_accountFrozen = $accountFrozen;
+        $this->_formatSetting = $formatSetting;
     }
     public function getFormatClass() : UserSystemFormatSetting{
         return $this->_formatSetting;
@@ -55,6 +61,9 @@ class UserEntity{
     public function setFormatClass(UserSystemFormatSetting $class) : void{
         $this->_formatSetting = $class;
     }
+    /**
+     * If this is -1, it means that this user requires to be added into the storage and to be assigned with an UID
+     */
     public function getUID() : int{
         return $this->_uid;
     }
@@ -64,7 +73,7 @@ class UserEntity{
     public function setUsername(string $username) : void{
         if($this->_formatSetting !== null){
             if(!$this->_formatSetting->checkUserName($username)){
-                throw new PDKRequestParamFormatError('username');
+                throw new PDKInnerArgumentError('username');
             }
         }
         $this->_username = $username;
@@ -94,7 +103,7 @@ class UserEntity{
         }
         if($this->_formatSetting !== null){
             if(!$this->_formatSetting->checkNickName($nickname)){
-                throw new PDKRequestParamFormatError('nickname');
+                throw new PDKInnerArgumentError('nickname');
             }
         }
         $this->_nickname = $nickname;
@@ -108,27 +117,110 @@ class UserEntity{
         }
         if($this->_formatSetting !== null){
             if(!$this->_formatSetting->checkSignature($signature)){
-                throw new PDKRequestParamFormatError('signature');
+                throw new PDKInnerArgumentError('signature');
             }
         }
         $this->_signature = $signature;
     }
     public function checkPassword(string $passwordToCheckIfMatch) : bool{
         $passwordHashSalt = null;
-        if($this->_formatSetting === null){
+        if($this->_formatSetting !== null){
             $passwordHashSalt = $this->_formatSetting->getHashEncryptionSalt();
         }
         return UserFormat::checkPasswordMatch($passwordToCheckIfMatch,$this->_passwordHash,$passwordHashSalt);
     }
     public function setPassword(string $password) : void{
         $passwordHashSalt = null;
-        if($this->_formatSetting === null){
+        if($this->_formatSetting !== null){
             $passwordHashSalt = $this->_formatSetting->getHashEncryptionSalt();
-        }else{
             if(!$this->_formatSetting->checkPassword($password)){
-                throw new 
+                throw new PDKInnerArgumentError('password');
             }
         }
-        
+        $encryptedPassword = UserFormat::encryptPassword($password,$passwordHashSalt);
+        $this->_passwordHash = $encryptedPassword;
+    }
+    public function getEmail() : ?string{
+        return $this->_email;
+    }
+    public function setEmail(?string $email) : void{
+        if(empty($email)){
+            $this->_email = null;
+        }
+        if($this->_formatSetting !== null){
+            if(!$this->_formatSetting->checkEmailAddr($email)){
+                throw new PDKInnerArgumentError('email');
+            }
+        }
+        $this->_email = $email;
+    }
+
+    public function getPhoneNumber() : ?PhoneNumber{
+        return $this->_phone;
+    }
+
+    /**
+     * @throws PDKInnerArgumentError
+     */
+    public function setPhoneNumber(?PhoneNumber $phone) : void{
+        if($phone === null){
+            $this->_phone = null;
+        }
+        if(!UserPhoneUtil::verifyPhoneNumberObj($phone)){
+            throw new PDKInnerArgumentError('phone','Phone number is not a valid number');
+        }
+        $this->_phone = $phone;
+    }
+
+    public function isEmailVerified() : bool{
+        return $this->_emailVerified;
+    }
+
+    public function setEmailVerified(bool $verified) : void{
+        $this->_emailVerified = $verified;
+    }
+
+    public function isPhoneVerified() : bool{
+        return $this->_phoneVerified;
+    }
+
+    public function setPhoneVerified(bool $verified) : void{
+        $this->_phoneVerified = $verified;
+    }
+
+    public function getAccountCreateTime() : int{
+        return $this->_accountCreateTime;
+    }
+
+    /**
+     * @throws PDKInnerArgumentError
+     */
+    public function setAccountCreateTime(int $time) : void{
+        if($time < 0){
+            throw new PDKInnerArgumentError('time','account create time must be bigger or equal to 0');
+        }
+        $this->_accountCreateTime = $time;
+    }
+
+    public function getAccountCreateIP() : string{
+        return $this->_accountCreateIP;
+    }
+
+    /**
+     * @throws PDKInnerArgumentError
+     */
+    public function setAccountCreateIP(string $accountIP) : void{
+        if(!IPFormat::isIP($accountIP)){
+            throw new PDKInnerArgumentError('accountIP');
+        }
+        $this->_accountCreateIP = IPFormat::formatIP($accountIP);
+    }
+
+    public function isAccountFrozen() : bool{
+        return $this->_accountFrozen;
+    }
+
+    public function setAccountFrozen(bool $frozen) : void{
+        $this->_accountFrozen = $frozen;
     }
 }
