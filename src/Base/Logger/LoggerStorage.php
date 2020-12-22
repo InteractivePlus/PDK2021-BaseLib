@@ -30,10 +30,14 @@ abstract class LoggerStorage extends \Psr\Log\AbstractLogger{
      * @param int $fromTime the time(UTC) that marks the start of the log date/time limit. 0/-1 means no limit
      * @param int $toTime the time(UTC) that marks the end of the log date/time limit. -1 means no limit
      * @param int $lowestLogLevel @see \InteractivePlus\PDK2021\Base\Logger\PDKLogLevel
+     * @param int $offset start of the data
+     * @param int $count how many log records do you want to fetch from $offset? -1 means all
      * @throws \InteractivePlus\PDK2021\Base\Exception\ExceptionTypes\PDKStorageEngineError if there was an error deleting in the storage
      * @return \InteractivePlus\PDK2021\Base\DataOperations\MultipleResult matching result
      */
-    public abstract function getLogItemsBetween(int $fromTime = -1, int $toTime = -1, int $lowestLogLevel = PDKLogLevel::NOTICE) : MultipleResult;
+    public abstract function getLogItemsBetween(int $fromTime = -1, int $toTime = -1, int $offset = 0, int $count = -1, int $lowestLogLevel = PDKLogLevel::NOTICE) : MultipleResult;
+
+    public abstract function getLogCount(int $fromTime = -1, int $toTime = -1, int $lowestLogLevel = PDKLogLevel::NOTICE) : int;
 
     /**
      * Adds a PSR logEntity to the storage

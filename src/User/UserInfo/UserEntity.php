@@ -62,7 +62,8 @@ class UserEntity{
         $this->_formatSetting = $class;
     }
     /**
-     * If this is -1, it means that this user requires to be added into the storage and to be assigned with an UID
+     * If this is InteractivePlus\PDK2021\Base\Constant\UserSystemConstants::NO_USER_RELATED_UID, it means that this user requires to be added into the storage and to be assigned with an UID
+     * @see InteractivePlus\PDK2021\Base\Constant\UserSystemConstants
      */
     public function getUID() : int{
         return $this->_uid;

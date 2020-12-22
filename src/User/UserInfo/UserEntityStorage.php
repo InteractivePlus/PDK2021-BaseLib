@@ -1,6 +1,7 @@
 <?php
 namespace InteractivePlus\PDK2021\User\UserInfo;
 
+use InteractivePlus\PDK2021\Base\Constants\UserSystemConstants;
 use InteractivePlus\PDK2021\Base\Exception\ExceptionTypes\PDKItemAlreadyExistError;
 use libphonenumber\PhoneNumber;
 
@@ -67,7 +68,7 @@ abstract class UserEntityStorage{
      * @param int $appuid limit search to a specific app, if no limit, set this to APPSystemConstants::NO_APP_RELATED_APPUID
      * @return InteractivePlus\PDK2021Base\DataOperations\MultipleResult result object
      */
-    public abstract function searchVeriCode(int $issueTimeMin = 0, int $issueTimeMax = 0, int $expireTimeMin = 0, int $expireTimeMax =0, int $uid = UserSystemConstants::NO_USER_RELATED_UID, int $appuid = APPSystemConstants::NO_APP_RELATED_APPUID) : MultipleResult;
+    public abstract function searchUserIdentity(?string $username = null, ?string $email = null, ?PhoneNumber $number = null,int $uid = UserSystemConstants::NO_USER_RELATED_UID)
 
     /**
      * clear Verification Codes with search constraints
