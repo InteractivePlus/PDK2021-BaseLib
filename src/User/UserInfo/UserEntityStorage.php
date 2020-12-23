@@ -2,17 +2,21 @@
 namespace InteractivePlus\PDK2021\User\UserInfo;
 
 use InteractivePlus\PDK2021\Base\Constants\UserSystemConstants;
+use InteractivePlus\PDK2021\Base\DataOperations\MultipleResult;
 use InteractivePlus\PDK2021\Base\Exception\ExceptionTypes\PDKItemAlreadyExistError;
 use libphonenumber\PhoneNumber;
 
 abstract class UserEntityStorage{
     /**
-     * @return int -1 if failed, UID if added.
+     * adds an user entity to the database. This method should be overwritten.
+     * @return int InteractivePlus\PDK2021\Base\Constants\UserSystemConstants::NO_USER_RELATED_UID if failed, UID if added.
+     * @see \InteractivePlus\PDK2021\Base\Constants\UserSystemConstants
      */
     protected abstract function __addUserEntity(UserEntity $userEntity) : int;
 
     /**
      * @param UserEntity $user the UID, Email, and PhoneNumber are guarenteed to be unique as they are checked in the public method
+     * @throws \InteractivePlus\PDK2021\Base\Exception\ExceptionTypes\PDKStorageEngineError
      */
     protected abstract function __updateUserEntity(UserEntity $user) : bool;
 
@@ -38,10 +42,11 @@ abstract class UserEntityStorage{
     
     /**
      * Updates an vericode entity
-     * @param VeriCodeEntity $veriCode
+     * @param UserEntity $user
      * @throws InteractivePlus\PDK2021Base\Exception\ExceptionTypes\PDKStorageEngineError
      * @throws InteractivePlus\PDK2021Base\Exception\ExceptionTypes\PDKItemAlreadyExistError
      * @return bool if the update was successful
+     * @throws \InteractivePlus\PDK2021\Base\Exception\ExceptionTypes\PDKStorageEngineError
      */
     public function updateUserEntity(UserEntity $user) : bool{
         if ($this->__checkUsernameExist($user->getUsername()) != $user->getUID()){
@@ -56,47 +61,62 @@ abstract class UserEntityStorage{
         return $this->__updateUserEntity($user);
     }
 
-    //TODO: FInish this file.
-
     /**
-     * search Verification Codes with search constraints
-     * @param int $issueTimeMin Min for the issue time, <= 0 = unlimited
-     * @param int $issueTimeMax Max for the issue time, <= 0 = unlimited
-     * @param int $expireTimeMin Min for the expire time, <= 0 = unlimited
-     * @param int $expireTimeMax Max for the expire time, <= 0 = unlimited
-     * @param int $uid limit search to a specific user, if no limit, set this to UserSystemConstants::NO_USER_RELATED_UID
-     * @param int $appuid limit search to a specific app, if no limit, set this to APPSystemConstants::NO_APP_RELATED_APPUID
+     * search User Entity with search constraints
+     * @param ?string $username the username that you want to search for, if set to null, it means there's no constraint
+     * @param ?string $email the email that you want to search for, if iset to null, it means there's no constraint
+     * @param ?PhoneNumber $number the specific phone number that you want to search for
+     * @param int $uid the specific uid that you want to search for, if no constraint, set it to UserSystemConstants::NO_USER_RELATED_UID
+     * @param int $regTimeStart start of register time limitation, if no limit, set this to -1 or 0
+     * @param int $regTimeEnd end of register time limitation, if no limit, set this to -1
+     * @param int $dataOffset offset of the data, 0 if you want a data from the very beginning row
+     * @param int $dataCountLimit count limit of the data, -1 means no limit(fetch all database rows)
      * @return InteractivePlus\PDK2021Base\DataOperations\MultipleResult result object
+     * @throws \InteractivePlus\PDK2021\Base\Exception\ExceptionTypes\PDKStorageEngineError
      */
-    public abstract function searchUserIdentity(?string $username = null, ?string $email = null, ?PhoneNumber $number = null,int $uid = UserSystemConstants::NO_USER_RELATED_UID)
+    public abstract function searchUserIdentity(?string $username = null, ?string $email = null, ?PhoneNumber $number = null,int $uid = UserSystemConstants::NO_USER_RELATED_UID, int $regTimeStart = -1, int $regTimeEnd = -1, int $dataOffset = 0, int $dataCountLimit = -1) : MultipleResult;
 
     /**
-     * clear Verification Codes with search constraints
-     * @param int $issueTimeMin Min for the issue time, <= 0 = unlimited
-     * @param int $issueTimeMax Max for the issue time, <= 0 = unlimited
-     * @param int $expireTimeMin Min for the expire time, <= 0 = unlimited
-     * @param int $expireTimeMax Max for the expire time, <= 0 = unlimited
-     * @param int $uid limit search to a specific user, if no limit, set this to UserSystemConstants::NO_USER_RELATED_UID
-     * @param int $appuid limit search to a specific app, if no limit, set this to APPSystemConstants::NO_APP_RELATED_APPUID
+     * fetch count of User Entities that complies to the search options below.
+     * @param ?string $username the username that you want to search for, if set to null, it means there's no constraint
+     * @param ?string $email the email that you want to search for, if iset to null, it means there's no constraint
+     * @param ?PhoneNumber $number the specific phone number that you want to search for
+     * @param int $uid the specific uid that you want to search for, if no constraint, set it to UserSystemConstants::NO_USER_RELATED_UID
+     * @param int $regTimeStart start of register time limitation, if no limit, set this to -1 or 0
+     * @param int $regTimeEnd end of register time limitation, if no limit, set this to -1
+     * @return int total number of results
+     * @throws \InteractivePlus\PDK2021\Base\Exception\ExceptionTypes\PDKStorageEngineError
      */
-    public abstract function clearVeriCode(int $issueTimeMin = 0, int $issueTimeMax = 0, int $expireTimeMin = 0, int $expireTimeMax =0, int $uid = UserSystemConstants::NO_USER_RELATED_UID, int $appuid = APPSystemConstants::NO_APP_RELATED_APPUID) : void;
+    public abstract function getUserCount(?string $username = null, ?string $email = null, ?PhoneNumber $number = null,int $uid = UserSystemConstants::NO_USER_RELATED_UID, int $regTimeStart = -1, int $regTimeEnd = -1) : int;
+
+    /**
+     * @throws \InteractivePlus\PDK2021\Base\Exception\ExceptionTypes\PDKItemNotFoundError
+     * @throws \InteractivePlus\PDK2021\Base\Exception\ExceptionTypes\PDKStorageEngineError
+     */
+    public abstract function deleteUserEntity(UserEntity $user) : void;
     
     /**
-     * Adds a VeriCodeEntity to the storage
-     * @param VeriCodeEntity $veriCode the entity to store
-     * @param bool $reRollVeriCodeStrIfExist if there is a conflict with existing VeriCode string in the storage, shall we reroll VeriCode string or give up storing it?
-     * @return ?VeriCodeEntity the saved entity, null if not saved
+     * Adds a UserEntity to the storage
+     * @param UserEntity $user the user entity to be added
+     * @return ?UserEntity null if failed, the created userentity (with uid assigned) if successful
+     * @throws \InteractivePlus\PDK2021\Base\Exception\ExceptionTypes\PDKStorageEngineError
+     * @throws \InteractivePlus\PDK2021\Base\Exception\ExceptionTypes\PDKInnerArgumentError
      */
-    public function addVeriCodeEntity(VeriCodeEntity $veriCode, bool $reRollVeriCodeStrIfExist) : ?VeriCodeEntity{
-        if($this->__checkVeriCodeExist($veriCode->getVeriCodeString())){
-            if($reRollVeriCodeStrIfExist){
-                return $this->addVeriCodeEntity($veriCode->withVeriCodeStringReroll(),true);
-            }else{
-                return null;
-            }
+    public function addUserEntity(UserEntity $user) : ?UserEntity{
+        if($this->__checkUsernameExist($user->getUsername())){
+            throw new PDKItemAlreadyExistError('username');
+        }
+        if(!empty($user->getEmail()) && $this->__checkEmailExist($user->getEmail())){
+            throw new PDKItemAlreadyExistError('email');
+        }
+        if($user->getPhoneNumber() !== null && $this->__checkPhoneNumExist($user->getPhoneNumber())){
+            throw new PDKItemAlreadyExistError('phone');
+        }
+        $newUID = $this->__addUserEntity($user);
+        if($newUID === UserSystemConstants::NO_USER_RELATED_UID){
+            return null;
         }else{
-            $this->__addVeriCodeEntity($veriCode);
-            return $veriCode;
+            return $user->withUID($newUID);
         }
     }
 }

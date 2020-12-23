@@ -68,6 +68,11 @@ class UserEntity{
     public function getUID() : int{
         return $this->_uid;
     }
+    public function withUID(int $uid) : UserEntity{
+        $newUserEntity = clone $this;
+        $newUserEntity->_uid = $uid;
+        return $newUserEntity;
+    }
     public function getUsername() : string{
         return $this->_username;
     }
