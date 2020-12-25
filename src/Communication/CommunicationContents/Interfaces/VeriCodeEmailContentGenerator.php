@@ -1,7 +1,7 @@
 <?php
-namespace InteractivepLus\PDK2021\Communication\CommunicationContents;
+namespace InteractivepLus\PDK2021\Communication\CommunicationContents\Interfaces;
 
-use InteractivePlus\PDK2021\Communication\CommunicationContents\EmailContent;
+use InteractivePlus\PDK2021\Communication\CommunicationContents\Interfaces\EmailContent;
 use InteractivePlus\PDK2021\Communication\VerificationCode\VeriCodeEntity;
 use InteractivePlus\PDK2021\User\UserInfo\UserEntity;
 

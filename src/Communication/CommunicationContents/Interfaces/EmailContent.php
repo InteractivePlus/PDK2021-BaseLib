@@ -1,5 +1,5 @@
 <?php
-namespace InteractivePlus\PDK2021\Communication\CommunicationContents;
+namespace InteractivePlus\PDK2021\Communication\CommunicationContents\Interfaces;
 class EmailContent{
     private string $_title;
     private string $_content;
