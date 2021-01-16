@@ -1,5 +1,5 @@
 <?php
-namespace InteractivePlus\PDK2021\User;
+namespace InteractivePlus\PDK2021Core\User;
 interface UserSystemFormatSetting{
     public function getUserNameMinLen() : int;
     public function getUserNameMaxLen() : int;

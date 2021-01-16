@@ -1,8 +1,8 @@
 <?php
-namespace InteractivePlus\PDK2021\Base\Exception\ExceptionTypes;
+namespace InteractivePlus\PDK2021Core\Base\Exception\ExceptionTypes;
 
-use InteractivePlus\PDK2021\Base\Exception\PDKErrCode;
-use InteractivePlus\PDK2021\Base\Exception\PDKException;
+use InteractivePlus\PDK2021Core\Base\Exception\PDKErrCode;
+use InteractivePlus\PDK2021Core\Base\Exception\PDKException;
 
 class PDKRequestParamFormatError extends PDKException{
     private string $param;

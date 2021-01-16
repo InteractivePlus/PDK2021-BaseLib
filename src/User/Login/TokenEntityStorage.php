@@ -1,8 +1,8 @@
 <?php
-namespace InteractivePlus\PDK2021\User\Login;
+namespace InteractivePlus\PDK2021Core\User\Login;
 
-use InteractivePlus\PDK2021\Base\Constants\UserSystemConstants;
-use InteractivePlus\PDK2021\Base\DataOperations\MultipleResult;
+use InteractivePlus\PDK2021Core\Base\Constants\UserSystemConstants;
+use InteractivePlus\PDK2021Core\Base\DataOperations\MultipleResult;
 
 abstract class TokenEntityStorage{
     protected abstract function __addTokenEntity(TokenEntity $Token) : void;
@@ -14,7 +14,7 @@ abstract class TokenEntityStorage{
     /**
      * Updates an Token entity
      * @param TokenEntity $Token
-     * @throws InteractivePlus\PDK2021Base\Exception\ExceptionTypes\PDKStorageEngineError
+     * @throws InteractivePlus\PDK2021Core\Base\Exception\ExceptionTypes\PDKStorageEngineError
      * @return bool if the update was successful
      */
     public abstract function updateTokenEntity(TokenEntity $Token) : bool;
@@ -32,7 +32,7 @@ abstract class TokenEntityStorage{
      * @param int $refreshExpireMin Min for the Refresh Token Expire Time, <= 0 = unlimited
      * @param int $refreshExpireMax Max for the Refresh Token Expire Time, <= 0 = unlimited
      * @param int $uid limit search to a specific user, if no limit, set this to UserSystemConstants::NO_USER_RELATED_UID
-     * @return InteractivePlus\PDK2021Base\DataOperations\MultipleResult result object
+     * @return InteractivePlus\PDK2021Core\Base\DataOperations\MultipleResult result object
      */
     public abstract function searchToken(int $issueTimeMin = 0, int $issueTimeMax = 0, int $expireTimeMin = 0, int $expireTimeMax =0, int $lastRenewTimeMin = 0, int $lastRenewTimeMax = 0, int $refreshExpireMin = 0, int $refreshExpireMax = 0, int $uid = UserSystemConstants::NO_USER_RELATED_UID) : MultipleResult;
 

@@ -1,9 +1,9 @@
 <?php
-namespace InteractivepLus\PDK2021\Communication\CommunicationContents\Interfaces;
+namespace InteractivePlus\PDK2021Core\Communication\CommunicationContents\Interfaces;
 
-use InteractivePlus\PDK2021\Communication\CommunicationContents\Interfaces\EmailContent;
-use InteractivePlus\PDK2021\Communication\VerificationCode\VeriCodeEntity;
-use InteractivePlus\PDK2021\User\UserInfo\UserEntity;
+use InteractivePlus\PDK2021Core\Communication\CommunicationContents\Interfaces\EmailContent;
+use InteractivePlus\PDK2021Core\Communication\VerificationCode\VeriCodeEntity;
+use InteractivePlus\PDK2021Core\User\UserInfo\UserEntity;
 
 interface VeriCodeEmailContentGenerator{
     public function getContentForEmailVerification(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser) : EmailContent;

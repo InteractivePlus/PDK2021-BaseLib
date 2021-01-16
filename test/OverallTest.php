@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
-namespace InteractivePlus\PDK2021Test;
+namespace InteractivePlus\PDK2021CoreTest;
 
-use InteractivePlus\PDK2021\Base\DataOperations\MultipleResult;
-use InteractivePlus\PDK2021\Base\Formats\IPFormat;
+use InteractivePlus\PDK2021Core\Base\DataOperations\MultipleResult;
+use InteractivePlus\PDK2021Core\Base\Formats\IPFormat;
 use PHPUnit\Framework\TestCase;
 
 final class OverallTest extends TestCase{

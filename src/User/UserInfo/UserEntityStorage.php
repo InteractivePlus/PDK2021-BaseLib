@@ -1,10 +1,10 @@
 <?php
-namespace InteractivePlus\PDK2021\User\UserInfo;
+namespace InteractivePlus\PDK2021Core\User\UserInfo;
 
-use InteractivePlus\PDK2021\Base\Constants\UserSystemConstants;
-use InteractivePlus\PDK2021\Base\DataOperations\MultipleResult;
-use InteractivePlus\PDK2021\Base\Exception\ExceptionTypes\PDKItemAlreadyExistError;
-use InteractivePlus\PDK2021\User\UserSystemFormatSetting;
+use InteractivePlus\PDK2021Core\Base\Constants\UserSystemConstants;
+use InteractivePlus\PDK2021Core\Base\DataOperations\MultipleResult;
+use InteractivePlus\PDK2021Core\Base\Exception\ExceptionTypes\PDKItemAlreadyExistError;
+use InteractivePlus\PDK2021Core\User\UserSystemFormatSetting;
 use libphonenumber\PhoneNumber;
 
 abstract class UserEntityStorage{
@@ -19,14 +19,14 @@ abstract class UserEntityStorage{
 
     /**
      * adds an user entity to the database. This method should be overwritten.
-     * @return int InteractivePlus\PDK2021\Base\Constants\UserSystemConstants::NO_USER_RELATED_UID if failed, UID if added.
-     * @see \InteractivePlus\PDK2021\Base\Constants\UserSystemConstants
+     * @return int InteractivePlus\PDK2021Core\Base\Constants\UserSystemConstants::NO_USER_RELATED_UID if failed, UID if added.
+     * @see \InteractivePlus\PDK2021Core\Base\Constants\UserSystemConstants
      */
     protected abstract function __addUserEntity(UserEntity $userEntity) : int;
 
     /**
      * @param UserEntity $user the UID, Email, and PhoneNumber are guarenteed to be unique as they are checked in the public method
-     * @throws \InteractivePlus\PDK2021\Base\Exception\ExceptionTypes\PDKStorageEngineError
+     * @throws \InteractivePlus\PDK2021Core\Base\Exception\ExceptionTypes\PDKStorageEngineError
      */
     protected abstract function __updateUserEntity(UserEntity $user) : bool;
 
@@ -53,10 +53,10 @@ abstract class UserEntityStorage{
     /**
      * Updates an vericode entity
      * @param UserEntity $user
-     * @throws InteractivePlus\PDK2021Base\Exception\ExceptionTypes\PDKStorageEngineError
-     * @throws InteractivePlus\PDK2021Base\Exception\ExceptionTypes\PDKItemAlreadyExistError
+     * @throws InteractivePlus\PDK2021CoreBase\Exception\ExceptionTypes\PDKStorageEngineError
+     * @throws InteractivePlus\PDK2021CoreBase\Exception\ExceptionTypes\PDKItemAlreadyExistError
      * @return bool if the update was successful
-     * @throws \InteractivePlus\PDK2021\Base\Exception\ExceptionTypes\PDKStorageEngineError
+     * @throws \InteractivePlus\PDK2021Core\Base\Exception\ExceptionTypes\PDKStorageEngineError
      */
     public function updateUserEntity(UserEntity $user) : bool{
         if ($this->__checkUsernameExist($user->getUsername()) != $user->getUID()){
@@ -81,8 +81,8 @@ abstract class UserEntityStorage{
      * @param int $regTimeEnd end of register time limitation, if no limit, set this to -1
      * @param int $dataOffset offset of the data, 0 if you want a data from the very beginning row
      * @param int $dataCountLimit count limit of the data, -1 means no limit(fetch all database rows)
-     * @return InteractivePlus\PDK2021Base\DataOperations\MultipleResult result object
-     * @throws \InteractivePlus\PDK2021\Base\Exception\ExceptionTypes\PDKStorageEngineError
+     * @return InteractivePlus\PDK2021Core\Base\DataOperations\MultipleResult result object
+     * @throws \InteractivePlus\PDK2021Core\Base\Exception\ExceptionTypes\PDKStorageEngineError
      */
     public abstract function searchUserIdentity(?string $username = null, ?string $email = null, ?PhoneNumber $number = null,int $uid = UserSystemConstants::NO_USER_RELATED_UID, int $regTimeStart = -1, int $regTimeEnd = -1, int $dataOffset = 0, int $dataCountLimit = -1) : MultipleResult;
 
@@ -95,13 +95,13 @@ abstract class UserEntityStorage{
      * @param int $regTimeStart start of register time limitation, if no limit, set this to -1 or 0
      * @param int $regTimeEnd end of register time limitation, if no limit, set this to -1
      * @return int total number of results
-     * @throws \InteractivePlus\PDK2021\Base\Exception\ExceptionTypes\PDKStorageEngineError
+     * @throws \InteractivePlus\PDK2021Core\Base\Exception\ExceptionTypes\PDKStorageEngineError
      */
     public abstract function getUserCount(?string $username = null, ?string $email = null, ?PhoneNumber $number = null,int $uid = UserSystemConstants::NO_USER_RELATED_UID, int $regTimeStart = -1, int $regTimeEnd = -1) : int;
 
     /**
-     * @throws \InteractivePlus\PDK2021\Base\Exception\ExceptionTypes\PDKItemNotFoundError
-     * @throws \InteractivePlus\PDK2021\Base\Exception\ExceptionTypes\PDKStorageEngineError
+     * @throws \InteractivePlus\PDK2021Core\Base\Exception\ExceptionTypes\PDKItemNotFoundError
+     * @throws \InteractivePlus\PDK2021Core\Base\Exception\ExceptionTypes\PDKStorageEngineError
      */
     public abstract function deleteUserEntity(UserEntity $user) : void;
     
@@ -109,8 +109,8 @@ abstract class UserEntityStorage{
      * Adds a UserEntity to the storage
      * @param UserEntity $user the user entity to be added
      * @return ?UserEntity null if failed, the created userentity (with uid assigned) if successful
-     * @throws \InteractivePlus\PDK2021\Base\Exception\ExceptionTypes\PDKStorageEngineError
-     * @throws \InteractivePlus\PDK2021\Base\Exception\ExceptionTypes\PDKInnerArgumentError
+     * @throws \InteractivePlus\PDK2021Core\Base\Exception\ExceptionTypes\PDKStorageEngineError
+     * @throws \InteractivePlus\PDK2021Core\Base\Exception\ExceptionTypes\PDKInnerArgumentError
      */
     public function addUserEntity(UserEntity $user) : ?UserEntity{
         if($this->__checkUsernameExist($user->getUsername())){

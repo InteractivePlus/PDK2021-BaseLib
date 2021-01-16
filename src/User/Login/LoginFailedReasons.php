@@ -1,5 +1,5 @@
 <?php
-namespace InteractivePlus\PDK2021\User\Login;
+namespace InteractivePlus\PDK2021Core\User\Login;
 class LoginFailedReasons{
     const EMAIL_NOT_VERIFIED = 1;
     const PHONE_NOT_VERIFIED = 2;

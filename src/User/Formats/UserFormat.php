@@ -1,5 +1,5 @@
 <?php
-namespace InteractivePlus\PDK2021\User\Formats;
+namespace InteractivePlus\PDK2021Core\User\Formats;
 class UserFormat{
     public static function encryptPassword(string $password, ?string $encryptionSalt){
         if(empty($encryptionSalt)){

@@ -1,5 +1,5 @@
 <?php
-namespace InteractivePlus\PDK2021\Base\Logger;
+namespace InteractivePlus\PDK2021Core\Base\Logger;
 class LogEntity{
     public int $actionID = 0;
     private int $_appuid = 0;

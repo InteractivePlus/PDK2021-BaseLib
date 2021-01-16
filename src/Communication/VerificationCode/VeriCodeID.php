@@ -1,6 +1,6 @@
 <?php
-namespace InteractivePlus\PDK2021\Communication\VerificationCode;
-use InteractivePlus\PDK2021\Communication\CommunicationMethods\CommunicationMethod;
+namespace InteractivePlus\PDK2021Core\Communication\VerificationCode;
+use InteractivePlus\PDK2021Core\Communication\CommunicationMethods\CommunicationMethod;
 
 class VeriCodeID{
     const VERICODE_VERIFY_EMAIL = new VeriCodeID(10001,new VeriCodeProperty(false,true,CommunicationMethod::EMAIL,false,null,null));

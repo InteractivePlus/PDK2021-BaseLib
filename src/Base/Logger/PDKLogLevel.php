@@ -1,5 +1,5 @@
 <?php
-namespace InteractivePlus\PDK2021\Base\Logger;
+namespace InteractivePlus\PDK2021Core\Base\Logger;
 
 use Psr\Log\LogLevel as PSRLogLevel;
 

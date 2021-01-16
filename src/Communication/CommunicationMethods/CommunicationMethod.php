@@ -1,5 +1,5 @@
 <?php
-namespace InteractivePlus\PDK2021\Communication\CommunicationMethods;
+namespace InteractivePlus\PDK2021Core\Communication\CommunicationMethods;
 class CommunicationMethod{
     const EMAIL = 1;
     const SMS_MESSAGE = 2;

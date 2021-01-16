@@ -1,8 +1,8 @@
 <?php
-namespace InteractivePlus\PDK2021\Communication\VeriSender;
+namespace InteractivePlus\PDK2021Core\Communication\VeriSender;
 
-use InteractivePlus\PDK2021\Communication\VerificationCode\VeriCodeEntity;
-use InteractivePlus\PDK2021\User\UserInfo\UserEntity;
+use InteractivePlus\PDK2021Core\Communication\VerificationCode\VeriCodeEntity;
+use InteractivePlus\PDK2021Core\User\UserInfo\UserEntity;
 use libphonenumber\PhoneNumber;
 
 interface VeriCodeCommonSender{

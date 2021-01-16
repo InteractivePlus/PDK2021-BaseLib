@@ -15,12 +15,12 @@
     },
     "autoload":{
         "psr-4":{
-            "InteractivePlus\\PDK2021\\": "src/"
+            "InteractivePlus\\PDK2021Core\\": "src/"
         }
     },
     "autoload-dev":{
         "psr-4":{
-            "InteractivePlus\\PDK2021Test\\": "test/"
+            "InteractivePlus\\PDK2021CoreTest\\": "test/"
         }
     }
 }

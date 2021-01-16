@@ -1,5 +1,5 @@
 <?php
-namespace InteractivePlus\PDK2021\Base\Formats;
+namespace InteractivePlus\PDK2021Core\Base\Formats;
 class IPFormat{
     public static function isIP(string $ip) : bool {
         if (filter_var($ip,\FILTER_VALIDATE_IP)) {

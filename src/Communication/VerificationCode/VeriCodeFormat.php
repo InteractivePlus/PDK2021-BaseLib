@@ -1,5 +1,5 @@
 <?php
-namespace InteractivePlus\PDK2021\Communication\VerificationCode;
+namespace InteractivePlus\PDK2021Core\Communication\VerificationCode;
 class VeriCodeFormat{
     const VERI_CODE_BYTE_LENGTH = 16;
     public static function getVeriCodeByteLength() : int{

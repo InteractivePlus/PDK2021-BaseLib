@@ -1,7 +1,7 @@
 <?php
-namespace InteractivePlus\PDK2021\Communication\VerificationCode;
+namespace InteractivePlus\PDK2021Core\Communication\VerificationCode;
 
-use InteractivePlus\PDK2021\Communication\CommunicationMethods\CommunicationMethod;
+use InteractivePlus\PDK2021Core\Communication\CommunicationMethods\CommunicationMethod;
 
 class VeriCodeProperty{
     private bool $m_canCheckBeforeUse = false;

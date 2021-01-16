@@ -1,9 +1,9 @@
 <?php
-namespace InteractivePlus\PDK2021\User\Login;
+namespace InteractivePlus\PDK2021Core\User\Login;
 
-use InteractivePlus\PDK2021\Base\Exception\ExceptionTypes\PDKInnerArgumentError;
-use InteractivePlus\PDK2021\Base\Formats\IPFormat;
-use InteractivePlus\PDK2021\User\Formats\TokenFormat;
+use InteractivePlus\PDK2021Core\Base\Exception\ExceptionTypes\PDKInnerArgumentError;
+use InteractivePlus\PDK2021Core\Base\Formats\IPFormat;
+use InteractivePlus\PDK2021Core\User\Formats\TokenFormat;
 use TheSeer\Tokenizer\Token;
 
 class TokenEntity{

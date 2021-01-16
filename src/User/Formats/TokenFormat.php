@@ -1,5 +1,5 @@
 <?php
-namespace InteractivePlus\PDK2021\User\Formats;
+namespace InteractivePlus\PDK2021Core\User\Formats;
 class TokenFormat{
     const TOKEN_BYTE_LENGTH = 16;
     public static function getTokenByteLength() : int{

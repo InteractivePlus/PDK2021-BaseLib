@@ -1,9 +1,9 @@
 <?php
-namespace InteractivePlus\PDK2021\Communication\VerificationCode;
+namespace InteractivePlus\PDK2021Core\Communication\VerificationCode;
 
-use InteractivePlus\PDK2021\Base\Exception\ExceptionTypes\PDKInnerArgumentError;
-use InteractivePlus\PDK2021\Base\Formats\IPFormat;
-use InteractivePlus\PDK2021\Communication\CommunicationMethods\SentMethod;
+use InteractivePlus\PDK2021Core\Base\Exception\ExceptionTypes\PDKInnerArgumentError;
+use InteractivePlus\PDK2021Core\Base\Formats\IPFormat;
+use InteractivePlus\PDK2021Core\Communication\CommunicationMethods\SentMethod;
 
 class VeriCodeEntity{
     protected static function fixParamToMatchVeriCodeID(VeriCodeID $veriCodeID, ?array $param) : ?array{

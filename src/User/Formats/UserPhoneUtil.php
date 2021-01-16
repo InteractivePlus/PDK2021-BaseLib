@@ -1,7 +1,7 @@
 <?php
-namespace InteractivePlus\PDK2021\User\Formats;
+namespace InteractivePlus\PDK2021Core\User\Formats;
 
-use InteractivePlus\PDK2021\Base\Exception\ExceptionTypes\PDKInnerArgumentError;
+use InteractivePlus\PDK2021Core\Base\Exception\ExceptionTypes\PDKInnerArgumentError;
 use libphonenumber\PhoneNumber;
 use libphonenumber\PhoneNumberFormat;
 

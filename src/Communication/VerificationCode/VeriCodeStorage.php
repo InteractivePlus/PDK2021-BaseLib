@@ -1,9 +1,9 @@
 <?php
-namespace InteractivePlus\PDK2021\Communication\VerificationCode;
+namespace InteractivePlus\PDK2021Core\Communication\VerificationCode;
 
-use InteractivePlus\PDK2021\Base\Constants\APPSystemConstants;
-use InteractivePlus\PDK2021\Base\Constants\UserSystemConstants;
-use InteractivePlus\PDK2021\Base\DataOperations\MultipleResult;
+use InteractivePlus\PDK2021Core\Base\Constants\APPSystemConstants;
+use InteractivePlus\PDK2021Core\Base\Constants\UserSystemConstants;
+use InteractivePlus\PDK2021Core\Base\DataOperations\MultipleResult;
 
 abstract class VeriCodeStorage{
     protected abstract function __addVeriCodeEntity(VeriCodeEntity $veriCode) : void;
@@ -13,7 +13,7 @@ abstract class VeriCodeStorage{
     /**
      * Updates an vericode entity
      * @param VeriCodeEntity $veriCode
-     * @throws InteractivePlus\PDK2021Base\Exception\ExceptionTypes\PDKStorageEngineError
+     * @throws InteractivePlus\PDK2021Core\Base\Exception\ExceptionTypes\PDKStorageEngineError
      * @return bool if the update was successful
      */
     public abstract function updateVeriCodeEntity(VeriCodeEntity $veriCode) : bool;
@@ -28,7 +28,7 @@ abstract class VeriCodeStorage{
      * @param int $expireTimeMax Max for the expire time, <= 0 = unlimited
      * @param int $uid limit search to a specific user, if no limit, set this to UserSystemConstants::NO_USER_RELATED_UID
      * @param int $appuid limit search to a specific app, if no limit, set this to APPSystemConstants::NO_APP_RELATED_APPUID
-     * @return InteractivePlus\PDK2021Base\DataOperations\MultipleResult result object
+     * @return InteractivePlus\PDK2021Core\Base\DataOperations\MultipleResult result object
      */
     public abstract function searchVeriCode(int $issueTimeMin = 0, int $issueTimeMax = 0, int $expireTimeMin = 0, int $expireTimeMax =0, int $uid = UserSystemConstants::NO_USER_RELATED_UID, int $appuid = APPSystemConstants::NO_APP_RELATED_APPUID) : MultipleResult;
 

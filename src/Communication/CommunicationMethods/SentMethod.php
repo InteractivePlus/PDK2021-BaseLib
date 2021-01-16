@@ -1,5 +1,5 @@
 <?php
-namespace InteractivePlus\PDK2021\Communication\CommunicationMethods;
+namespace InteractivePlus\PDK2021Core\Communication\CommunicationMethods;
 class SentMethod{
     const NOT_SENT = 0;
     const EMAIL = 1;

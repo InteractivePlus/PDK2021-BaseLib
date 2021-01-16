@@ -1,5 +1,5 @@
 <?php
-namespace InteractivePlus\PDK2021\Base\Exception;
+namespace InteractivePlus\PDK2021Core\Base\Exception;
 
 class PDKException extends \Exception{
     private ?array $err_params = null;

@@ -1,12 +1,12 @@
 <?php
-namespace InteractivePlus\PDK2021\User\UserInfo;
+namespace InteractivePlus\PDK2021Core\User\UserInfo;
 
-use InteractivePlus\PDK2021\Base\Exception\ExceptionTypes\PDKInnerArgumentError;
-use InteractivePlus\PDK2021\Base\Formats\IPFormat;
-use InteractivePlus\PDK2021\User\Login\LoginFailedReasons;
-use InteractivePlus\PDK2021\User\Formats\UserFormat;
-use InteractivePlus\PDK2021\User\Formats\UserPhoneUtil;
-use InteractivePlus\PDK2021\User\UserSystemFormatSetting;
+use InteractivePlus\PDK2021Core\Base\Exception\ExceptionTypes\PDKInnerArgumentError;
+use InteractivePlus\PDK2021Core\Base\Formats\IPFormat;
+use InteractivePlus\PDK2021Core\User\Login\LoginFailedReasons;
+use InteractivePlus\PDK2021Core\User\Formats\UserFormat;
+use InteractivePlus\PDK2021Core\User\Formats\UserPhoneUtil;
+use InteractivePlus\PDK2021Core\User\UserSystemFormatSetting;
 use libphonenumber\PhoneNumber;
 
 class UserEntity{
@@ -62,8 +62,8 @@ class UserEntity{
         $this->_formatSetting = $class;
     }
     /**
-     * If this is InteractivePlus\PDK2021\Base\Constant\UserSystemConstants::NO_USER_RELATED_UID, it means that this user requires to be added into the storage and to be assigned with an UID
-     * @see InteractivePlus\PDK2021\Base\Constant\UserSystemConstants
+     * If this is InteractivePlus\PDK2021Core\Base\Constant\UserSystemConstants::NO_USER_RELATED_UID, it means that this user requires to be added into the storage and to be assigned with an UID
+     * @see InteractivePlus\PDK2021Core\Base\Constant\UserSystemConstants
      */
     public function getUID() : int{
         return $this->_uid;

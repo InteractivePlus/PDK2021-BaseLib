@@ -1,14 +1,14 @@
 <?php
-namespace InteractivePlus\PDK2021;
+namespace InteractivePlus\PDK2021Core;
 
-use InteractivePlus\PDK2021\Base\Exception\ExceptionTypes\PDKInnerArgumentError;
-use InteractivePlus\PDK2021\Base\Logger\LoggerStorage;
-use InteractivePlus\PDK2021\Communication\CommunicationMethods\SentMethod;
-use InteractivePlus\PDK2021\Communication\VerificationCode\VeriCodeStorage;
-use InteractivePlus\PDK2021\Communication\VeriSender\VeriCodeEmailSender;
-use InteractivePlus\PDK2021\Communication\VeriSender\VeriCodeSMSAndCallSender;
-use InteractivePlus\PDK2021\User\Login\TokenEntityStorage;
-use InteractivePlus\PDK2021\User\UserInfo\UserEntityStorage;
+use InteractivePlus\PDK2021Core\Base\Exception\ExceptionTypes\PDKInnerArgumentError;
+use InteractivePlus\PDK2021Core\Base\Logger\LoggerStorage;
+use InteractivePlus\PDK2021Core\Communication\CommunicationMethods\SentMethod;
+use InteractivePlus\PDK2021Core\Communication\VerificationCode\VeriCodeStorage;
+use InteractivePlus\PDK2021Core\Communication\VeriSender\VeriCodeEmailSender;
+use InteractivePlus\PDK2021Core\Communication\VeriSender\VeriCodeSMSAndCallSender;
+use InteractivePlus\PDK2021Core\User\Login\TokenEntityStorage;
+use InteractivePlus\PDK2021Core\User\UserInfo\UserEntityStorage;
 
 class PDKCore{
     private LoggerStorage $_logger;
