@@ -1,6 +1,8 @@
 <?php
 namespace InteractivePlus\PDK2021Core\Base\Formats;
 class IPFormat{
+    const IPV4_STR_MAX_LEN = 15;
+    const IPV6_STR_MAX_LEN = 45;
     public static function isIP(string $ip) : bool {
         if (filter_var($ip,\FILTER_VALIDATE_IP)) {
             return true;
