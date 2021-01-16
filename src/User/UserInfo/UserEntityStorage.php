@@ -95,7 +95,6 @@ abstract class UserEntityStorage{
      * @param ?string $username the (partial) username that you want to search for, if set to null, it means there's no constraint
      * @param ?string $email the (partial) email that you want to search for, if iset to null, it means there's no constraint
      * @param ?string $number the (partial) phone number that you want to search for
-     * @param int $uid the specific uid that you want to search for, if no constraint, set it to UserSystemConstants::NO_USER_RELATED_UID
      * @param int $regTimeStart start of register time limitation, if no limit, set this to -1 or 0
      * @param int $regTimeEnd end of register time limitation, if no limit, set this to -1
      * @param int $dataOffset offset of the data, 0 if you want a data from the very beginning row
@@ -103,7 +102,7 @@ abstract class UserEntityStorage{
      * @return InteractivePlus\PDK2021Core\Base\DataOperations\MultipleResult result object
      * @throws \InteractivePlus\PDK2021Core\Base\Exception\ExceptionTypes\PDKStorageEngineError
      */
-    public abstract function searchUserIdentity(?string $username = null, ?string $email = null, ?string $number = null,int $uid = UserSystemConstants::NO_USER_RELATED_UID, int $regTimeStart = -1, int $regTimeEnd = -1, int $dataOffset = 0, int $dataCountLimit = -1) : MultipleResult;
+    public abstract function searchUserIdentity(?string $username = null, ?string $email = null, ?string $number = null,int $regTimeStart = -1, int $regTimeEnd = -1, int $dataOffset = 0, int $dataCountLimit = -1) : MultipleResult;
 
     /**
      * fetch count of User Entities that complies to the search options below.
