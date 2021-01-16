@@ -15,7 +15,9 @@ class TokenEntity{
     public int $refreshTokenExpireTime;
     public int $lastRenewTime;
     private ?string $_remoteAddr;
+    private ?string $_deviceUA;
     public bool $valid;
+    
     public function __construct(
         int $relatedUID,
         int $issueTime,
@@ -23,6 +25,7 @@ class TokenEntity{
         int $refreshTokenExpireTime,
         int $lastRenewTime,
         ?string $remoteAddr = null,
+        ?string $deviceUA = null,
         ?string $tokenStrOverride = null,
         ?string $refreshTokenStrOverride = null,
         bool $valid = true
@@ -51,6 +54,7 @@ class TokenEntity{
         }else{
             $this->_remoteAddr = null;
         }
+        $this->_deviceUA = empty($deviceUA) ? null : $deviceUA;
     }
     public function getRelatedUID() : int{
         return $this->_relatedUID;
@@ -106,6 +110,12 @@ class TokenEntity{
             $this->_remoteAddr = null;
         }
     }
+    public function getDeviceUA() : ?string{
+        return $this->_deviceUA;
+    }
+    public function setDeviceUA(?string $deviceUA){
+        $this->_deviceUA = empty($deviceUA) ? null : $deviceUA;
+    } 
     public function isValid(int $currentTime) : bool{
         return $this->valid && $currentTime < $this->expireTime;
     }
