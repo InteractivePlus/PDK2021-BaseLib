@@ -7,6 +7,7 @@ use InteractivePlus\PDK2021\Communication\CommunicationMethods\SentMethod;
 use InteractivePlus\PDK2021\Communication\VerificationCode\VeriCodeStorage;
 use InteractivePlus\PDK2021\Communication\VeriSender\VeriCodeEmailSender;
 use InteractivePlus\PDK2021\Communication\VeriSender\VeriCodeSMSAndCallSender;
+use InteractivePlus\PDK2021\User\Login\TokenEntityStorage;
 use InteractivePlus\PDK2021\User\UserInfo\UserEntityStorage;
 
 class PDKCore{
@@ -16,6 +17,7 @@ class PDKCore{
     private ?VeriCodeSMSAndCallSender $_veriCodeSMSSender;
     private ?VeriCodeSMSAndCallSender $_veriCodeCallSender;
     private UserEntityStorage $_userEntityStorage;
+    private TokenEntityStorage $_tokenEntityStorage;
 
     public function __construct(
         LoggerStorage $logger,
@@ -23,7 +25,8 @@ class PDKCore{
         ?VeriCodeEmailSender $veriCodeEmailSender,
         ?VeriCodeSMSAndCallSender $veriCodeSMSSender,
         ?VeriCodeSMSAndCallSender $veriCodeCallSender,
-        UserEntityStorage $userEntityStorage
+        UserEntityStorage $userEntityStorage,
+        TokenEntityStorage $tokenEntityStorage
     ){
         if($veriCodeEmailSender === null && $veriCodeSMSSender === null && $veriCodeCallSender === null){
             throw new PDKInnerArgumentError('veriCodeEmailSender|veriCodeSMSSender|veriCodeCallSender','There should be at least one vericode sender that is not null');
@@ -34,6 +37,7 @@ class PDKCore{
         $this->_veriCodeSMSSender = $veriCodeSMSSender;
         $this->_veriCodeCallSender = $veriCodeCallSender;
         $this->_userEntityStorage = $userEntityStorage;
+        $this->_tokenEntityStorage = $tokenEntityStorage;
     }
 
     public function getLogger() : LoggerStorage{
@@ -85,5 +89,8 @@ class PDKCore{
     }
     public function getUserEntityStorage() : UserEntityStorage{
         return $this->_userEntityStorage;
+    }
+    public function getTokenEntityStorage() : TokenEntityStorage{
+        return $this->_tokenEntityStorage;
     }
 }
