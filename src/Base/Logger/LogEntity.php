@@ -1,5 +1,9 @@
 <?php
 namespace InteractivePlus\PDK2021Core\Base\Logger;
+
+use InteractivePlus\PDK2021Core\Base\Exception\ExceptionTypes\PDKInnerArgumentError;
+use InteractivePlus\PDK2021Core\Base\Formats\IPFormat;
+
 class LogEntity{
     public int $actionID = 0;
     private int $_appuid = 0;
@@ -10,7 +14,7 @@ class LogEntity{
     public bool $success = false;
     public int $PDKExceptionCode = 0;
     private ?array $_context = array();
-    public ?string $clientAddr = NULL;
+    private ?string $_clientAddr = NULL;
 
     public function __construct(
         int $actionID, 
@@ -31,7 +35,15 @@ class LogEntity{
         $this->_logLevel = PDKLogLevel::fixLogLevel($logLevel);
         $this->success = $success;
         $this->PDKExceptionCode = $PDKExceptionCode;
-        $this->clientAddr = $clientAddr;
+        if(!empty($clientAddr)){
+            if(IPFormat::isIP($clientAddr)){
+                $this->_clientAddr = IPFormat::formatIP($clientAddr);
+            }else{
+                throw new PDKInnerArgumentError('clientAddr','IP Address not formatted');
+            }
+        }else{
+            $this->_clientAddr = null;
+        }
         $this->message = $message;
         $this->_context = $context;
     }
@@ -81,5 +93,23 @@ class LogEntity{
     }
     public function withDeleteContext(string $key) : LogEntity{
         return $this->withContext($key,NULL);
+    }
+    public function getClientAddr() : ?string{
+        return $this->_clientAddr;
+    }
+    public function withClientAddr(?string $clientAddr) : LogEntity{
+        if(!empty($clientAddr)){
+            if(IPFormat::isIP($clientAddr)){
+                $NewEntity = clone $this;
+                $NewEntity->_clientAddr = IPFormat::formatIP($clientAddr);
+                return $NewEntity;
+            }else{
+                throw new PDKInnerArgumentError('clientAddr','IP Address not formatted');
+            }
+        }else{
+            $NewEntity = clone $this;
+            $NewEntity->_clientAddr = null;
+            return $NewEntity;
+        }
     }
 }
