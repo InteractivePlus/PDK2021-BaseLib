@@ -1,5 +1,5 @@
 {
-    "name": "interactiveplus/interactivepdk-2021-corelib",
+    "name": "interactiveplus/pdk-2021-corelib",
     "description": "Core Library for InteractivePDK2021",
     "type": "library",
     "license": "MIT",
