@@ -4,9 +4,19 @@ namespace InteractivePlus\PDK2021\User\UserInfo;
 use InteractivePlus\PDK2021\Base\Constants\UserSystemConstants;
 use InteractivePlus\PDK2021\Base\DataOperations\MultipleResult;
 use InteractivePlus\PDK2021\Base\Exception\ExceptionTypes\PDKItemAlreadyExistError;
+use InteractivePlus\PDK2021\User\UserSystemFormatSetting;
 use libphonenumber\PhoneNumber;
 
 abstract class UserEntityStorage{
+    private UserSystemFormatSetting $_formatSetting;
+    public function __construct(UserSystemFormatSetting $formatSetting){
+        $this->_formatSetting = $formatSetting;
+    }
+
+    public function getFormatSetting() : UserSystemFormatSetting{
+        return $this->_formatSetting;
+    }
+
     /**
      * adds an user entity to the database. This method should be overwritten.
      * @return int InteractivePlus\PDK2021\Base\Constants\UserSystemConstants::NO_USER_RELATED_UID if failed, UID if added.
