@@ -26,35 +26,11 @@ class UserEntity{
     /**
      * This function should never ever be called outside of a UserEntityStorage class as it has absolutely no check on its parameters
      */
-    public function __construct(
-        int $uid,
-        string $username,
-        ?string $nickname = null,
-        ?string $signature = null,
-        string $passwordHash,
-        ?string $email = null,
-        ?PhoneNumber $phone = null,
-        bool $emailVerified,
-        bool $phoneVerified,
-        int $accountCreateTime,
-        string $accountCreateIP,
-        bool $accountFrozen,
-        UserSystemFormatSetting $formatSetting
-    ){
-        $this->_uid = $uid;
-        $this->_username = $username;
-        $this->_nickname = empty($nickname) ? null : $signature;
-        $this->_signature = empty($signature) ? null : $signature;
-        $this->_passwordHash = $passwordHash;
-        $this->_email = empty($email) ? null : $email;
-        $this->_phone = $phone;
-        $this->_emailVerified = $emailVerified;
-        $this->_phoneVerified = $phoneVerified;
-        $this->_accountCreateTime = $accountCreateTime;
-        $this->_accountCreateIP = $accountCreateIP;
-        $this->_accountFrozen = $accountFrozen;
-        $this->_formatSetting = $formatSetting;
+    private function __construct()
+    {
+        
     }
+    
     public function getFormatClass() : UserSystemFormatSetting{
         return $this->_formatSetting;
     }
@@ -228,5 +204,68 @@ class UserEntity{
 
     public function setAccountFrozen(bool $frozen) : void{
         $this->_accountFrozen = $frozen;
+    }
+
+    public static function fromDatabase(
+        int $uid,
+        string $username,
+        ?string $nickname = null,
+        ?string $signature = null,
+        string $passwordHash,
+        ?string $email = null,
+        ?PhoneNumber $phone = null,
+        bool $emailVerified,
+        bool $phoneVerified,
+        int $accountCreateTime,
+        string $accountCreateIP,
+        bool $accountFrozen,
+        UserSystemFormatSetting $formatSetting
+    ) : UserEntity{
+        $entity = new UserEntity();
+        $entity->_uid = $uid;
+        $entity->_formatSetting = $formatSetting;
+        $entity->_username = $username;
+        $entity->_nickname = empty($nickname) ? null : $nickname;
+        $entity->_signature = empty($signature) ? null : $signature;
+        $entity->_passwordHash = $passwordHash;
+        $entity->_email = empty($email) ? null : $email;
+        $entity->_phone = $phone;
+        $entity->_emailVerified = $emailVerified;
+        $entity->_phoneVerified = $phoneVerified;
+        $entity->_accountCreateTime = $accountCreateTime;
+        $entity->_accountCreateIP = $accountCreateIP;
+        $entity->_accountFrozen = $accountFrozen;
+        
+        return $entity;
+    }
+    public static function create(
+        string $username,
+        ?string $nickname = null,
+        ?string $signature = null,
+        string $password,
+        ?string $email = null,
+        ?PhoneNumber $phone = null,
+        bool $emailVerified,
+        bool $phoneVerified,
+        int $accountCreateTime,
+        string $accountCreateIP,
+        bool $accountFrozen,
+        UserSystemFormatSetting $formatSetting
+    ) : UserEntity{
+        $entity = new UserEntity();
+        $entity->_uid = -1;
+        $entity->_formatSetting = $formatSetting;
+        $entity->setUsername($username);
+        $entity->setNickName($nickname);
+        $entity->setSignature($signature);
+        $entity->setPassword($password);
+        $entity->setEmail($email);
+        $entity->setPhoneNumber($phone);
+        $entity->_emailVerified = $emailVerified;
+        $entity->_phoneVerified = $phoneVerified;
+        $entity->_accountCreateTime = $accountCreateTime;
+        $entity->_accountCreateIP = $accountCreateIP;
+        $entity->_accountFrozen = $accountFrozen;
+        return $entity;
     }
 }
