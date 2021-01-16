@@ -36,6 +36,8 @@ abstract class TokenEntityStorage{
      */
     public abstract function searchToken(int $issueTimeMin = 0, int $issueTimeMax = 0, int $expireTimeMin = 0, int $expireTimeMax =0, int $lastRenewTimeMin = 0, int $lastRenewTimeMax = 0, int $refreshExpireMin = 0, int $refreshExpireMax = 0, int $uid = UserSystemConstants::NO_USER_RELATED_UID) : MultipleResult;
 
+    public abstract function getTokenCount(int $issueTimeMin = 0, int $issueTimeMax = 0, int $expireTimeMin = 0, int $expireTimeMax =0, int $lastRenewTimeMin = 0, int $lastRenewTimeMax = 0, int $refreshExpireMin = 0, int $refreshExpireMax = 0, int $uid = UserSystemConstants::NO_USER_RELATED_UID) : int;
+
     /**
      * clear Tokens with search constraints
      * @param int $issueTimeMin Min for the issue time, <= 0 = unlimited
@@ -49,8 +51,6 @@ abstract class TokenEntityStorage{
      * @param int $uid limit search to a specific user, if no limit, set this to UserSystemConstants::NO_USER_RELATED_UID
      */
     public abstract function clearToken(int $issueTimeMin = 0, int $issueTimeMax = 0, int $expireTimeMin = 0, int $expireTimeMax =0, int $lastRenewTimeMin = 0, int $lastRenewTimeMax = 0, int $refreshExpireMin = 0, int $refreshExpireMax = 0, int $uid = UserSystemConstants::NO_USER_RELATED_UID) : void;
-    
-    public abstract function getTokenCount() : int;
 
     /**
      * Adds a TokenEntity to the storage
