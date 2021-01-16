@@ -104,6 +104,9 @@ class UserEntity{
         }
         $this->_signature = $signature;
     }
+    public function getPasswordHash() : string{
+        return $this->_passwordHash;
+    }
     public function checkPassword(string $passwordToCheckIfMatch) : bool{
         $passwordHashSalt = null;
         if($this->_formatSetting !== null){
@@ -121,6 +124,11 @@ class UserEntity{
         }
         $encryptedPassword = UserFormat::encryptPassword($password,$passwordHashSalt);
         $this->_passwordHash = $encryptedPassword;
+    }
+    public function setPasswordHash(string $hash) : void{
+        if(UserFormat::isPasswordHashValid($hash)){
+            $this->_passwordHash = UserFormat::formatPasswordHash($hash);
+        }
     }
     public function getEmail() : ?string{
         return $this->_email;

@@ -7,18 +7,23 @@ class UserFormat{
      * since SHA256 gives 256 bits, we should have a string with length 256/4 = 64
      */
     const PASSWORD_HASH_LEN = 64;
-        
-    public static function encryptPassword(string $password, ?string $encryptionSalt){
+    public static function isPasswordHashValid(string $hash) : bool{
+        return strlen($hash) === self::PASSWORD_HASH_LEN;
+    }
+    public static function formatPasswordHash(string $hash) : string{
+        return strtoupper($hash);
+    }
+    public static function encryptPassword(string $password, ?string $encryptionSalt) : string{
         if(empty($encryptionSalt)){
-            return strtoupper(hash('sha256',$password));
+            return self::formatPasswordHash(hash('sha256',$password));
         }else{
-            return strtoupper(hash('sha256',$password . $encryptionSalt));
+            return self::formatPasswordHash(hash('sha256',$password . $encryptionSalt));
         }
     }
     public static function checkPasswordMatch(string $passwordToBeChecked, string $passwordHash, ?string $encryptionSalt){
         if(empty($encryptionSalt)){
             $encryptionSalt = '';
         }
-        return self::encryptPassword($passwordToBeChecked,$encryptionSalt) === strtoupper($passwordHash);
+        return self::encryptPassword($passwordToBeChecked,$encryptionSalt) === self::formatPasswordHash($passwordHash);
     }
 }
