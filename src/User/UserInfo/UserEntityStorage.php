@@ -44,6 +44,12 @@ abstract class UserEntityStorage{
      */
     protected abstract function __checkPhoneNumExist(PhoneNumber $phoneNumber) : int;
 
+    /**
+     * @return int -1 if non-existant, UID if exist
+     */
+    protected abstract function __checkNicknameExist(string $nickname) : int;
+
+
     public abstract function getUserEntityByUsername(string $username) : ?UserEntity;
     public abstract function getUserEntityByEmail(string $email) : ?UserEntity;
     public abstract function getUserEntityByPhoneNum(PhoneNumber $phoneNumber) : ?UserEntity;
@@ -59,14 +65,27 @@ abstract class UserEntityStorage{
      * @throws \InteractivePlus\PDK2021Core\Base\Exception\ExceptionTypes\PDKStorageEngineError
      */
     public function updateUserEntity(UserEntity $user) : bool{
-        if ($this->__checkUsernameExist($user->getUsername()) != $user->getUID()){
+        $usernameUID = $this->__checkUsernameExist($user->getUsername());
+        if ($usernameUID !== $user->getUID() && $usernameUID !== -1){
             throw new PDKItemAlreadyExistError('username');
         }
-        if ($user->getEmail() !== null && $this->__checkEmailExist($user->getEmail()) != $user->getUID()){
-            throw new PDKItemAlreadyExistError('email');
+        if (!empty($user->getEmail())){
+            $emailUID = $this->__checkEmailExist($user->getEmail());
+            if($emailUID !== $user->getUID() && $emailUID !== -1){
+                throw new PDKItemAlreadyExistError('email');
+            }
         }
-        if ($user->getPhoneNumber() !== null && $this->__checkPhoneNumExist($user->getPhoneNumber()) != $user->getUID()){
-            throw new PDKItemAlreadyExistError('phone');
+        if ($user->getPhoneNumber() !== null){
+            $phoneUID = $this->__checkPhoneNumExist($user->getPhoneNumber());
+            if($phoneUID !== $user->getUID() && $phoneUID !== -1){
+                throw new PDKItemAlreadyExistError('phone');
+            }
+        }
+        if (!empty($user->getNickName())){
+            $nickNameUID = $this->__checkNicknameExist($user->getNickName());
+            if($nickNameUID !== $user->getUID() && $nickNameUID !== -1){
+                throw new PDKItemAlreadyExistError('nickname');
+            }
         }
         return $this->__updateUserEntity($user);
     }
@@ -113,14 +132,17 @@ abstract class UserEntityStorage{
      * @throws \InteractivePlus\PDK2021Core\Base\Exception\ExceptionTypes\PDKInnerArgumentError
      */
     public function addUserEntity(UserEntity $user) : ?UserEntity{
-        if($this->__checkUsernameExist($user->getUsername())){
+        if($this->__checkUsernameExist($user->getUsername()) !== -1){
             throw new PDKItemAlreadyExistError('username');
         }
-        if(!empty($user->getEmail()) && $this->__checkEmailExist($user->getEmail())){
+        if(!empty($user->getEmail()) && $this->__checkEmailExist($user->getEmail()) !== -1){
             throw new PDKItemAlreadyExistError('email');
         }
-        if($user->getPhoneNumber() !== null && $this->__checkPhoneNumExist($user->getPhoneNumber())){
+        if($user->getPhoneNumber() !== null && $this->__checkPhoneNumExist($user->getPhoneNumber()) !== -1){
             throw new PDKItemAlreadyExistError('phone');
+        }
+        if(!empty($user->getNickName()) && $this->__checkNicknameExist($user->getNickName()) !== -1){
+            throw new PDKItemAlreadyExistError('nickname');
         }
         $newUID = $this->__addUserEntity($user);
         if($newUID === UserSystemConstants::NO_USER_RELATED_UID){

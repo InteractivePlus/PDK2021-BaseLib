@@ -264,7 +264,7 @@ class UserEntity{
         $entity->_emailVerified = $emailVerified;
         $entity->_phoneVerified = $phoneVerified;
         $entity->_accountCreateTime = $accountCreateTime;
-        $entity->_accountCreateIP = $accountCreateIP;
+        $entity->setAccountCreateIP($accountCreateIP);
         $entity->_accountFrozen = $accountFrozen;
         return $entity;
     }
