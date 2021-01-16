@@ -14,7 +14,7 @@ interface UserSystemFormatSetting{
     public function getPasswordMaxLen() : int;
     public function checkPassword(string $password) : bool;
     public function getEmailAddrMinLen() : int;
-    public function setEmailAddrMaxLen() : int;
+    public function getEmailAddrMaxLen() : int;
     public function checkEmailAddr(string $emailAddr) : bool;
     public function getHashEncryptionSalt() : ?string;
 }
