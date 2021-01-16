@@ -7,6 +7,12 @@ use libphonenumber\PhoneNumberFormat;
 
 class UserPhoneUtil{
     /**
+     * https://www.tipard.com/mobile/international-phone-number-format.html
+     */
+    const E164_FORMAT_STR_MAX_LENGTH_EXCLUDING_PLUS_SIGN = 15;
+    const E164_FORMAT_STR_MAX_LENGTH = 16;
+
+    /**
      * @throws PDKInnerArgumentError
      */
     public static function parsePhone(string $number, ?string $country = null) : PhoneNumber{
