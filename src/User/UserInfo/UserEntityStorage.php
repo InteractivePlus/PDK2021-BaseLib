@@ -115,7 +115,7 @@ abstract class UserEntityStorage{
      * @return int total number of results
      * @throws \InteractivePlus\PDK2021Core\Base\Exception\ExceptionTypes\PDKStorageEngineError
      */
-    public abstract function getUserCount(?string $username = null, ?string $email = null, ?PhoneNumber $number = null,int $uid = UserSystemConstants::NO_USER_RELATED_UID, int $regTimeStart = -1, int $regTimeEnd = -1) : int;
+    public abstract function getUserCount(?string $username = null, ?string $email = null, ?string $number = null, int $regTimeStart = -1, int $regTimeEnd = -1) : int;
 
     /**
      * @throws \InteractivePlus\PDK2021Core\Base\Exception\ExceptionTypes\PDKItemNotFoundError
