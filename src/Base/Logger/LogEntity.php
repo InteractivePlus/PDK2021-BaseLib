@@ -72,7 +72,7 @@ class LogEntity{
         return $clonedEntity;
     }
     public function getContexts() : array{
-        return $this->_context;
+        return empty($this->_context) ? array() : $this->_context;
     }
     public function withContexts(?array $newContext) : LogEntity{
         $clonedEntity = clone $this;
