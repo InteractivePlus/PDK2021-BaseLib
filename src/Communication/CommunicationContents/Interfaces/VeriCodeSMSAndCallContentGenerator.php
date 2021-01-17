@@ -9,8 +9,8 @@ interface VeriCodeSMSAndCallContentGenerator{
     public function getContentForImportantAction(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser) : string;
     public function getContentForChangePassword(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser) : string;
     public function getContentForForgetPassword(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser) : string;
-    public function getContentForChangeEmail(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser) : string;
-    public function getContentForChangePhone(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser) : string;
+    public function getContentForChangeEmail(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser, string $newEmail) : string;
+    public function getContentForChangePhone(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser, string $newPhone) : string;
     public function getContentForAdminAction(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser) : string;
     public function getContentForThirdAPPImportantAction(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser) : string;
     public function getContentForThirdAPPDeleteAction(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser) : string;

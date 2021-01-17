@@ -10,8 +10,8 @@ interface VeriCodeEmailContentGenerator{
     public function getContentForImportantAction(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser) : EmailContent;
     public function getContentForChangePassword(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser) : EmailContent;
     public function getContentForForgetPassword(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser) : EmailContent;
-    public function getContentForChangeEmail(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser) : EmailContent;
-    public function getContentForChangePhone(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser) : EmailContent;
+    public function getContentForChangeEmail(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser, string $newEmail) : EmailContent;
+    public function getContentForChangePhone(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser, string $newPhone) : EmailContent;
     public function getContentForAdminAction(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser) : EmailContent;
     public function getContentForThirdAPPImportantAction(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser) : EmailContent;
     public function getContentForThirdAPPDeleteAction(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser) : EmailContent;
