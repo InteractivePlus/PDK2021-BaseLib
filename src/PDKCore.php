@@ -5,8 +5,8 @@ use InteractivePlus\PDK2021Core\Base\Exception\ExceptionTypes\PDKInnerArgumentEr
 use InteractivePlus\PDK2021Core\Base\Logger\LoggerStorage;
 use InteractivePlus\PDK2021Core\Communication\CommunicationMethods\SentMethod;
 use InteractivePlus\PDK2021Core\Communication\VerificationCode\VeriCodeStorage;
-use InteractivePlus\PDK2021Core\Communication\VeriSender\VeriCodeEmailSender;
-use InteractivePlus\PDK2021Core\Communication\VeriSender\VeriCodeSMSAndCallSender;
+use InteractivePlus\PDK2021Core\Communication\VeriSender\Interfaces\VeriCodeEmailSender;
+use InteractivePlus\PDK2021Core\Communication\VeriSender\Interfaces\VeriCodePhoneSender;
 use InteractivePlus\PDK2021Core\User\Login\TokenEntityStorage;
 use InteractivePlus\PDK2021Core\User\UserInfo\UserEntityStorage;
 
@@ -14,8 +14,8 @@ class PDKCore{
     private LoggerStorage $_logger;
     private VeriCodeStorage $_veriCodeStorage;
     private ?VeriCodeEmailSender $_veriCodeEmailSender;
-    private ?VeriCodeSMSAndCallSender $_veriCodeSMSSender;
-    private ?VeriCodeSMSAndCallSender $_veriCodeCallSender;
+    private ?VeriCodePhoneSender $_veriCodeSMSSender;
+    private ?VeriCodePhoneSender $_veriCodeCallSender;
     private UserEntityStorage $_userEntityStorage;
     private TokenEntityStorage $_tokenEntityStorage;
 
@@ -23,8 +23,8 @@ class PDKCore{
         LoggerStorage $logger,
         VeriCodeStorage $veriCodeStorage,
         ?VeriCodeEmailSender $veriCodeEmailSender,
-        ?VeriCodeSMSAndCallSender $veriCodeSMSSender,
-        ?VeriCodeSMSAndCallSender $veriCodeCallSender,
+        ?VeriCodePhoneSender $veriCodeSMSSender,
+        ?VeriCodePhoneSender $veriCodeCallSender,
         UserEntityStorage $userEntityStorage,
         TokenEntityStorage $tokenEntityStorage
     ){
@@ -68,14 +68,14 @@ class PDKCore{
         return $this->_veriCodeEmailSender;
     }
 
-    public function getVeriCodeSMSSender() : ?VeriCodeSMSAndCallSender{
+    public function getVeriCodeSMSSender() : ?VeriCodePhoneSender{
         return $this->_veriCodeSMSSender;
     }
 
-    public function getVeriCodeCallSender() : ?VeriCodeSMSAndCallSender{
+    public function getVeriCodeCallSender() : ?VeriCodePhoneSender{
         return $this->_veriCodeCallSender;
     }
-    public function getPhoneSender(int &$methodReceiver, bool $preferSMS = true) : ?VeriCodeSMSAndCallSender{
+    public function getPhoneSender(int &$methodReceiver, bool $preferSMS = true) : ?VeriCodePhoneSender{
         if($preferSMS && $this->_veriCodeSMSSender !== null){
             $methodReceiver = SentMethod::SMS_MESSAGE;
             return $this->_veriCodeSMSSender;
