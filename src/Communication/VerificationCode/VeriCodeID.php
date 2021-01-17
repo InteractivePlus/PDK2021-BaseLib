@@ -4,7 +4,7 @@ use InteractivePlus\PDK2021Core\Communication\CommunicationMethods\Communication
 
 class VeriCodeID{
     private int $veriCodeID = 0;
-    private VeriCodeProperty $veriCodeProperty = null;
+    private VeriCodeProperty $veriCodeProperty;
     public function __construct(int $veriCodeID, VeriCodeProperty $veriCodeProperty){
         $this->veriCodeID = $veriCodeID;
         $this->veriCodeProperty = $veriCodeProperty;
