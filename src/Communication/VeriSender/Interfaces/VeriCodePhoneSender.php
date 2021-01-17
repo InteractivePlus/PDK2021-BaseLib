@@ -4,6 +4,7 @@ namespace InteractivePlus\PDK2021Core\Communication\VeriSender\Interfaces;
 use InteractivePlus\PDK2021Core\Base\Exception\ExceptionTypes\PDKInnerArgumentError;
 use InteractivePlus\PDK2021Core\Communication\VerificationCode\VeriCodeEntity;
 use InteractivePlus\PDK2021Core\Communication\VerificationCode\VeriCodeID;
+use InteractivePlus\PDK2021Core\Communication\VerificationCode\VeriCodeIDs;
 use InteractivePlus\PDK2021Core\User\UserInfo\UserEntity;
 use libphonenumber\PhoneNumber;
 
@@ -28,31 +29,31 @@ abstract class VeriCodePhoneSender implements VeriCodeSender{
 
     public function sendVeriCode(VeriCodeEntity $veriCode, UserEntity $user, $destination) : void{
         switch($veriCode->getVeriCodeID()->getVeriCodeID()){
-            case VeriCodeID::$VERICODE_VERIFY_PHONE->getVeriCodeID():
+            case VeriCodeIDs::VERICODE_VERIFY_PHONE()->getVeriCodeID():
                 $this->sendVerifyPhone($veriCode,$user,$destination);
                 break;
-            case VeriCodeID::$VERICODE_IMPORTANT_ACTION->getVeriCodeID():
+            case VeriCodeIDs::VERICODE_IMPORTANT_ACTION()->getVeriCodeID():
                 $this->sendImportantAction($veriCode,$user,$destination);
                 break;
-            case VeriCodeID::$VERICODE_CHANGE_PASSWORD->getVeriCodeID():
+            case VeriCodeIDs::VERICODE_CHANGE_PASSWORD()->getVeriCodeID():
                 $this->sendChangePassword($veriCode,$user,$destination);
                 break;
-            case VeriCodeID::$VERICODE_FORGET_PASSWORD->getVeriCodeID():
+            case VeriCodeIDs::VERICODE_FORGET_PASSWORD()->getVeriCodeID():
                 $this->sendForgotPassword($veriCode,$user,$destination);
                 break;
-            case VeriCodeID::$VERICODE_CHANGE_EMAIL->getVeriCodeID():
+            case VeriCodeIDs::VERICODE_CHANGE_EMAIL()->getVeriCodeID():
                 $this->sendChangeEmail($veriCode,$user,$destination,$veriCode->getVeriCodeParam('new_email'));
                 break;
-            case VeriCodeID::$VERICODE_CHANGE_PHONE->getVeriCodeID():
+            case VeriCodeIDs::VERICODE_CHANGE_PHONE()->getVeriCodeID():
                 $this->sendChangePhone($veriCode,$user,$destination,$veriCode->getVeriCodeParam('new_phone'));
                 break;
-            case VeriCodeID::$VERICODE_ADMIN_ACTION->getVeriCodeID():
+            case VeriCodeIDs::VERICODE_ADMIN_ACTION()->getVeriCodeID():
                 $this->sendAdminAction($veriCode,$user,$destination);
                 break;
-            case VeriCodeID::$VERICODE_THIRD_APP_IMPORTANT_ACTION->getVeriCodeID():
+            case VeriCodeIDs::VERICODE_THIRD_APP_IMPORTANT_ACTION()->getVeriCodeID():
                 $this->sendThirdAPPImportantAction($veriCode,$user,$destination);
                 break;
-            case VeriCodeID::$VERICODE_THIRD_APP_DELETE_ACTION->getVeriCodeID():
+            case VeriCodeIDs::VERICODE_THIRD_APP_DELETE_ACTION()->getVeriCodeID():
                 $this->sendThirdAPPDeleteAction($veriCode,$user,$destination);
                 break;
             default:

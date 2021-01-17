@@ -80,7 +80,7 @@ class VeriCodeEntity{
      * @return VeriCodeEntity new VeriCodeEntity instance
      */
     public function withVeriCodeID(int $veriCodeID) : VeriCodeEntity{
-        if(!VeriCodeID::isValidVeriCodeID($veriCodeID)){
+        if(!VeriCodeIDs::isValidVeriCodeID($veriCodeID)){
             throw new PDKInnerArgumentError('veriCodeID');
         }
         $newEntity = clone $this;
