@@ -82,6 +82,7 @@ class UserEntity{
     public function setNickName(?string $nickname) : void{
         if(empty($nickname)){
             $this->_nickname = null;
+            return;
         }
         if($this->_formatSetting !== null){
             if(!$this->_formatSetting->checkNickName($nickname)){
@@ -96,6 +97,7 @@ class UserEntity{
     public function setSignature(?string $signature) : void{
         if(empty($signature)){
             $this->_signature = null;
+            return;
         }
         if($this->_formatSetting !== null){
             if(!$this->_formatSetting->checkSignature($signature)){
@@ -136,6 +138,7 @@ class UserEntity{
     public function setEmail(?string $email) : void{
         if(empty($email)){
             $this->_email = null;
+            return;
         }
         if($this->_formatSetting !== null){
             if(!$this->_formatSetting->checkEmailAddr($email)){
@@ -155,6 +158,7 @@ class UserEntity{
     public function setPhoneNumber(?PhoneNumber $phone) : void{
         if($phone === null){
             $this->_phone = null;
+            return;
         }
         if(!UserPhoneUtil::verifyPhoneNumberObj($phone)){
             throw new PDKInnerArgumentError('phone','Phone number is not a valid number');
