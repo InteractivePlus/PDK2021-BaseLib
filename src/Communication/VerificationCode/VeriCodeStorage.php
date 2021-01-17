@@ -7,7 +7,7 @@ use InteractivePlus\PDK2021Core\Base\DataOperations\MultipleResult;
 
 abstract class VeriCodeStorage{
     protected abstract function __addVeriCodeEntity(VeriCodeEntity $veriCode) : void;
-    protected abstract function __checkVeriCodeExist(string $veriCodeString) : bool;
+    public abstract function checkVeriCodeExist(string $veriCodeString) : bool;
     public abstract function getVeriCodeEntity(string $veriCodeString) : ?VeriCodeEntity;
     
     /**
@@ -52,7 +52,7 @@ abstract class VeriCodeStorage{
      * @return ?VeriCodeEntity the saved entity, null if not saved
      */
     public function addVeriCodeEntity(VeriCodeEntity $veriCode, bool $reRollVeriCodeStrIfExist) : ?VeriCodeEntity{
-        if($this->__checkVeriCodeExist($veriCode->getVeriCodeString())){
+        if($this->checkVeriCodeExist($veriCode->getVeriCodeString())){
             if($reRollVeriCodeStrIfExist){
                 return $this->addVeriCodeEntity($veriCode->withVeriCodeStringReroll(),true);
             }else{

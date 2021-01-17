@@ -6,8 +6,8 @@ use InteractivePlus\PDK2021Core\Base\DataOperations\MultipleResult;
 
 abstract class TokenEntityStorage{
     protected abstract function __addTokenEntity(TokenEntity $Token) : void;
-    protected abstract function __checkTokenExist(string $TokenString) : bool;
-    protected abstract function __checkRefreshTokenExist(string $RefreshTokenString) : bool;
+    public abstract function checkTokenExist(string $TokenString) : bool;
+    public abstract function checkRefreshTokenExist(string $RefreshTokenString) : bool;
     public abstract function getTokenEntity(string $TokenString) : ?TokenEntity;
     public abstract function getTokenEntitybyRefreshToken(string $refreshToken) : ?TokenEntity;
 
@@ -59,13 +59,13 @@ abstract class TokenEntityStorage{
      * @return ?TokenEntity the saved entity, null if not saved
      */
     public function addTokenEntity(TokenEntity $Token, bool $reRollTokenStrIfExist = true, bool $reRollRefreshTokenStrIfExist = true) : ?TokenEntity{
-        if($this->__checkTokenExist($Token->getTokenStr())){
+        if($this->checkTokenExist($Token->getTokenStr())){
             if($reRollTokenStrIfExist){
                 return $this->addTokenEntity($Token->withTokenReroll(),true,$reRollRefreshTokenStrIfExist);
             }else{
                 return null;
             }
-        }else if($this->__checkRefreshTokenExist($Token->getRefreshTokenStr())){
+        }else if($this->checkRefreshTokenExist($Token->getRefreshTokenStr())){
             if($reRollRefreshTokenStrIfExist){
                 return $this->addTokenEntity($Token->withRefreshTokenReroll(),$reRollTokenStrIfExist,true);
             }else{
