@@ -22,7 +22,7 @@ class UserEntity{
     private int $_accountCreateTime = 0;
     private string $_accountCreateIP;
     private bool $_accountFrozen = false;
-    private UserSystemFormatSetting $_formatSetting = null;
+    private ?UserSystemFormatSetting $_formatSetting = null;
     /**
      * This function should never ever be called outside of a UserEntityStorage class as it has absolutely no check on its parameters
      */
@@ -31,10 +31,10 @@ class UserEntity{
         
     }
     
-    public function getFormatClass() : UserSystemFormatSetting{
+    public function getFormatClass() : ?UserSystemFormatSetting{
         return $this->_formatSetting;
     }
-    public function setFormatClass(UserSystemFormatSetting $class) : void{
+    public function setFormatClass(?UserSystemFormatSetting $class = null) : void{
         $this->_formatSetting = $class;
     }
     /**
