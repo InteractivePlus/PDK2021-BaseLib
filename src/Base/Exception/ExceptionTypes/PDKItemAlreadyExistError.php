@@ -13,7 +13,7 @@ class PDKItemAlreadyExistError extends PDKException{
         }
         parent::__construct(PDKErrCode::ITEM_ALREADY_EXIST_ERROR,$message,$errParams,$previous);
     }
-    public function toReponseJSON() : string{
+    public function toReponseJSON() : array{
         $response_Array = array(
             'errorCode' => $this->getCode(),
             'errorDescription' => $this->getMessage(),
@@ -22,6 +22,6 @@ class PDKItemAlreadyExistError extends PDKException{
             'errorLine' => $this->getLine(),
             'item' => $this->item
         );
-        return json_encode($response_Array);
+        return $response_Array;
     }
 }

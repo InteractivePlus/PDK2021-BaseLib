@@ -13,7 +13,7 @@ class PDKRequestParamFormatError extends PDKException{
         }
         parent::__construct(PDKErrCode::REQUEST_PARAM_FORMAT_ERROR,$message,$errParams,$previous);
     }
-    public function toReponseJSON() : string{
+    public function toReponseJSON() : array{
         $response_Array = array(
             'errorCode' => $this->getCode(),
             'errorDescription' => $this->getMessage(),
@@ -22,6 +22,6 @@ class PDKRequestParamFormatError extends PDKException{
             'errorLine' => $this->getLine(),
             'errorParam' => $this->param
         );
-        return json_encode($response_Array);
+        return $response_Array;
     }
 }

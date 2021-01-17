@@ -1,7 +1,9 @@
 <?php
 namespace InteractivePlus\PDK2021Core\Base\Exception;
 
-class PDKException extends \Exception{
+use Stringable;
+
+class PDKException extends \Exception implements Stringable{
     private ?array $err_params = null;
     public function __construct(int $code = PDKErrCode::NO_ERROR, string $message = '', ?array $errParams = null, ?\Exception $previous = null){
         $this->err_params = $errParams;
@@ -20,7 +22,7 @@ class PDKException extends \Exception{
      * @see PDKException::toResponseJSON()
      */
     public function __toString() : string{
-        return $this->toReponseJSON();
+        return json_encode($this->toReponseJSON());
     }
 
     /**
@@ -28,7 +30,7 @@ class PDKException extends \Exception{
      * @return string a JSON string containing error informations
      * JSON keys: errorCode[int], errorDescription[string], errorParams[array], errorFile[string], errorLine[int]
      */
-    public function toReponseJSON() : string{
+    public function toReponseJSON() : array{
         $response_Array = array(
             'errorCode' => $this->getCode(),
             'errorDescription' => $this->getMessage(),
@@ -36,6 +38,6 @@ class PDKException extends \Exception{
             'errorFile' => $this->getFile(),
             'errorLine' => $this->getLine()
         );
-        return json_encode($response_Array);
+        return $response_Array;
     }
 }
