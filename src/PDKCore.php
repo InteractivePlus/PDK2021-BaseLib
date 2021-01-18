@@ -122,10 +122,14 @@ class PDKCore{
             return $e;
         }
         $verifyEmailEntity = $verifyEmailEntity->withSentMethod(SentMethod::EMAIL);
+        $updatedEntity = null;
         try{
-            $this->getVeriCodeStorage()->addVeriCodeEntity($verifyEmailEntity,false);
+            $updatedEntity = $this->getVeriCodeStorage()->addVeriCodeEntity($verifyEmailEntity,false);
         }catch(PDKStorageEngineError $e){
             return $e;
+        }
+        if($updatedEntity === null){
+            return new PDKStorageEngineError('failed to add vericode to database');
         }
         return null;
     }
@@ -148,10 +152,14 @@ class PDKCore{
             return $e;
         }
         $verifyPhoneEntity = $verifyPhoneEntity->withSentMethod($methodReceiver);
+        $updatedEntity = null;
         try{
-            $this->getVeriCodeStorage()->addVeriCodeEntity($verifyPhoneEntity,false);
+            $updatedEntity = $this->getVeriCodeStorage()->addVeriCodeEntity($verifyPhoneEntity,false);
         }catch(PDKStorageEngineError $e){
             return $e;
+        }
+        if($updatedEntity === null){
+            return new PDKStorageEngineError('failed to add vericode to database');
         }
         return null;
     }
