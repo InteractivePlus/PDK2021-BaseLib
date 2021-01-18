@@ -32,7 +32,7 @@ abstract class VeriCodeStorage{
      */
     public abstract function searchVeriCode(int $issueTimeMin = 0, int $issueTimeMax = 0, int $expireTimeMin = 0, int $expireTimeMax =0, int $uid = UserSystemConstants::NO_USER_RELATED_UID, int $appuid = APPSystemConstants::NO_APP_RELATED_APPUID) : MultipleResult;
 
-    public abstract function searchPhoneVeriCode(int $expireTimeMin = 0, int $expireTimeMax = 0, int $uid = UserSystemConstants::NO_USER_RELATED_UID, string $partialVericodeStr) : MultipleResult;
+    public abstract function searchPhoneVeriCode(int $expireTimeMin = 0, int $expireTimeMax = 0, int $uid = UserSystemConstants::NO_USER_RELATED_UID,int $appuid = APPSystemConstants::NO_APP_RELATED_APPUID, string $partialVericodeStr) : MultipleResult;
 
     /**
      * clear Verification Codes with search constraints
