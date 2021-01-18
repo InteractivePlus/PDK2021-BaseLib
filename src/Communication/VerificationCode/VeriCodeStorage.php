@@ -28,11 +28,12 @@ abstract class VeriCodeStorage{
      * @param int $expireTimeMax Max for the expire time, <= 0 = unlimited
      * @param int $uid limit search to a specific user, if no limit, set this to UserSystemConstants::NO_USER_RELATED_UID
      * @param int $appuid limit search to a specific app, if no limit, set this to APPSystemConstants::NO_APP_RELATED_APPUID
+     * @param int $veriCodeID Verification Code ID, set to 0 if no specific Code required
      * @return InteractivePlus\PDK2021Core\Base\DataOperations\MultipleResult result object
      */
-    public abstract function searchVeriCode(int $issueTimeMin = 0, int $issueTimeMax = 0, int $expireTimeMin = 0, int $expireTimeMax =0, int $uid = UserSystemConstants::NO_USER_RELATED_UID, int $appuid = APPSystemConstants::NO_APP_RELATED_APPUID) : MultipleResult;
+    public abstract function searchVeriCode(int $issueTimeMin = 0, int $issueTimeMax = 0, int $expireTimeMin = 0, int $expireTimeMax =0, int $uid = UserSystemConstants::NO_USER_RELATED_UID, int $appuid = APPSystemConstants::NO_APP_RELATED_APPUID, int $veriCodeID = 0) : MultipleResult;
 
-    public abstract function searchPhoneVeriCode(int $expireTimeMin = 0, int $expireTimeMax = 0, int $uid = UserSystemConstants::NO_USER_RELATED_UID,int $appuid = APPSystemConstants::NO_APP_RELATED_APPUID, string $partialVericodeStr) : MultipleResult;
+    public abstract function searchPhoneVeriCode(int $expireTimeMin = 0, int $expireTimeMax = 0, int $uid = UserSystemConstants::NO_USER_RELATED_UID,int $appuid = APPSystemConstants::NO_APP_RELATED_APPUID, string $partialVericodeStr, int $veriCodeID = 0) : MultipleResult;
 
     /**
      * clear Verification Codes with search constraints
@@ -42,8 +43,9 @@ abstract class VeriCodeStorage{
      * @param int $expireTimeMax Max for the expire time, <= 0 = unlimited
      * @param int $uid limit search to a specific user, if no limit, set this to UserSystemConstants::NO_USER_RELATED_UID
      * @param int $appuid limit search to a specific app, if no limit, set this to APPSystemConstants::NO_APP_RELATED_APPUID
+     * @param int $veriCodeID Verification Code ID, set to 0 if no specific Code required
      */
-    public abstract function clearVeriCode(int $issueTimeMin = 0, int $issueTimeMax = 0, int $expireTimeMin = 0, int $expireTimeMax =0, int $uid = UserSystemConstants::NO_USER_RELATED_UID, int $appuid = APPSystemConstants::NO_APP_RELATED_APPUID) : void;
+    public abstract function clearVeriCode(int $issueTimeMin = 0, int $issueTimeMax = 0, int $expireTimeMin = 0, int $expireTimeMax =0, int $uid = UserSystemConstants::NO_USER_RELATED_UID, int $appuid = APPSystemConstants::NO_APP_RELATED_APPUID, int $veriCodeID = 0) : void;
     
     public abstract function getVeriCodeCount() : int;
 
