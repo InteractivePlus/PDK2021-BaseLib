@@ -144,6 +144,10 @@ class VeriCodeEntity{
         return $this->veriCodeStr;
     }
 
+    public function getVeriCodePartialPhoneCode() : string{
+        return VeriCodeFormat::getPartialPhoneCode($this->getVeriCodeString());
+    }
+
     public function withVeriCodeString(string $veriCodeString) : VeriCodeEntity{
         if(!VeriCodeFormat::isValidVerificationCode($veriCodeString)){
             throw new PDKInnerArgumentError('veriCodeString');
@@ -161,6 +165,10 @@ class VeriCodeEntity{
 
     public function checkVeriCodeString(string $veriCodeStrToCheck) : bool{
         return VeriCodeFormat::isVeriCodeStringEqual($this->veriCodeStr,$veriCodeStrToCheck);
+    }
+
+    public function checkPartialPhoneCode(string $partialPhoneCodeToCheck) : bool{
+        return VeriCodeFormat::isPartialPhoneCodeEqual($this->getVeriCodePartialPhoneCode(),$partialPhoneCodeToCheck);
     }
 
     public function getIssueUTCTime() : int{
