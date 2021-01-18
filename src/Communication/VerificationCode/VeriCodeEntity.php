@@ -223,4 +223,8 @@ class VeriCodeEntity{
         $newEntity->related_appuid = $appuid;
         return $newEntity;
     }
+
+    public function canUse(int $currentTime) : bool{
+        return (!$this->isVeriCodeUsed()) && ($currentTime < $this->getExpireUTCTime());
+    }
 }
