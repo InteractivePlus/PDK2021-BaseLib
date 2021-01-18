@@ -12,9 +12,8 @@ abstract class LoggerStorage extends \Psr\Log\AbstractLogger{
     /**
      * Adds a logEntity to the storage
      * @param logEntity logEntity to store
-     * @throws \InteractivePlus\PDK2021Core\Base\Exception\ExceptionTypes\PDKStorageEngineError if there was an error storing the LogEntity
      */
-    public abstract function addLogItem(LogEntity $logEntity) : void;
+    public abstract function addLogItem(LogEntity $logEntity) : bool;
 
     /**
      * Clears logEntitys that matches the searchResult
@@ -47,7 +46,7 @@ abstract class LoggerStorage extends \Psr\Log\AbstractLogger{
      * @throws \InvalidArgumentException if the message param cannot be converted to string
      * @throws \InteractivePlus\PDK2021Core\Base\Exception\ExceptionTypes\PDKStorageEngineError if there was an error storing the LogEntity
      */
-    public function log($level, $message, array $context = array()){
+    public function log($level, $message, array $context = array()) : bool{
         $entity = NULL;
         try{
             $entity = new LogEntity(
@@ -63,9 +62,9 @@ abstract class LoggerStorage extends \Psr\Log\AbstractLogger{
                 empty($context) ? NULL : $context
             );
         }catch(\Exception $e){
-            throw new \InvalidArgumentException('cannot convert message to string',PDKErrCode::INNER_ARGUMENT_ERROR,$e);
+            return false;
         }
-        $this->addLogItem(
+        return $this->addLogItem(
             $entity
         );
     }
