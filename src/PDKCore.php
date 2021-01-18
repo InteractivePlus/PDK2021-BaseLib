@@ -1,14 +1,22 @@
 <?php
 namespace InteractivePlus\PDK2021Core;
 
+use InteractivePlus\PDK2021Core\Base\Constants\APPSystemConstants;
 use InteractivePlus\PDK2021Core\Base\Exception\ExceptionTypes\PDKInnerArgumentError;
+use InteractivePlus\PDK2021Core\Base\Exception\ExceptionTypes\PDKSenderServiceError;
+use InteractivePlus\PDK2021Core\Base\Exception\ExceptionTypes\PDKStorageEngineError;
+use InteractivePlus\PDK2021Core\Base\Exception\PDKException;
 use InteractivePlus\PDK2021Core\Base\Logger\LoggerStorage;
 use InteractivePlus\PDK2021Core\Communication\CommunicationMethods\SentMethod;
+use InteractivePlus\PDK2021Core\Communication\VerificationCode\VeriCodeEntity;
+use InteractivePlus\PDK2021Core\Communication\VerificationCode\VeriCodeIDs;
 use InteractivePlus\PDK2021Core\Communication\VerificationCode\VeriCodeStorage;
 use InteractivePlus\PDK2021Core\Communication\VeriSender\Interfaces\VeriCodeEmailSender;
 use InteractivePlus\PDK2021Core\Communication\VeriSender\Interfaces\VeriCodePhoneSender;
 use InteractivePlus\PDK2021Core\User\Login\TokenEntityStorage;
+use InteractivePlus\PDK2021Core\User\UserInfo\UserEntity;
 use InteractivePlus\PDK2021Core\User\UserInfo\UserEntityStorage;
+use libphonenumber\PhoneNumber;
 
 class PDKCore{
     private LoggerStorage $_logger;
@@ -92,5 +100,57 @@ class PDKCore{
     }
     public function getTokenEntityStorage() : TokenEntityStorage{
         return $this->_tokenEntityStorage;
+    }
+    public function createAndSendVerificationEmail(string $emailAddr, UserEntity $user, int $currentTime, int $vericodeAvailableDuration, ?string $remoteAddr) : ?PDKException{
+        $verifyEmailEntity = new VeriCodeEntity(
+            VeriCodeIDs::VERICODE_VERIFY_EMAIL(),
+            $currentTime,
+            $currentTime + $vericodeAvailableDuration,
+            $user->getUID(),
+            APPSystemConstants::INTERACTIVEPDK_APPUID,
+            null,
+            $remoteAddr
+        );
+        while($this->getVeriCodeStorage()->checkVeriCodeExist($verifyEmailEntity->getVeriCodeString())){
+            $verifyEmailEntity = $verifyEmailEntity->withVeriCodeStringReroll();
+        }
+        try{
+            $this->getVeriCodeEmailSender()->sendVeriCode($verifyEmailEntity,$user,$user->getEmail());
+        }catch(PDKSenderServiceError $e){
+            return $e;
+        }
+        $verifyEmailEntity = $verifyEmailEntity->withSentMethod(SentMethod::EMAIL);
+        try{
+            $this->getVeriCodeStorage()->addVeriCodeEntity($verifyEmailEntity,false);
+        }catch(PDKStorageEngineError $e){
+            return $e;
+        }
+        return null;
+    }
+    public function createAndSendVerificationPhone(PhoneNumber $phoneNum, UserEntity $user, int $currentTime, $vericodeAvailableDuration, ?string $remoteAddr, bool $preferSMS = true) : ?PDKException{
+        $verifyPhoneEntity = new VeriCodeEntity(
+            VeriCodeIDs::VERICODE_VERIFY_PHONE(),
+            $currentTime,
+            $currentTime + $vericodeAvailableDuration,
+            $user->getUID(),
+            APPSystemConstants::INTERACTIVEPDK_APPUID,
+            null,
+            $remoteAddr
+        );
+        while($this->getVeriCodeStorage()->checkVeriCodeExist($verifyPhoneEntity->getVeriCodeString())){
+            $verifyPhoneEntity = $verifyPhoneEntity->withVeriCodeStringReroll();
+        }
+        $methodReceiver = SentMethod::NOT_SENT;
+        try{
+            $this->getPhoneSender($methodReceiver,$preferSMS)->sendVeriCode($verifyPhoneEntity,$user,$user->getPhoneNumber());
+        }catch(PDKSenderServiceError $e){
+            return $e;
+        }
+        $verifyPhoneEntity = $verifyPhoneEntity->withSentMethod($methodReceiver);
+        try{
+            $this->getVeriCodeStorage()->addVeriCodeEntity($verifyPhoneEntity,false);
+        }catch(PDKStorageEngineError $e){
+            return $e;
+        }
     }
 }
