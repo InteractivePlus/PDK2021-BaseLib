@@ -127,7 +127,7 @@ class PDKCore{
         }
         return null;
     }
-    public function createAndSendVerificationPhone(PhoneNumber $phoneNum, UserEntity $user, int $currentTime, $vericodeAvailableDuration, ?string $remoteAddr, bool $preferSMS = true) : ?PDKException{
+    public function createAndSendVerificationPhone(PhoneNumber $phoneNum, UserEntity $user, int $currentTime, int $vericodeAvailableDuration, int &$methodReceiver, ?string $remoteAddr, bool $preferSMS = true) : ?PDKException{
         $verifyPhoneEntity = new VeriCodeEntity(
             VeriCodeIDs::VERICODE_VERIFY_PHONE(),
             $currentTime,
@@ -140,7 +140,6 @@ class PDKCore{
         while($this->getVeriCodeStorage()->checkVeriCodeExist($verifyPhoneEntity->getVeriCodeString())){
             $verifyPhoneEntity = $verifyPhoneEntity->withVeriCodeStringReroll();
         }
-        $methodReceiver = SentMethod::NOT_SENT;
         try{
             $this->getPhoneSender($methodReceiver,$preferSMS)->sendVeriCode($verifyPhoneEntity,$user,$user->getPhoneNumber());
         }catch(PDKSenderServiceError $e){
