@@ -11,6 +11,7 @@ class PDKErrCode{
     const SENDER_SERVICE_ERROR = 4;
     const ITEM_NOT_FOUND_ERROR = 10;
     const ITEM_ALREADY_EXIST_ERROR = 11;
+    const ITEM_EXPIRED_OR_USED_ERROR = 12;
     const REQUEST_PARAM_FORMAT_ERROR = 20;
 
     /**
