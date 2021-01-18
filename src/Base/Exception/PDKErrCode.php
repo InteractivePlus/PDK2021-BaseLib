@@ -12,6 +12,8 @@ class PDKErrCode{
     const ITEM_NOT_FOUND_ERROR = 10;
     const ITEM_ALREADY_EXIST_ERROR = 11;
     const ITEM_EXPIRED_OR_USED_ERROR = 12;
+    const PERMISSION_DENIED = 13;
+    const CREDENTIAL_NOT_MATCH = 14;
     const REQUEST_PARAM_FORMAT_ERROR = 20;
 
     /**
