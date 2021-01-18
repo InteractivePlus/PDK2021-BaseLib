@@ -47,7 +47,7 @@ class VeriCodeIDs{
         return self::$_VERICODE_VERIFY_EMAIL;
     }
 
-    private static ?VeriCodeID $_VERICODE_VERIFY_PHONE;
+    private static ?VeriCodeID $_VERICODE_VERIFY_PHONE = null;
     public static function VERICODE_VERIFY_PHONE() : VeriCodeID{
         if(self::$_VERICODE_VERIFY_PHONE === null){
             self::$_VERICODE_VERIFY_PHONE = new VeriCodeID(10002,new VeriCodeProperty(false,true,CommunicationMethod::SMS_AND_CALL,false,null));
@@ -55,7 +55,7 @@ class VeriCodeIDs{
         return self::$_VERICODE_VERIFY_PHONE;
     }
 
-    private static ?VeriCodeID $_VERICODE_IMPORTANT_ACTION;
+    private static ?VeriCodeID $_VERICODE_IMPORTANT_ACTION = null;
     public static function VERICODE_IMPORTANT_ACTION() : VeriCodeID{
         if(self::$_VERICODE_IMPORTANT_ACTION === null){
             self::$_VERICODE_IMPORTANT_ACTION = new VeriCodeID(10010,new VeriCodeProperty(true,false,CommunicationMethod::ALL,true,null,null));
@@ -63,7 +63,7 @@ class VeriCodeIDs{
         return self::$_VERICODE_IMPORTANT_ACTION;
     }
 
-    private static ?VeriCodeID $_VERICODE_CHANGE_PASSWORD;
+    private static ?VeriCodeID $_VERICODE_CHANGE_PASSWORD = null;
 
     public static function VERICODE_CHANGE_PASSWORD() : VeriCodeID{
         if(self::$_VERICODE_CHANGE_PASSWORD === null){
@@ -72,7 +72,7 @@ class VeriCodeIDs{
         return self::$_VERICODE_CHANGE_PASSWORD;
     }
 
-    private static ?VeriCodeID $_VERICODE_FORGET_PASSWORD;
+    private static ?VeriCodeID $_VERICODE_FORGET_PASSWORD = null;
     public static function VERICODE_FORGET_PASSWORD() : VeriCodeID{
         if(self::$_VERICODE_FORGET_PASSWORD === null){
             self::$_VERICODE_FORGET_PASSWORD = new VeriCodeID(20002,new VeriCodeProperty(true,false,CommunicationMethod::ALL,true,null,null));
@@ -80,7 +80,7 @@ class VeriCodeIDs{
         return self::$_VERICODE_FORGET_PASSWORD;
     }
 
-    private static ?VeriCodeID $_VERICODE_CHANGE_EMAIL;
+    private static ?VeriCodeID $_VERICODE_CHANGE_EMAIL = null;
     public static function VERICODE_CHANGE_EMAIL() : VeriCodeID{
         if(self::$_VERICODE_CHANGE_EMAIL === null){
             self::$_VERICODE_CHANGE_EMAIL = new VeriCodeID(20003,new VeriCodeProperty(false,true,CommunicationMethod::ALL,true,array('new_email'),null));
@@ -88,7 +88,7 @@ class VeriCodeIDs{
         return self::$_VERICODE_CHANGE_EMAIL;
     }
 
-    private static ?VeriCodeID $_VERICODE_CHANGE_PHONE;
+    private static ?VeriCodeID $_VERICODE_CHANGE_PHONE = null;
     public static function VERICODE_CHANGE_PHONE() : VeriCodeID{
         if(self::$_VERICODE_CHANGE_PHONE === null){
             self::$_VERICODE_CHANGE_PHONE = new VeriCodeID(20004,new VeriCodeProperty(false,false,CommunicationMethod::ALL,true, array('new_phone'),null));
@@ -97,7 +97,7 @@ class VeriCodeIDs{
     }
 
 
-    private static ?VeriCodeID $_VERICODE_ADMIN_ACTION;
+    private static ?VeriCodeID $_VERICODE_ADMIN_ACTION = null;
     public static function VERICODE_ADMIN_ACTION() : VeriCodeID{
         if(self::$_VERICODE_ADMIN_ACTION === null){
             self::$_VERICODE_ADMIN_ACTION = new VeriCodeID(30001,new VeriCodeProperty(false,false,CommunicationMethod::ALL,true,null,null));
@@ -105,7 +105,7 @@ class VeriCodeIDs{
         return self::$_VERICODE_ADMIN_ACTION;
     }
     
-    private static ?VeriCodeID $_VERICODE_THIRD_APP_IMPORTANT_ACTION;
+    private static ?VeriCodeID $_VERICODE_THIRD_APP_IMPORTANT_ACTION = null;
     public static function VERICODE_THIRD_APP_IMPORTANT_ACTION() : VeriCodeID{
         if(self::$_VERICODE_THIRD_APP_IMPORTANT_ACTION === null){
             self::$_VERICODE_THIRD_APP_IMPORTANT_ACTION = new VeriCodeID(90010,new VeriCodeProperty(true,false,CommunicationMethod::ALL,true,null,null));
@@ -113,7 +113,7 @@ class VeriCodeIDs{
         return self::$_VERICODE_THIRD_APP_IMPORTANT_ACTION;
     }
 
-    private static ?VeriCodeID $_VERICODE_THIRD_APP_DELETE_ACTION;
+    private static ?VeriCodeID $_VERICODE_THIRD_APP_DELETE_ACTION = null;
     public static function VERICODE_THIRD_APP_DELETE_ACTION() : VeriCodeID{
         if(self::$_VERICODE_THIRD_APP_DELETE_ACTION === null){
             self::$_VERICODE_THIRD_APP_DELETE_ACTION = new VeriCodeID(90050,new VeriCodeProperty(false,false,CommunicationMethod::ALL,true,null,null));
