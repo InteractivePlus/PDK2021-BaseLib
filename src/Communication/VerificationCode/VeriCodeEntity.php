@@ -66,6 +66,8 @@ class VeriCodeEntity{
         $this->expireUTCTime = $expireUTCTime;
         $this->sentMethod = $sentMethod;
         $this->used = $used;
+        $this->related_uid = $related_uid;
+        $this->related_appuid = $related_appuid;
     }
 
     public function getVeriCodeID() : VeriCodeID{
