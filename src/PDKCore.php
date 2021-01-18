@@ -151,5 +151,6 @@ class PDKCore{
         }catch(PDKStorageEngineError $e){
             return $e;
         }
+        return null;
     }
 }
