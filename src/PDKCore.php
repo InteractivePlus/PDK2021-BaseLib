@@ -5,6 +5,7 @@ use InteractivePlus\PDK2021Core\Base\Constants\APPSystemConstants;
 use InteractivePlus\PDK2021Core\Base\Exception\ExceptionTypes\PDKInnerArgumentError;
 use InteractivePlus\PDK2021Core\Base\Exception\ExceptionTypes\PDKSenderServiceError;
 use InteractivePlus\PDK2021Core\Base\Exception\ExceptionTypes\PDKStorageEngineError;
+use InteractivePlus\PDK2021Core\Base\Exception\ExceptionTypes\PDKUnknownInnerError;
 use InteractivePlus\PDK2021Core\Base\Exception\PDKException;
 use InteractivePlus\PDK2021Core\Base\Logger\LoggerStorage;
 use InteractivePlus\PDK2021Core\Communication\CommunicationMethods\SentMethod;
@@ -13,6 +14,7 @@ use InteractivePlus\PDK2021Core\Communication\VerificationCode\VeriCodeIDs;
 use InteractivePlus\PDK2021Core\Communication\VerificationCode\VeriCodeStorage;
 use InteractivePlus\PDK2021Core\Communication\VeriSender\Interfaces\VeriCodeEmailSender;
 use InteractivePlus\PDK2021Core\Communication\VeriSender\Interfaces\VeriCodePhoneSender;
+use InteractivePlus\PDK2021Core\User\Login\TokenEntity;
 use InteractivePlus\PDK2021Core\User\Login\TokenEntityStorage;
 use InteractivePlus\PDK2021Core\User\UserInfo\UserEntity;
 use InteractivePlus\PDK2021Core\User\UserInfo\UserEntityStorage;
@@ -152,5 +154,21 @@ class PDKCore{
             return $e;
         }
         return null;
+    }
+    public function createNewTokenAndSave(UserEntity $user, int $currentTime, int $tokenAvailableDuration, int $refreshTokenAvailableDuration, ?string $remoteAddr, ?string $deviceUA) : TokenEntity{
+        $token = new TokenEntity(
+            $user->getUID(),
+            $currentTime,
+            $currentTime + $tokenAvailableDuration,
+            $currentTime + $refreshTokenAvailableDuration,
+            $currentTime,
+            $remoteAddr,
+            $deviceUA,
+        );
+        $generatedToken = $this->getTokenEntityStorage()->addTokenEntity($token,true,true);
+        if($generatedToken === null){
+            throw new PDKUnknownInnerError('for some reason we failed to store your token into database with reroll enabled');
+        }
+        return $generatedToken;
     }
 }
