@@ -20,7 +20,7 @@ class PDKCredentialDismatchError extends PDKException{
             'errorParams' => $this->getErrorParams(),
             'errorFile' => $this->getFile(),
             'errorLine' => $this->getLine(),
-            'errorParam' => $this->param
+            'credential' => $this->param
         );
         return $response_Array;
     }
