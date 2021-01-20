@@ -7,16 +7,15 @@ use InteractivePlus\PDK2021Core\Communication\CommunicationContents\Interfaces\E
 use InteractivePlus\PDK2021Core\Communication\CommunicationContents\Interfaces\VeriCodeEmailContentGenerator;
 use InteractivePlus\PDK2021Core\Communication\VerificationCode\VeriCodeEntity;
 use InteractivePlus\PDK2021Core\User\UserInfo\UserEntity;
-use LibI18N\Comparison;
 use LibI18N\Locale;
 
-class TemplateContentGenerator implements VeriCodeEmailContentGenerator{
-    private TemplateProvider $_tplProvider;
+class TemplateEmailContentGenerator implements VeriCodeEmailContentGenerator{
+    private EmailTemplateProvider $_tplProvider;
     private UserSystemLinkProvider $_linkProvider;
 
     private string $_systemName;
 
-    public function __construct(TemplateProvider $templateProvider, UserSystemLinkProvider $linkProvider, string $systemName = 'InteractivePDK')
+    public function __construct(EmailTemplateProvider $templateProvider, UserSystemLinkProvider $linkProvider, string $systemName = 'InteractivePDK')
     {
         $this->_tplProvider = $templateProvider;
         $this->_linkProvider = $linkProvider;
