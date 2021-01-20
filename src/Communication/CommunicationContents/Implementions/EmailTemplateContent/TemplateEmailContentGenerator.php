@@ -2,6 +2,7 @@
 namespace InteractivePlus\PDK2021Core\Communication\CommunicationContents\Implementions\EmailTemplateContent;
 
 use InteractivePlus\PDK2021Core\Base\Exception\ExceptionTypes\PDKInnerArgumentError;
+use InteractivePlus\PDK2021Core\Base\FrontendIntegration\UserSystemLinkProvider;
 use InteractivePlus\PDK2021Core\Communication\CommunicationContents\Interfaces\EmailContent;
 use InteractivePlus\PDK2021Core\Communication\CommunicationContents\Interfaces\VeriCodeEmailContentGenerator;
 use InteractivePlus\PDK2021Core\Communication\VerificationCode\VeriCodeEntity;
