@@ -9,13 +9,12 @@ class TemplateUtil{
         $newVariables = $args;
         //查找, 定位 {{ 以确定当前Variable位置
         $currentOffset = 0;
-        $totalCharNum = strlen($template);
-        $currentLevel = 0;
+        
         $processedTemplate = $template;
         while($currentOffset < strlen($processedTemplate)){
             $nextVariableEnterZone = strpos($processedTemplate,'{{',$currentOffset);
             $nextVariableExitZone = strpos($processedTemplate,'}}',$currentOffset);
-            if($nextVariableEnterZone < 0 && $nextVariableExitZone < 0){
+            if($nextVariableEnterZone === false || $nextVariableExitZone === false){
                 break;
             }
             if($nextVariableExitZone < $nextVariableEnterZone){
