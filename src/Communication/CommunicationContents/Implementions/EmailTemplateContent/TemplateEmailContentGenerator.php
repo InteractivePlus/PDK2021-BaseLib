@@ -23,7 +23,7 @@ class TemplateEmailContentGenerator implements VeriCodeEmailContentGenerator{
     }
 
     public function getContentForEmailVerification(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser) : EmailContent{
-        $locale = 'zh-CN';
+        $locale = 'zh_CN';
         $actionName = '';
         $subject = '';
         if(Locale::isLocaleCloseEnough($locale,'zh')){
@@ -46,7 +46,7 @@ class TemplateEmailContentGenerator implements VeriCodeEmailContentGenerator{
         return new EmailContent($subject,$renderedTemplate);
     }
     public function getContentForImportantAction(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser) : EmailContent{
-        $locale = 'zh-CN';
+        $locale = 'zh_CN';
         $actionName = '';
         $subject = '';
         if(Locale::isLocaleCloseEnough($locale,'zh')){
@@ -68,7 +68,7 @@ class TemplateEmailContentGenerator implements VeriCodeEmailContentGenerator{
         return new EmailContent($subject,$renderedTemplate);
     }
     public function getContentForChangePassword(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser) : EmailContent{
-        $locale = 'zh-CN';
+        $locale = 'zh_CN';
         $actionName = '';
         $subject = '';
         if(Locale::isLocaleCloseEnough($locale,'zh')){
@@ -90,7 +90,7 @@ class TemplateEmailContentGenerator implements VeriCodeEmailContentGenerator{
         return new EmailContent($subject,$renderedTemplate);
     }
     public function getContentForForgetPassword(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser) : EmailContent{
-        $locale = 'zh-CN';
+        $locale = 'zh_CN';
         $actionName = '';
         $subject = '';
         if(Locale::isLocaleCloseEnough($locale,'zh')){
@@ -113,7 +113,7 @@ class TemplateEmailContentGenerator implements VeriCodeEmailContentGenerator{
         return new EmailContent($subject,$renderedTemplate);
     }
     public function getContentForChangeEmail(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser, string $newEmail) : EmailContent{
-        $locale = 'zh-CN';
+        $locale = 'zh_CN';
         $actionName = '';
         $subject = '';
         if(Locale::isLocaleCloseEnough($locale,'zh')){
@@ -136,7 +136,7 @@ class TemplateEmailContentGenerator implements VeriCodeEmailContentGenerator{
         return new EmailContent($subject,$renderedTemplate);
     }
     public function getContentForChangePhone(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser, string $newPhone) : EmailContent{
-        $locale = 'zh-CN';
+        $locale = 'zh_CN';
         $actionName = '';
         $subject = '';
         if(Locale::isLocaleCloseEnough($locale,'zh')){
@@ -159,7 +159,7 @@ class TemplateEmailContentGenerator implements VeriCodeEmailContentGenerator{
         return new EmailContent($subject,$renderedTemplate);
     }
     public function getContentForAdminAction(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser) : EmailContent{
-        $locale = 'zh-CN';
+        $locale = 'zh_CN';
         $actionName = '';
         $subject = '';
         if(Locale::isLocaleCloseEnough($locale,'zh')){
@@ -181,7 +181,7 @@ class TemplateEmailContentGenerator implements VeriCodeEmailContentGenerator{
         return new EmailContent($subject,$renderedTemplate);
     }
     public function getContentForThirdAPPImportantAction(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser) : EmailContent{
-        $locale = 'zh-CN';
+        $locale = 'zh_CN';
         $actionName = '';
         $subject = '';
         if(Locale::isLocaleCloseEnough($locale,'zh')){
@@ -203,7 +203,7 @@ class TemplateEmailContentGenerator implements VeriCodeEmailContentGenerator{
         return new EmailContent($subject,$renderedTemplate);
     }
     public function getContentForThirdAPPDeleteAction(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser) : EmailContent{
-        $locale = 'zh-CN';
+        $locale = 'zh_CN';
         $actionName = '';
         $subject = '';
         if(Locale::isLocaleCloseEnough($locale,'zh')){
