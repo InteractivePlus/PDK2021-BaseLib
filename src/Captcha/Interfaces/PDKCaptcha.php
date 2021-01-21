@@ -26,6 +26,7 @@ class PDKCaptcha{
         return array(
             'captchaID' => $this->getCaptchaID(),
             'captchaClientData' => $this->getClientData(),
+            'expire_time' => $this->getExpireUTCTime()
         );
     }
 }
