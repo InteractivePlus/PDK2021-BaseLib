@@ -8,7 +8,7 @@ use InteractivePlus\PDK2021Core\Base\Exception\ExceptionTypes\PDKStorageEngineEr
 use InteractivePlus\PDK2021Core\Base\Exception\ExceptionTypes\PDKUnknownInnerError;
 use InteractivePlus\PDK2021Core\Base\Exception\PDKException;
 use InteractivePlus\PDK2021Core\Base\Logger\LoggerStorage;
-use InteractivePlus\PDK2021Core\Captcha\Interface\PDKCaptchaSystem;
+use InteractivePlus\PDK2021Core\Captcha\Interfaces\PDKCaptchaSystem;
 use InteractivePlus\PDK2021Core\Communication\CommunicationMethods\SentMethod;
 use InteractivePlus\PDK2021Core\Communication\VerificationCode\VeriCodeEntity;
 use InteractivePlus\PDK2021Core\Communication\VerificationCode\VeriCodeIDs;
