@@ -38,6 +38,9 @@ class PDKSimpleCaptchaSystemImpl implements PDKCaptchaSystem{
         $requestWidth = (isset($passedInCaptchaParam['width']) && is_numeric($passedInCaptchaParam['height'])) ? (int) $passedInCaptchaParam['width'] : 150;
         $requestHeight = (isset($passedInCaptchaParam['height']) && is_numeric($passedInCaptchaParam['height'])) ? (int) $passedInCaptchaParam['height'] : 40;
         
+        $ctime = time();
+        $expireTime = $ctime + $this->captchaAvailableDuration;
+
         $phraseBuilder = new PhraseBuilder($this->_storage->getPhraseLen());
         $captchaBuilder = new CaptchaBuilder(null,$phraseBuilder);
 
@@ -58,10 +61,11 @@ class PDKSimpleCaptchaSystemImpl implements PDKCaptchaSystem{
                 'height'=> $requestHeight,
                 'jpegBase64' => $captchaBase64Data,
                 'phraseLen' => $this->_storage->getPhraseLen()
-            )
+            ),
+            $expireTime
         );
-        $ctime = time();
-        $this->_storage->saveCaptchaToDatabase($captchaID,$captchaPhrase,$ctime,$ctime + $this->captchaAvailableDuration,$requestWidth,$requestHeight,false,false);
+        
+        $this->_storage->saveCaptchaToDatabase($captchaID,$captchaPhrase,$ctime,$expireTime,$requestWidth,$requestHeight,false,false);
         return $captcha;
     }
     public function checkCaptchaAvailable(string $captchaID) : bool{

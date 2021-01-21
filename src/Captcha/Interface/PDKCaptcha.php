@@ -3,10 +3,12 @@ namespace InteractivePlus\PDK2021Core\Captcha\Interface;
 class PDKCaptcha{
     private $_clientData;
     private string $_captchaID;
+    private int $_expires;
 
-    public function __construct(string $captchaID, $clientData){
+    public function __construct(string $captchaID, $clientData, int $expires){
         $this->_captchaID = $captchaID;
         $this->_clientData = $clientData;
+        $this->_expires = $expires;
     }
 
     public function getClientData(){
@@ -16,10 +18,14 @@ class PDKCaptcha{
         return $this->_captchaID;
     }
 
+    public function getExpireUTCTime() : int{
+        return $this->_expires;
+    }
+
     public function toAssocArr() : array{
         return array(
             'captchaID' => $this->getCaptchaID(),
-            'captchaClientData' => $this->getClientData()
+            'captchaClientData' => $this->getClientData(),
         );
     }
 }
