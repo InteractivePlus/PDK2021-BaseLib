@@ -10,8 +10,6 @@ use InteractivePlus\PDK2021Core\Captcha\Interface\PDKCaptchaSystem;
 class PDKSimpleCaptchaSystemImpl implements PDKCaptchaSystem{
     private PDKSimpleCaptchaSystemStorage $_storage;
 
-    public int $phraseCharNum = 5;
-
     private int $_imageQuality = 90;
     public int $captchaAvailableDuration = 60 * 5;
     
@@ -40,7 +38,7 @@ class PDKSimpleCaptchaSystemImpl implements PDKCaptchaSystem{
         $requestWidth = (isset($passedInCaptchaParam['width']) && is_numeric($passedInCaptchaParam['height'])) ? (int) $passedInCaptchaParam['width'] : 150;
         $requestHeight = (isset($passedInCaptchaParam['height']) && is_numeric($passedInCaptchaParam['height'])) ? (int) $passedInCaptchaParam['height'] : 40;
         
-        $phraseBuilder = new PhraseBuilder($this->phraseCharNum);
+        $phraseBuilder = new PhraseBuilder($this->_storage->getPhraseLen());
         $captchaBuilder = new CaptchaBuilder(null,$phraseBuilder);
 
         $captchaBuilder->buildAgainstOCR($requestWidth,$requestHeight,null,null);
@@ -58,7 +56,8 @@ class PDKSimpleCaptchaSystemImpl implements PDKCaptchaSystem{
             array(
                 'width' => $requestWidth,
                 'height'=> $requestHeight,
-                'jpegBase64' => $captchaBase64Data
+                'jpegBase64' => $captchaBase64Data,
+                'phraseLen' => $this->_storage->getPhraseLen()
             )
         );
         $ctime = time();

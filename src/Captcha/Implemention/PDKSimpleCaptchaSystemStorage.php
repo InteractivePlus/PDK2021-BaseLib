@@ -6,4 +6,5 @@ interface PDKSimpleCaptchaSystemStorage{
     public function useCpatcha(string $captchaID) : void;
     public function checkCaptchaIDExist(string $captchaID) : bool;
     public function trySubmitCaptchaPhrase(string $captchaID, string $phrase) : bool;
+    public function getPhraseLen() : int;
 }
