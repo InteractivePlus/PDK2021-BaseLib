@@ -8,6 +8,7 @@ use InteractivePlus\PDK2021Core\Base\Exception\ExceptionTypes\PDKStorageEngineEr
 use InteractivePlus\PDK2021Core\Base\Exception\ExceptionTypes\PDKUnknownInnerError;
 use InteractivePlus\PDK2021Core\Base\Exception\PDKException;
 use InteractivePlus\PDK2021Core\Base\Logger\LoggerStorage;
+use InteractivePlus\PDK2021Core\Captcha\Interface\PDKCaptchaSystem;
 use InteractivePlus\PDK2021Core\Communication\CommunicationMethods\SentMethod;
 use InteractivePlus\PDK2021Core\Communication\VerificationCode\VeriCodeEntity;
 use InteractivePlus\PDK2021Core\Communication\VerificationCode\VeriCodeIDs;
@@ -28,6 +29,7 @@ class PDKCore{
     private ?VeriCodePhoneSender $_veriCodeCallSender;
     private UserEntityStorage $_userEntityStorage;
     private TokenEntityStorage $_tokenEntityStorage;
+    private PDKCaptchaSystem $_captchaSystem;
 
     public function __construct(
         LoggerStorage $logger,
@@ -36,7 +38,8 @@ class PDKCore{
         ?VeriCodePhoneSender $veriCodeSMSSender,
         ?VeriCodePhoneSender $veriCodeCallSender,
         UserEntityStorage $userEntityStorage,
-        TokenEntityStorage $tokenEntityStorage
+        TokenEntityStorage $tokenEntityStorage,
+        PDKCaptchaSystem $captchaSystem
     ){
         if($veriCodeEmailSender === null && $veriCodeSMSSender === null && $veriCodeCallSender === null){
             throw new PDKInnerArgumentError('veriCodeEmailSender|veriCodeSMSSender|veriCodeCallSender','There should be at least one vericode sender that is not null');
@@ -48,6 +51,7 @@ class PDKCore{
         $this->_veriCodeCallSender = $veriCodeCallSender;
         $this->_userEntityStorage = $userEntityStorage;
         $this->_tokenEntityStorage = $tokenEntityStorage;
+        $this->_captchaSystem = $captchaSystem;
     }
 
     public function getLogger() : LoggerStorage{
@@ -103,6 +107,11 @@ class PDKCore{
     public function getTokenEntityStorage() : TokenEntityStorage{
         return $this->_tokenEntityStorage;
     }
+
+    public function getCaptchaSystem() : PDKCaptchaSystem{
+        return $this->_captchaSystem;
+    }
+
     public function createAndSendVerificationEmail(string $emailAddr, UserEntity $user, int $currentTime, int $vericodeAvailableDuration, ?string $remoteAddr) : ?PDKException{
         $verifyEmailEntity = new VeriCodeEntity(
             VeriCodeIDs::VERICODE_VERIFY_EMAIL(),
