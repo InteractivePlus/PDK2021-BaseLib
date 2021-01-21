@@ -44,7 +44,7 @@ class PDKSimpleCaptchaSystemImpl implements PDKCaptchaSystem{
         $phraseBuilder = new PhraseBuilder($this->_storage->getPhraseLen());
         $captchaBuilder = new CaptchaBuilder(null,$phraseBuilder);
 
-        $captchaBuilder->buildAgainstOCR($requestWidth,$requestHeight,null,null);
+        $captchaBuilder->build($requestWidth,$requestHeight,null,null);
         $captchaID = CaptchaFormat::generateCaptchaID();
         while($this->_storage->checkCaptchaIDExist($captchaID)){
             $captchaID = CaptchaFormat::generateCaptchaID();
