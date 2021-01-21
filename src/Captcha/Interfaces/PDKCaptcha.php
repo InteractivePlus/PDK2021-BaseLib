@@ -1,5 +1,5 @@
 <?php
-namespace InteractivePlus\PDK2021Core\Captcha\Interface;
+namespace InteractivePlus\PDK2021Core\Captcha\Interfaces;
 class PDKCaptcha{
     private $_clientData;
     private string $_captchaID;

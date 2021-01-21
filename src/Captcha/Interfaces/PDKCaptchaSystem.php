@@ -1,5 +1,5 @@
 <?php
-namespace InteractivePlus\PDK2021Core\Captcha\Interface;
+namespace InteractivePlus\PDK2021Core\Captcha\Interfaces;
 interface PDKCaptchaSystem{
     public function generateAndSaveCaptchaToStorage($passedInCaptchaParam = null) : PDKCaptcha;
     public function checkCaptchaAvailable(string $captchaID) : bool;

@@ -4,8 +4,8 @@ namespace InteractivePlus\PDK2021Core\Captcha\Implemention;
 use Gregwar\Captcha\CaptchaBuilder;
 use Gregwar\Captcha\PhraseBuilder;
 use InteractivePlus\PDK2021Core\Captcha\Format\CaptchaFormat;
-use InteractivePlus\PDK2021Core\Captcha\Interface\PDKCaptcha;
-use InteractivePlus\PDK2021Core\Captcha\Interface\PDKCaptchaSystem;
+use InteractivePlus\PDK2021Core\Captcha\Interfaces\PDKCaptcha;
+use InteractivePlus\PDK2021Core\Captcha\Interfaces\PDKCaptchaSystem;
 
 class PDKSimpleCaptchaSystemImpl implements PDKCaptchaSystem{
     private PDKSimpleCaptchaSystemStorage $_storage;
