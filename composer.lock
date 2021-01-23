@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0e41f6b0994b19a7f0ada31ab6361534",
+    "content-hash": "9215c46cf3796408a3653cfca44fedb5",
     "packages": [
         {
             "name": "giggsey/libphonenumber-for-php",
@@ -191,16 +191,16 @@
         },
         {
             "name": "interactiveplus/lib-i18n",
-            "version": "0.0.1",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/InteractivePlus/lib-i18n.git",
-                "reference": "e040fb13f0a8d9f5ef43a46dd419a34c22d3f3d7"
+                "reference": "8e20ba691f3e3fa50c8d0e3d8ad2798e430668b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/InteractivePlus/lib-i18n/zipball/e040fb13f0a8d9f5ef43a46dd419a34c22d3f3d7",
-                "reference": "e040fb13f0a8d9f5ef43a46dd419a34c22d3f3d7",
+                "url": "https://api.github.com/repos/InteractivePlus/lib-i18n/zipball/8e20ba691f3e3fa50c8d0e3d8ad2798e430668b2",
+                "reference": "8e20ba691f3e3fa50c8d0e3d8ad2798e430668b2",
                 "shasum": ""
             },
             "require": {
@@ -213,7 +213,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "LibI18N\\": "src/"
+                    "InteractivePlus\\LibI18N\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -223,9 +223,9 @@
             "description": "A Library for Internationalization Support in PHP",
             "support": {
                 "issues": "https://github.com/InteractivePlus/lib-i18n/issues",
-                "source": "https://github.com/InteractivePlus/lib-i18n/tree/0.0.1"
+                "source": "https://github.com/InteractivePlus/lib-i18n/tree/1.0.0"
             },
-            "time": "2020-09-15T04:53:47+00:00"
+            "time": "2021-01-23T04:15:00+00:00"
         },
         {
             "name": "phpmailer/phpmailer",
@@ -2534,12 +2534,12 @@
             "version": "1.9.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/webmozart/assert.git",
+                "url": "https://github.com/webmozarts/assert.git",
                 "reference": "bafc69caeb4d49c39fd0779086c03a3738cbb389"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozart/assert/zipball/bafc69caeb4d49c39fd0779086c03a3738cbb389",
+                "url": "https://api.github.com/repos/webmozarts/assert/zipball/bafc69caeb4d49c39fd0779086c03a3738cbb389",
                 "reference": "bafc69caeb4d49c39fd0779086c03a3738cbb389",
                 "shasum": ""
             },
@@ -2577,8 +2577,8 @@
                 "validate"
             ],
             "support": {
-                "issues": "https://github.com/webmozart/assert/issues",
-                "source": "https://github.com/webmozart/assert/tree/master"
+                "issues": "https://github.com/webmozarts/assert/issues",
+                "source": "https://github.com/webmozarts/assert/tree/1.9.1"
             },
             "time": "2020-07-08T17:02:28+00:00"
         }

@@ -7,7 +7,7 @@ use InteractivePlus\PDK2021Core\Communication\CommunicationContents\Interfaces\E
 use InteractivePlus\PDK2021Core\Communication\CommunicationContents\Interfaces\VeriCodeEmailContentGenerator;
 use InteractivePlus\PDK2021Core\Communication\VerificationCode\VeriCodeEntity;
 use InteractivePlus\PDK2021Core\User\UserInfo\UserEntity;
-use LibI18N\Locale;
+use InteractivePlus\LibI18N\Locale;
 
 class TemplateEmailContentGenerator implements VeriCodeEmailContentGenerator{
     private EmailTemplateProvider $_tplProvider;
@@ -22,8 +22,8 @@ class TemplateEmailContentGenerator implements VeriCodeEmailContentGenerator{
         $this->_systemName = $systemName;
     }
 
-    public function getContentForEmailVerification(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser) : EmailContent{
-        $locale = 'zh_CN';
+    public function getContentForEmailVerification(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser, ?string $locale = Locale::LOCALE_en_US) : EmailContent{
+        
         $actionName = '';
         $subject = '';
         if(Locale::isLocaleCloseEnough($locale,'zh')){
@@ -45,8 +45,8 @@ class TemplateEmailContentGenerator implements VeriCodeEmailContentGenerator{
         $renderedTemplate = TemplateUtil::renderTemplate($this->_tplProvider->getURLSafeTemplate($locale),$templateArgs,true,true);
         return new EmailContent($subject,$renderedTemplate);
     }
-    public function getContentForImportantAction(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser) : EmailContent{
-        $locale = 'zh_CN';
+    public function getContentForImportantAction(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser, ?string $locale = Locale::LOCALE_en_US) : EmailContent{
+        
         $actionName = '';
         $subject = '';
         if(Locale::isLocaleCloseEnough($locale,'zh')){
@@ -67,8 +67,8 @@ class TemplateEmailContentGenerator implements VeriCodeEmailContentGenerator{
         $renderedTemplate = TemplateUtil::renderTemplate($this->_tplProvider->getNormalTemplate($locale),$templateArgs,true,true);
         return new EmailContent($subject,$renderedTemplate);
     }
-    public function getContentForChangePassword(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser) : EmailContent{
-        $locale = 'zh_CN';
+    public function getContentForChangePassword(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser, ?string $locale = Locale::LOCALE_en_US) : EmailContent{
+        
         $actionName = '';
         $subject = '';
         if(Locale::isLocaleCloseEnough($locale,'zh')){
@@ -89,8 +89,8 @@ class TemplateEmailContentGenerator implements VeriCodeEmailContentGenerator{
         $renderedTemplate = TemplateUtil::renderTemplate($this->_tplProvider->getNormalTemplate($locale),$templateArgs,true,true);
         return new EmailContent($subject,$renderedTemplate);
     }
-    public function getContentForForgetPassword(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser) : EmailContent{
-        $locale = 'zh_CN';
+    public function getContentForForgetPassword(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser, ?string $locale = Locale::LOCALE_en_US) : EmailContent{
+        
         $actionName = '';
         $subject = '';
         if(Locale::isLocaleCloseEnough($locale,'zh')){
@@ -112,8 +112,8 @@ class TemplateEmailContentGenerator implements VeriCodeEmailContentGenerator{
         $renderedTemplate = TemplateUtil::renderTemplate($this->_tplProvider->getURLTemplate($locale),$templateArgs,true,true);
         return new EmailContent($subject,$renderedTemplate);
     }
-    public function getContentForChangeEmail(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser, string $newEmail) : EmailContent{
-        $locale = 'zh_CN';
+    public function getContentForChangeEmail(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser, string $newEmail, ?string $locale = Locale::LOCALE_en_US) : EmailContent{
+        
         $actionName = '';
         $subject = '';
         if(Locale::isLocaleCloseEnough($locale,'zh')){
@@ -135,8 +135,8 @@ class TemplateEmailContentGenerator implements VeriCodeEmailContentGenerator{
         $renderedTemplate = TemplateUtil::renderTemplate($this->_tplProvider->getURLTemplate($locale),$templateArgs,true,true);
         return new EmailContent($subject,$renderedTemplate);
     }
-    public function getContentForChangePhone(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser, string $newPhone) : EmailContent{
-        $locale = 'zh_CN';
+    public function getContentForChangePhone(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser, string $newPhone, ?string $locale = Locale::LOCALE_en_US) : EmailContent{
+        
         $actionName = '';
         $subject = '';
         if(Locale::isLocaleCloseEnough($locale,'zh')){
@@ -158,8 +158,8 @@ class TemplateEmailContentGenerator implements VeriCodeEmailContentGenerator{
         $renderedTemplate = TemplateUtil::renderTemplate($this->_tplProvider->getURLTemplate($locale),$templateArgs,true,true);
         return new EmailContent($subject,$renderedTemplate);
     }
-    public function getContentForAdminAction(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser) : EmailContent{
-        $locale = 'zh_CN';
+    public function getContentForAdminAction(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser, ?string $locale = Locale::LOCALE_en_US) : EmailContent{
+        
         $actionName = '';
         $subject = '';
         if(Locale::isLocaleCloseEnough($locale,'zh')){
@@ -180,8 +180,8 @@ class TemplateEmailContentGenerator implements VeriCodeEmailContentGenerator{
         $renderedTemplate = TemplateUtil::renderTemplate($this->_tplProvider->getNormalTemplate($locale),$templateArgs,true,true);
         return new EmailContent($subject,$renderedTemplate);
     }
-    public function getContentForThirdAPPImportantAction(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser) : EmailContent{
-        $locale = 'zh_CN';
+    public function getContentForThirdAPPImportantAction(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser, ?string $locale = Locale::LOCALE_en_US) : EmailContent{
+        
         $actionName = '';
         $subject = '';
         if(Locale::isLocaleCloseEnough($locale,'zh')){
@@ -202,8 +202,8 @@ class TemplateEmailContentGenerator implements VeriCodeEmailContentGenerator{
         $renderedTemplate = TemplateUtil::renderTemplate($this->_tplProvider->getNormalTemplate($locale),$templateArgs,true,true);
         return new EmailContent($subject,$renderedTemplate);
     }
-    public function getContentForThirdAPPDeleteAction(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser) : EmailContent{
-        $locale = 'zh_CN';
+    public function getContentForThirdAPPDeleteAction(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser, ?string $locale = Locale::LOCALE_en_US) : EmailContent{
+        
         $actionName = '';
         $subject = '';
         if(Locale::isLocaleCloseEnough($locale,'zh')){

@@ -6,55 +6,56 @@ use InteractivePlus\PDK2021Core\Communication\VerificationCode\VeriCodeEntity;
 use InteractivePlus\PDK2021Core\Communication\VerificationCode\VeriCodeID;
 use InteractivePlus\PDK2021Core\Communication\VerificationCode\VeriCodeIDs;
 use InteractivePlus\PDK2021Core\User\UserInfo\UserEntity;
+use InteractivePlus\LibI18N\Locale;
 use libphonenumber\PhoneNumber;
 
 abstract class VeriCodePhoneSender implements VeriCodeSender{
-    public abstract function sendImportantAction(VeriCodeEntity $codeEntity, UserEntity $user, PhoneNumber $destination) : void;
+    public abstract function sendImportantAction(VeriCodeEntity $codeEntity, UserEntity $user, PhoneNumber $destination, ?string $locale = Locale::LOCALE_en_US) : void;
 
-    public abstract function sendChangePassword(VeriCodeEntity $codeEntity, UserEntity $user, PhoneNumber $destination) : void;
+    public abstract function sendChangePassword(VeriCodeEntity $codeEntity, UserEntity $user, PhoneNumber $destination, ?string $locale = Locale::LOCALE_en_US) : void;
 
-    public abstract function sendForgotPassword(VeriCodeEntity $codeEntity, UserEntity $user, PhoneNumber $destination) : void;
+    public abstract function sendForgotPassword(VeriCodeEntity $codeEntity, UserEntity $user, PhoneNumber $destination, ?string $locale = Locale::LOCALE_en_US) : void;
 
-    public abstract function sendChangeEmail(VeriCodeEntity $codeEntity, UserEntity $user, PhoneNumber $destination, string $newEmail) : void;
+    public abstract function sendChangeEmail(VeriCodeEntity $codeEntity, UserEntity $user, PhoneNumber $destination, string $newEmail, ?string $locale = Locale::LOCALE_en_US) : void;
 
-    public abstract function sendChangePhone(VeriCodeEntity $codeEntity, UserEntity $user, PhoneNumber $destination, string $newPhoneNum) : void;
+    public abstract function sendChangePhone(VeriCodeEntity $codeEntity, UserEntity $user, PhoneNumber $destination, string $newPhoneNum, ?string $locale = Locale::LOCALE_en_US) : void;
 
-    public abstract function sendAdminAction(VeriCodeEntity $codeEntity, UserEntity $user, PhoneNumber $destination) : void;
+    public abstract function sendAdminAction(VeriCodeEntity $codeEntity, UserEntity $user, PhoneNumber $destination, ?string $locale = Locale::LOCALE_en_US) : void;
 
-    public abstract function sendThirdAPPImportantAction(VeriCodeEntity $codeEntity, UserEntity $user, PhoneNumber $destination) : void;
+    public abstract function sendThirdAPPImportantAction(VeriCodeEntity $codeEntity, UserEntity $user, PhoneNumber $destination, ?string $locale = Locale::LOCALE_en_US) : void;
 
-    public abstract function sendThirdAPPDeleteAction(VeriCodeEntity $codeEntity, UserEntity $user, PhoneNumber $destination) : void;
+    public abstract function sendThirdAPPDeleteAction(VeriCodeEntity $codeEntity, UserEntity $user, PhoneNumber $destination, ?string $locale = Locale::LOCALE_en_US) : void;
 
-    public abstract function sendVerifyPhone(VeriCodeEntity $codeEntity, UserEntity $user, PhoneNumber $destination) : void;
+    public abstract function sendVerifyPhone(VeriCodeEntity $codeEntity, UserEntity $user, PhoneNumber $destination, ?string $locale = Locale::LOCALE_en_US) : void;
 
-    public function sendVeriCode(VeriCodeEntity $veriCode, UserEntity $user, $destination) : void{
+    public function sendVeriCode(VeriCodeEntity $veriCode, UserEntity $user, $destination, ?string $locale = Locale::LOCALE_en_US) : void{
         switch($veriCode->getVeriCodeID()->getVeriCodeID()){
             case VeriCodeIDs::VERICODE_VERIFY_PHONE()->getVeriCodeID():
-                $this->sendVerifyPhone($veriCode,$user,$destination);
+                $this->sendVerifyPhone($veriCode,$user,$destination,$locale);
                 break;
             case VeriCodeIDs::VERICODE_IMPORTANT_ACTION()->getVeriCodeID():
-                $this->sendImportantAction($veriCode,$user,$destination);
+                $this->sendImportantAction($veriCode,$user,$destination,$locale);
                 break;
             case VeriCodeIDs::VERICODE_CHANGE_PASSWORD()->getVeriCodeID():
-                $this->sendChangePassword($veriCode,$user,$destination);
+                $this->sendChangePassword($veriCode,$user,$destination,$locale);
                 break;
             case VeriCodeIDs::VERICODE_FORGET_PASSWORD()->getVeriCodeID():
-                $this->sendForgotPassword($veriCode,$user,$destination);
+                $this->sendForgotPassword($veriCode,$user,$destination,$locale);
                 break;
             case VeriCodeIDs::VERICODE_CHANGE_EMAIL()->getVeriCodeID():
-                $this->sendChangeEmail($veriCode,$user,$destination,$veriCode->getVeriCodeParam('new_email'));
+                $this->sendChangeEmail($veriCode,$user,$destination,$veriCode->getVeriCodeParam('new_email'),$locale);
                 break;
             case VeriCodeIDs::VERICODE_CHANGE_PHONE()->getVeriCodeID():
-                $this->sendChangePhone($veriCode,$user,$destination,$veriCode->getVeriCodeParam('new_phone'));
+                $this->sendChangePhone($veriCode,$user,$destination,$veriCode->getVeriCodeParam('new_phone'),$locale);
                 break;
             case VeriCodeIDs::VERICODE_ADMIN_ACTION()->getVeriCodeID():
-                $this->sendAdminAction($veriCode,$user,$destination);
+                $this->sendAdminAction($veriCode,$user,$destination,$locale);
                 break;
             case VeriCodeIDs::VERICODE_THIRD_APP_IMPORTANT_ACTION()->getVeriCodeID():
-                $this->sendThirdAPPImportantAction($veriCode,$user,$destination);
+                $this->sendThirdAPPImportantAction($veriCode,$user,$destination,$locale);
                 break;
             case VeriCodeIDs::VERICODE_THIRD_APP_DELETE_ACTION()->getVeriCodeID():
-                $this->sendThirdAPPDeleteAction($veriCode,$user,$destination);
+                $this->sendThirdAPPDeleteAction($veriCode,$user,$destination,$locale);
                 break;
             default:
                 throw new PDKInnerArgumentError('veriCode','This vericode ID is not recognized by the specific sender');
