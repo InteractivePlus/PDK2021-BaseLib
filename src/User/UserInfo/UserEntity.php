@@ -6,6 +6,8 @@ use InteractivePlus\PDK2021Core\Base\Formats\IPFormat;
 use InteractivePlus\PDK2021Core\User\Login\LoginFailedReasons;
 use InteractivePlus\PDK2021Core\User\Formats\UserFormat;
 use InteractivePlus\PDK2021Core\User\Formats\UserPhoneUtil;
+use InteractivePlus\PDK2021Core\User\Setting\SettingBoolean;
+use InteractivePlus\PDK2021Core\User\Setting\UserSetting;
 use InteractivePlus\PDK2021Core\User\UserSystemFormatSetting;
 use libphonenumber\PhoneNumber;
 
@@ -23,6 +25,9 @@ class UserEntity{
     private string $_accountCreateIP;
     private bool $_accountFrozen = false;
     private ?UserSystemFormatSetting $_formatSetting = null;
+    private UserSetting $_setting = null;
+    private UserSetting $_userSystemDefaultSetting = null;
+
     /**
      * This function should never ever be called outside of a UserEntityStorage class as it has absolutely no check on its parameters
      */
@@ -36,6 +41,18 @@ class UserEntity{
     }
     public function setFormatClass(?UserSystemFormatSetting $class = null) : void{
         $this->_formatSetting = $class;
+    }
+    public function getSettings() : UserSetting{
+        return $this->_setting;
+    }
+    public function setSettings(UserSetting $setting){
+        $this->_setting = $setting;
+    }
+    public function getDefaultSettings() : UserSetting{
+        return $this->_userSystemDefaultSetting;
+    }
+    public function setDefaultSettings(UserSetting $setting){
+        $this->_userSystemDefaultSetting = $setting;
     }
     /**
      * If this is InteractivePlus\PDK2021Core\Base\Constant\UserSystemConstants::NO_USER_RELATED_UID, it means that this user requires to be added into the storage and to be assigned with an UID
@@ -231,7 +248,9 @@ class UserEntity{
         int $accountCreateTime,
         string $accountCreateIP,
         bool $accountFrozen,
-        UserSystemFormatSetting $formatSetting
+        UserSystemFormatSetting $formatSetting,
+        UserSetting $defaultSetting,
+        UserSetting $userSetting
     ) : UserEntity{
         $entity = new UserEntity();
         $entity->_uid = $uid;
@@ -247,6 +266,8 @@ class UserEntity{
         $entity->_accountCreateTime = $accountCreateTime;
         $entity->_accountCreateIP = $accountCreateIP;
         $entity->_accountFrozen = $accountFrozen;
+        $entity->_userSystemDefaultSetting = $defaultSetting;
+        $entity->_setting = $userSetting;
         
         return $entity;
     }
@@ -262,7 +283,8 @@ class UserEntity{
         int $accountCreateTime,
         string $accountCreateIP,
         bool $accountFrozen,
-        UserSystemFormatSetting $formatSetting
+        UserSystemFormatSetting $formatSetting,
+        UserSetting $defaultSetting
     ) : UserEntity{
         $entity = new UserEntity();
         $entity->_uid = -1;
@@ -278,6 +300,15 @@ class UserEntity{
         $entity->_accountCreateTime = $accountCreateTime;
         $entity->setAccountCreateIP($accountCreateIP);
         $entity->_accountFrozen = $accountFrozen;
+        $entity->_userSystemDefaultSetting = $defaultSetting;
+        $entity->_setting = new UserSetting(
+            SettingBoolean::INHERIT,
+            SettingBoolean::INHERIT,
+            SettingBoolean::INHERIT,
+            SettingBoolean::INHERIT,
+            SettingBoolean::INHERIT,
+            SettingBoolean::INHERIT
+        );
         return $entity;
     }
 }

@@ -4,17 +4,25 @@ namespace InteractivePlus\PDK2021Core\User\UserInfo;
 use InteractivePlus\PDK2021Core\Base\Constants\UserSystemConstants;
 use InteractivePlus\PDK2021Core\Base\DataOperations\MultipleResult;
 use InteractivePlus\PDK2021Core\Base\Exception\ExceptionTypes\PDKItemAlreadyExistError;
+use InteractivePlus\PDK2021Core\User\Setting\UserSetting;
 use InteractivePlus\PDK2021Core\User\UserSystemFormatSetting;
 use libphonenumber\PhoneNumber;
 
 abstract class UserEntityStorage{
     private UserSystemFormatSetting $_formatSetting;
-    public function __construct(UserSystemFormatSetting $formatSetting){
+    private UserSetting $_defaultSetting;
+
+    public function __construct(UserSystemFormatSetting $formatSetting, UserSetting $defaultSetting){
         $this->_formatSetting = $formatSetting;
+        $this->_defaultSetting = $defaultSetting;
     }
 
     public function getFormatSetting() : UserSystemFormatSetting{
         return $this->_formatSetting;
+    }
+
+    public function getDefaultSetting() : UserSetting{
+        return $this->_defaultSetting;
     }
 
     /**
