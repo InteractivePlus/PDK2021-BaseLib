@@ -11,16 +11,17 @@ class MaskIDEntity{
     private string $_maskID;
     public int $appuid;
     public int $uid;
-    
+    private ?string $_displayName;
     public int $createTime;
     private UserSetting $_setting;
-    public function __construct(string $maskID, int $appuid, int $uid, int $createTime, UserSetting $setting)
+    public function __construct(string $maskID, int $appuid, int $uid, ?string $displayName, int $createTime, UserSetting $setting)
     {
         if(!MaskIDFormat::isValidMaskID($maskID)){
             throw new PDKInnerArgumentError('maskID');
         }
         $this->_maskID = $maskID;
         $this->appuid = $appuid;
+        $this->setDisplayName($displayName);
         $this->createTime = $createTime;
         $this->uid = $uid;
         $this->_setting = $setting;
@@ -38,6 +39,15 @@ class MaskIDEntity{
     }
     public function withMaskIDReroll() : MaskIDEntity{
         return $this->withMaskID(MaskIDFormat::generateMaskID());
+    }
+    public function getDisplayName() : ?string{
+        return $this->_displayName;
+    }
+    public function setDisplayName(string $displayName) : void{
+        if(!MaskIDFormat::isValidMaskIDDisplayName($displayName)){
+            throw new PDKInnerArgumentError('displayName');
+        }
+        $this->_displayName = $displayName;
     }
     public function getSettings() : UserSetting{
         return $this->_setting;
