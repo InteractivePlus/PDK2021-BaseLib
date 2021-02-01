@@ -104,7 +104,7 @@ class APPFormat{
     }
 
     public static function getChallengeS256StringLength() : int{
-        return (self::CODE_CHALLENGE_S256_HASH_LEN * 2);
+        return self::CODE_CHALLENGE_S256_HASH_LEN;
     }
     public static function generateChallengeS256String(string $verifier) : string{
         return self::formatChallengeS256(hash('sha256',$verifier));
