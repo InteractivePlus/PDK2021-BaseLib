@@ -1,6 +1,7 @@
 <?php
 namespace InteractivePlus\PDK2021Core\APP\APPInfo;
 
+use InteractivePlus\PDK2021Core\APP\APPSystemFormatSetting;
 use InteractivePlus\PDK2021Core\Base\Constants\APPSystemConstants;
 use InteractivePlus\PDK2021Core\Base\Constants\UserSystemConstants;
 use InteractivePlus\PDK2021Core\Base\DataOperations\MultipleResult;
@@ -8,6 +9,15 @@ use InteractivePlus\PDK2021Core\Base\Exception\ExceptionTypes\PDKInnerArgumentEr
 use InteractivePlus\PDK2021Core\Base\Exception\ExceptionTypes\PDKStorageEngineError;
 
 abstract class APPEntityStorage{
+    private APPSystemFormatSetting $_formatSetting;
+
+    public function __construct(APPSystemFormatSetting $formatSetting){
+        $this->_formatSetting = $formatSetting;
+    }
+
+    public function getFormatSetting() : APPSystemFormatSetting{
+        return $this->_formatSetting;
+    }
     protected abstract function __addAPPEntity(APPEntity $entity) : int;
     public abstract function checkAPPUIDExist(int $appuid) : bool;
     public abstract function checkClientIDExist(string $clientID) : int;
