@@ -6,6 +6,7 @@ use InteractivePlus\PDK2021Core\Base\Formats\IPFormat;
 use InteractivePlus\PDK2021Core\User\Login\LoginFailedReasons;
 use InteractivePlus\PDK2021Core\User\Formats\UserFormat;
 use InteractivePlus\PDK2021Core\User\Formats\UserPhoneUtil;
+use InteractivePlus\PDK2021Core\User\Setting\CombinedSetting;
 use InteractivePlus\PDK2021Core\User\Setting\SettingBoolean;
 use InteractivePlus\PDK2021Core\User\Setting\UserSetting;
 use InteractivePlus\PDK2021Core\User\UserSystemFormatSetting;
@@ -53,6 +54,9 @@ class UserEntity{
     }
     public function setDefaultSettings(UserSetting $setting){
         $this->_userSystemDefaultSetting = $setting;
+    }
+    public function getCombinedSettings() : UserSetting{
+        return new CombinedSetting($this->_setting,$this->_userSystemDefaultSetting);
     }
     /**
      * If this is InteractivePlus\PDK2021Core\Base\Constant\UserSystemConstants::NO_USER_RELATED_UID, it means that this user requires to be added into the storage and to be assigned with an UID
