@@ -13,6 +13,7 @@ abstract class MaskIDEntityStorage{
     protected abstract function __updateMaskIDEntity(MaskIDEntity $entity) : void;
     public abstract function searchMaskIDEntity(?string $maskID = null, int $createTimeStart = -1, int $createTimeEnd = -1, int $ownerUID = UserSystemConstants::NO_USER_RELATED_UID, int $appuid = APPSystemConstants::NO_APP_RELATED_APPUID, int $dataOffset = 0, int $dataCountLimit = -1) : MultipleResult;
     public abstract function getMaskIDEntityCount(?string $maskID = null, int $createTimeStart = -1, int $createTimeEnd = -1, int $ownerUID = UserSystemConstants::NO_USER_RELATED_UID, int $appuid = APPSystemConstants::NO_APP_RELATED_APPUID) : int;
+    public abstract function deleteMaskID(string $maskID) : void;
     public function updateMaskIDEntity(MaskIDEntity $entity) : void{
         $checkRst = $this->checkMaskIDExist($entity->getMaskID());
         if($checkRst !== $entity->uid){
