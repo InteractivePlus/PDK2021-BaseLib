@@ -2,6 +2,7 @@
 namespace InteractivePlus\PDK2021Core\APP\Format;
 class MaskIDFormat{
     const MaskID_BYTE_LENGTH = 16;
+    const MaskID_DISPLAY_NAME_LENGTH = 20;
     public static function getMaskIDByteLength() : int{
         return self::MaskID_BYTE_LENGTH;
     }
@@ -19,5 +20,11 @@ class MaskIDFormat{
     }
     public static function isMaskIDStringEqual(string $MaskID1, string $MaskID2) : bool{
         return self::formatMaskID($MaskID1) === self::formatMaskID($MaskID2);
+    }
+    public static function getMaskIDDispalyNameLength() : int{
+        return self::MaskID_DISPLAY_NAME_LENGTH;
+    }
+    public static function isValidMaskIDDisplayName(string $displayName) : bool{
+        return strlen($displayName) <= self::getMaskIDDispalyNameLength();
     }
 }

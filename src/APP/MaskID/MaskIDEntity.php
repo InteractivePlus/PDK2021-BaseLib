@@ -11,6 +11,7 @@ class MaskIDEntity{
     private string $_maskID;
     public int $appuid;
     public int $uid;
+    
     public int $createTime;
     private UserSetting $_setting;
     public function __construct(string $maskID, int $appuid, int $uid, int $createTime, UserSetting $setting)
