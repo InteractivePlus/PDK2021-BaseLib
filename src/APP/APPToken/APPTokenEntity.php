@@ -1,6 +1,7 @@
 <?php
 namespace InteractivePlus\PDK2021Core\APP\APPToken;
 
+use InteractivePlus\PDK2021Core\APP\APPInfo\APPEntity;
 use InteractivePlus\PDK2021Core\APP\Format\APPFormat;
 use InteractivePlus\PDK2021Core\APP\Format\MaskIDFormat;
 use InteractivePlus\PDK2021Core\Base\Exception\ExceptionTypes\PDKInnerArgumentError;
@@ -14,6 +15,7 @@ class APPTokenEntity{
     public int $refreshExpireTime;
     private string $_maskID;
     public int $appuid;
+    private string $_client_id;
     private int $_obtainedMethod;
     public array $scopes;
     public bool $valid;
@@ -27,6 +29,7 @@ class APPTokenEntity{
         int $refreshExpireTime,
         string $maskID,
         int $appuid,
+        string $clientID,
         int $obtainedMethod,
         array $scopes,
         bool $valid = true
@@ -43,6 +46,7 @@ class APPTokenEntity{
         $this->refreshExpireTime = $refreshExpireTime;
         $this->setMaskID($maskID);
         $this->appuid = $appuid;
+        $this->setClientID($clientID);
         $this->setObtainedMethod($obtainedMethod);
         $this->scopes = $scopes;
         $this->valid = $valid;
@@ -82,6 +86,19 @@ class APPTokenEntity{
             throw new PDKInnerArgumentError('maskID');
         }
         $this->_maskID = $maskID;
+    }
+    public function getClientID() : string{
+        return $this->_client_id;
+    }
+    public function setClientID(string $clientID) : void{
+        if(!APPFormat::isValidAPPID($clientID)){
+            throw new PDKInnerArgumentError('client_id');
+        }
+        $this->_client_id = APPFormat::formatAPPID($clientID);
+    }
+    public function setClient(APPEntity $app) : void{
+        $this->appuid = $app->getAPPUID();
+        $this->_client_id = $app->getClientID();
     }
     public function getObtainedMethod() : int{
         return $this->_obtainedMethod;
