@@ -21,7 +21,9 @@ abstract class APPEntityStorage{
     protected abstract function __addAPPEntity(APPEntity $entity) : int;
     public abstract function checkAPPUIDExist(int $appuid) : bool;
     public abstract function checkClientIDExist(string $clientID) : int;
+    public abstract function checkDisplayNameExist(string $displayName) : int;
     public abstract function getAPPEntityByAPPUID(int $appuid) : ?APPEntity;
+    public abstract function getAPPEntityByDisplayName(string $displayName) : ?APPEntity;
     public abstract function getAPPEntityByClientID(string $clientID) : ?APPEntity;
     protected abstract function __updateAPPEntity(APPEntity $entity) : void;
     public abstract function searchAPPEntity(?string $displayName = null, int $createTimeStart = -1, int $createTimeEnd = -1, int $ownerUID = UserSystemConstants::NO_USER_RELATED_UID, int $dataOffset = 0, int $dataCountLimit = -1) : MultipleResult;
@@ -31,9 +33,16 @@ abstract class APPEntityStorage{
         if($checkRst !== -1 && $checkRst !== $entity->getAPPUID()){
             throw new PDKInnerArgumentError('client_id');
         }
+        $displayNameRst = $this->checkDisplayNameExist($entity->getDisplayName());
+        if($checkRst !== -1 && $checkRst !== $entity->getAPPUID()){
+            throw new PDKInnerArgumentError('display_name');
+        }
         $this->__updateAPPEntity($entity);
     }
     public function addAPPEntity(APPEntity $entity, bool $withClientIDReroll) : ?APPEntity{
+        if($this->checkDisplayNameExist($entity->getDisplayName())){
+            return null;
+        }
         while($this->checkClientIDExist($entity->getClientID()) !== -1){
             if(!$withClientIDReroll){
                 return null;
