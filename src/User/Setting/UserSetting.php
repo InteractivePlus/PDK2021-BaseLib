@@ -19,8 +19,8 @@ class UserSetting{
         $this->setAllowSaleEmails($allowSaleEmails);
         $this->setAllowNotificationSMS($allowNotificationSMS);
         $this->setAllowSaleSMS($allowSaleSMS);
-        $this->allowNotificationCall($allowNotificationCall);
-        $this->allowSaleCall($allowSaleCall);
+        $this->setAllowNotificationCall($allowNotificationCall);
+        $this->setAllowSaleCall($allowSaleCall);
     }
     public function allowNotificationEmails() : int{
         return $this->_allowNotificationEmails;
