@@ -1,7 +1,7 @@
 <?php
 namespace InteractivePlus\PDK2021Core\APP\MaskID;
 
-use InteractivePlus\PDK2021Core\APP\Format\MaskIDFormat;
+use InteractivePlus\PDK2021Core\APP\Formats\MaskIDFormat;
 use InteractivePlus\PDK2021Core\Base\Exception\ExceptionTypes\PDKInnerArgumentError;
 use InteractivePlus\PDK2021Core\User\Setting\CombinedSetting;
 use InteractivePlus\PDK2021Core\User\Setting\UserSetting;

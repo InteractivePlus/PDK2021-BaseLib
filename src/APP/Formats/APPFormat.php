@@ -1,5 +1,5 @@
 <?php
-namespace InteractivePlus\PDK2021Core\APP\Format;
+namespace InteractivePlus\PDK2021Core\APP\Formats;
 class APPFormat{
     const APPID_BYTE_LENGTH = 20;
     const APPSECRET_BYTE_LENGTH = 20;

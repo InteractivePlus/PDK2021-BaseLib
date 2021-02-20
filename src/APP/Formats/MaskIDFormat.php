@@ -1,5 +1,5 @@
 <?php
-namespace InteractivePlus\PDK2021Core\APP\Format;
+namespace InteractivePlus\PDK2021Core\APP\Formats;
 class MaskIDFormat{
     const MaskID_BYTE_LENGTH = 16;
     const MaskID_DISPLAY_NAME_LENGTH = 20;

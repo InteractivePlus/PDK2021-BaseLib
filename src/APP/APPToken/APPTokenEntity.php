@@ -2,8 +2,8 @@
 namespace InteractivePlus\PDK2021Core\APP\APPToken;
 
 use InteractivePlus\PDK2021Core\APP\APPInfo\APPEntity;
-use InteractivePlus\PDK2021Core\APP\Format\APPFormat;
-use InteractivePlus\PDK2021Core\APP\Format\MaskIDFormat;
+use InteractivePlus\PDK2021Core\APP\Formats\APPFormat;
+use InteractivePlus\PDK2021Core\APP\Formats\MaskIDFormat;
 use InteractivePlus\PDK2021Core\Base\Exception\ExceptionTypes\PDKInnerArgumentError;
 
 class APPTokenEntity{

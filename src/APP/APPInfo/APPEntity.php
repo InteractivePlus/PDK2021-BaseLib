@@ -2,7 +2,7 @@
 namespace InteractivePlus\PDK2021Core\APP\APPInfo;
 
 use InteractivePlus\PDK2021Core\APP\APPSystemFormatSetting;
-use InteractivePlus\PDK2021Core\APP\Format\APPFormat;
+use InteractivePlus\PDK2021Core\APP\Formats\APPFormat;
 use InteractivePlus\PDK2021Core\Base\Constants\APPSystemConstants;
 use InteractivePlus\PDK2021Core\Base\Exception\ExceptionTypes\PDKInnerArgumentError;
 
