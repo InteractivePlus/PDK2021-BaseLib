@@ -5,7 +5,7 @@ class APPSystemFormatSettingImpl implements APPSystemFormatSetting{
     private int $_appDisplayNameMax;
     public function __construct(
         int $appDisplayNameMin,
-        int $appDisplayNameMax,
+        int $appDisplayNameMax
     )
     {
         $this->_appDisplayNameMin = $appDisplayNameMin;
