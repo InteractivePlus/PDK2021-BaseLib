@@ -26,8 +26,8 @@ class UserEntity{
     private string $_accountCreateIP;
     private bool $_accountFrozen = false;
     private ?UserSystemFormatSetting $_formatSetting = null;
-    private UserSetting $_setting = null;
-    private UserSetting $_userSystemDefaultSetting = null;
+    private ?UserSetting $_setting = null;
+    private ?UserSetting $_userSystemDefaultSetting = null;
 
     /**
      * This function should never ever be called outside of a UserEntityStorage class as it has absolutely no check on its parameters

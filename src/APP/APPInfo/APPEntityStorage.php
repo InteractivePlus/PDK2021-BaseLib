@@ -40,7 +40,7 @@ abstract class APPEntityStorage{
         $this->__updateAPPEntity($entity);
     }
     public function addAPPEntity(APPEntity $entity, bool $withClientIDReroll) : ?APPEntity{
-        if($this->checkDisplayNameExist($entity->getDisplayName())){
+        if($this->checkDisplayNameExist($entity->getDisplayName()) !== -1){
             return null;
         }
         while($this->checkClientIDExist($entity->getClientID()) !== -1){
