@@ -131,11 +131,11 @@ class APPEntity{
         $this->_client_type = PDKAPPType::fixAppType($type);
     }
 
-    public function canUseImplicitGrant() : bool{
+    public function canUsePKCEGrant() : bool{
         return $this->_client_type === PDKAPPType::NO_BACKEND || $this->_client_type === PDKAPPType::EITHER;
     }
 
-    public function canUseAuthCodeGrant() : bool{
+    public function canUseServerGrant() : bool{
         return $this->_client_type === PDKAPPType::HAS_BACKEND || $this->_client_type === PDKAPPType::EITHER;
     }
 
