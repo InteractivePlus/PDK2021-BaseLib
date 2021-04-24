@@ -21,7 +21,7 @@ abstract class MaskIDEntityStorage{
         }
         $this->__updateMaskIDEntity($entity);
     }
-    public function addAPPEntity(MaskIDEntity $entity, bool $withMaskIDReroll) : ?MaskIDEntity{
+    public function addMaskIDEntity(MaskIDEntity $entity, bool $withMaskIDReroll) : ?MaskIDEntity{
         $returningObj = $entity;
         while($this->checkMaskIDExist($returningObj->getMaskID()) !== -1){
             if(!$withMaskIDReroll){
