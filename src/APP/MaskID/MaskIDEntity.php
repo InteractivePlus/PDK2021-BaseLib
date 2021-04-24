@@ -43,9 +43,12 @@ class MaskIDEntity{
     public function getDisplayName() : ?string{
         return $this->_displayName;
     }
-    public function setDisplayName(string $displayName) : void{
+    public function setDisplayName(?string $displayName) : void{
         if(!MaskIDFormat::isValidMaskIDDisplayName($displayName)){
             throw new PDKInnerArgumentError('displayName');
+        }
+        if(empty($displayName)){
+            $displayName = null;
         }
         $this->_displayName = $displayName;
     }

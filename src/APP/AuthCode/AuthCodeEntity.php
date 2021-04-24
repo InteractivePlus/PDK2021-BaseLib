@@ -30,7 +30,7 @@ class AuthCodeEntity{
         bool $used = false
     )
     {
-        if(!APPFormat::isValidAuthCode($auth_code)){
+        if(!empty($auth_code) && !APPFormat::isValidAuthCode($auth_code)){
             throw new PDKInnerArgumentError('auth_code');
         }
         if(!MaskIDFormat::isValidMaskID($maskid)){
