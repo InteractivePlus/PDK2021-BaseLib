@@ -139,6 +139,14 @@ class APPEntity{
         return $this->_client_type === PDKAPPType::HAS_BACKEND || $this->_client_type === PDKAPPType::EITHER;
     }
 
+    public function checkRedirectURI(string $passedRedirectURI) : bool{
+        if(empty($this->redirectURI)){
+            return true;
+        }else{
+            return $passedRedirectURI === $this->redirectURI;
+        }
+    }
+
     public function getFormatClass() : ?APPSystemFormatSetting{
         return $this->_formatSetting;
     }
