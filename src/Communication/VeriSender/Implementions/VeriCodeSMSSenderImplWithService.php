@@ -109,7 +109,9 @@ class VeriCodeSMSSenderImplWithService extends VeriCodePhoneSender{
                 $suffix = '';
             }
         }
-        $this->_provider->sendSMS($destination, $content . $suffix,false);
+        if(!$this->_provider->sendSMS($destination, $content . $suffix,false)){
+            throw new PDKSenderServiceError('Send SMS Message Failed');
+        }
     }
     public function supportsNotificationAndSalesMsg(): bool
     {
