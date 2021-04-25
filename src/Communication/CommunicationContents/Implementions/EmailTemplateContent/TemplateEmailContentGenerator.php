@@ -25,7 +25,7 @@ class TemplateEmailContentGenerator implements VeriCodeEmailContentGenerator{
         $this->_systemName = $systemName;
     }
 
-    public function getContentForEmailVerification(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser, ?string $locale = Locale::LOCALE_en_US) : EmailContent{
+    public function getContentForEmailVerification(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser, ?string $locale = Locale::LOCALE_zh_Hans_CN) : EmailContent{
         
         $actionName = '';
         $subject = '';
@@ -48,7 +48,7 @@ class TemplateEmailContentGenerator implements VeriCodeEmailContentGenerator{
         $renderedTemplate = TemplateUtil::renderTemplate($this->_tplProvider->getURLSafeTemplate($locale),$templateArgs,true,true);
         return new EmailContent($subject,$renderedTemplate);
     }
-    public function getContentForImportantAction(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser, ?string $locale = Locale::LOCALE_en_US) : EmailContent{
+    public function getContentForImportantAction(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser, ?string $locale = Locale::LOCALE_zh_Hans_CN) : EmailContent{
         
         $actionName = '';
         $subject = '';
@@ -70,7 +70,7 @@ class TemplateEmailContentGenerator implements VeriCodeEmailContentGenerator{
         $renderedTemplate = TemplateUtil::renderTemplate($this->_tplProvider->getNormalTemplate($locale),$templateArgs,true,true);
         return new EmailContent($subject,$renderedTemplate);
     }
-    public function getContentForChangePassword(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser, ?string $locale = Locale::LOCALE_en_US) : EmailContent{
+    public function getContentForChangePassword(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser, ?string $locale = Locale::LOCALE_zh_Hans_CN) : EmailContent{
         
         $actionName = '';
         $subject = '';
@@ -92,7 +92,7 @@ class TemplateEmailContentGenerator implements VeriCodeEmailContentGenerator{
         $renderedTemplate = TemplateUtil::renderTemplate($this->_tplProvider->getNormalTemplate($locale),$templateArgs,true,true);
         return new EmailContent($subject,$renderedTemplate);
     }
-    public function getContentForForgetPassword(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser, ?string $locale = Locale::LOCALE_en_US) : EmailContent{
+    public function getContentForForgetPassword(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser, ?string $locale = Locale::LOCALE_zh_Hans_CN) : EmailContent{
         
         $actionName = '';
         $subject = '';
@@ -115,7 +115,7 @@ class TemplateEmailContentGenerator implements VeriCodeEmailContentGenerator{
         $renderedTemplate = TemplateUtil::renderTemplate($this->_tplProvider->getURLTemplate($locale),$templateArgs,true,true);
         return new EmailContent($subject,$renderedTemplate);
     }
-    public function getContentForChangeEmail(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser, string $newEmail, ?string $locale = Locale::LOCALE_en_US) : EmailContent{
+    public function getContentForChangeEmail(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser, string $newEmail, ?string $locale = Locale::LOCALE_zh_Hans_CN) : EmailContent{
         
         $actionName = '';
         $subject = '';
@@ -138,7 +138,7 @@ class TemplateEmailContentGenerator implements VeriCodeEmailContentGenerator{
         $renderedTemplate = TemplateUtil::renderTemplate($this->_tplProvider->getURLTemplate($locale),$templateArgs,true,true);
         return new EmailContent($subject,$renderedTemplate);
     }
-    public function getContentForChangePhone(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser, string $newPhone, ?string $locale = Locale::LOCALE_en_US) : EmailContent{
+    public function getContentForChangePhone(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser, string $newPhone, ?string $locale = Locale::LOCALE_zh_Hans_CN) : EmailContent{
         
         $actionName = '';
         $subject = '';
@@ -161,7 +161,7 @@ class TemplateEmailContentGenerator implements VeriCodeEmailContentGenerator{
         $renderedTemplate = TemplateUtil::renderTemplate($this->_tplProvider->getURLTemplate($locale),$templateArgs,true,true);
         return new EmailContent($subject,$renderedTemplate);
     }
-    public function getContentForAdminAction(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser, ?string $locale = Locale::LOCALE_en_US) : EmailContent{
+    public function getContentForAdminAction(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser, ?string $locale = Locale::LOCALE_zh_Hans_CN) : EmailContent{
         
         $actionName = '';
         $subject = '';
@@ -183,7 +183,7 @@ class TemplateEmailContentGenerator implements VeriCodeEmailContentGenerator{
         $renderedTemplate = TemplateUtil::renderTemplate($this->_tplProvider->getNormalTemplate($locale),$templateArgs,true,true);
         return new EmailContent($subject,$renderedTemplate);
     }
-    public function getContentForThirdAPPImportantAction(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser, ?string $locale = Locale::LOCALE_en_US) : EmailContent{
+    public function getContentForThirdAPPImportantAction(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser, ?string $locale = Locale::LOCALE_zh_Hans_CN) : EmailContent{
         
         $actionName = '';
         $subject = '';
@@ -205,7 +205,7 @@ class TemplateEmailContentGenerator implements VeriCodeEmailContentGenerator{
         $renderedTemplate = TemplateUtil::renderTemplate($this->_tplProvider->getNormalTemplate($locale),$templateArgs,true,true);
         return new EmailContent($subject,$renderedTemplate);
     }
-    public function getContentForThirdAPPDeleteAction(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser, ?string $locale = Locale::LOCALE_en_US) : EmailContent{
+    public function getContentForThirdAPPDeleteAction(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser, ?string $locale = Locale::LOCALE_zh_Hans_CN) : EmailContent{
         
         $actionName = '';
         $subject = '';
@@ -227,7 +227,7 @@ class TemplateEmailContentGenerator implements VeriCodeEmailContentGenerator{
         $renderedTemplate = TemplateUtil::renderTemplate($this->_tplProvider->getNormalTemplate($locale),$templateArgs,true,true);
         return new EmailContent($subject,$renderedTemplate);
     }
-    public function getContentForThirdAPPNotification(UserEntity $relatedUser, MaskIDEntity $relatedMaskID, APPEntity $relatedAPP, APPTokenEntity $relatedAPPToken, string $notificationTitle, string $notificationContent, ?string $locale = Locale::LOCALE_en_US): EmailContent
+    public function getContentForThirdAPPNotification(UserEntity $relatedUser, MaskIDEntity $relatedMaskID, APPEntity $relatedAPP, APPTokenEntity $relatedAPPToken, string $notificationTitle, string $notificationContent, ?string $locale = Locale::LOCALE_zh_Hans_CN): EmailContent
     {
         $actionName = '';
         $subject = '';
@@ -255,7 +255,7 @@ class TemplateEmailContentGenerator implements VeriCodeEmailContentGenerator{
         $renderedTemplate = TemplateUtil::renderTemplate($this->_tplProvider->getOAuthNotificationTemplate($locale),$templateArgs,true,true);
         return new EmailContent($subject,$renderedTemplate);
     }
-    public function getContentForThirdAPPSaleMsg(UserEntity $relatedUser, MaskIDEntity $relatedMaskID, APPEntity $relatedAPP, APPTokenEntity $relatedAPPToken, string $notificationTitle, string $notificationContent, ?string $locale = Locale::LOCALE_en_US): EmailContent
+    public function getContentForThirdAPPSaleMsg(UserEntity $relatedUser, MaskIDEntity $relatedMaskID, APPEntity $relatedAPP, APPTokenEntity $relatedAPPToken, string $notificationTitle, string $notificationContent, ?string $locale = Locale::LOCALE_zh_Hans_CN): EmailContent
     {
         $actionName = '';
         $subject = '';
