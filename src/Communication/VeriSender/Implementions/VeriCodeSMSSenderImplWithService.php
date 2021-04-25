@@ -87,12 +87,14 @@ class VeriCodeSMSSenderImplWithService extends VeriCodePhoneSender{
 
     public function sendThirdAPPNotification(UserEntity $user, MaskIDEntity $maskID, APPEntity $appEntity, APPTokenEntity $appToken, $destination, string $notificationTitle, string $notificationContent, ?string $locale = LOCALE::LOCALE_en_US): void
     {
-        //TODO: Finish this
+        $renderedContent = $this->_contentGenerator->getContentForThirdAPPNotification($user,$maskID,$appEntity,$appToken,$notificationTitle,$notificationContent,$locale);
+        $this->sendSMS($destination,$renderedContent);
     }
 
     public function sendThirdAPPSaleMsg(UserEntity $user, MaskIDEntity $maskID, APPEntity $appEntity, APPTokenEntity $appToken, $destination, string $notificationTitle, string $notificationContent, ?string $locale = LOCALE::LOCALE_en_US): void
     {
-        //TODO: Finish this
+        $renderedContent = $this->_contentGenerator->getContentForThirdAPPSaleMsg($user,$maskID,$appEntity,$appToken,$notificationTitle,$notificationContent,$locale);
+        $this->sendSMS($destination,$renderedContent);
     }
 
     protected function sendSMS(PhoneNumber $destination, string $content, ?string $locale = Locale::LOCALE_en_US) : void{
