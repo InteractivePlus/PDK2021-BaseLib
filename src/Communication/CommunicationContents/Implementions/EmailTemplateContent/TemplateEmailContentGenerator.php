@@ -8,6 +8,9 @@ use InteractivePlus\PDK2021Core\Communication\CommunicationContents\Interfaces\V
 use InteractivePlus\PDK2021Core\Communication\VerificationCode\VeriCodeEntity;
 use InteractivePlus\PDK2021Core\User\UserInfo\UserEntity;
 use InteractivePlus\LibI18N\Locale;
+use InteractivePlus\PDK2021Core\APP\MaskID\MaskIDEntity;
+use InteractivePlus\PDK2021Core\APP\APPInfo\APPEntity;
+use InteractivePlus\PDK2021Core\APP\APPToken\APPTokenEntity;
 
 class TemplateEmailContentGenerator implements VeriCodeEmailContentGenerator{
     private EmailTemplateProvider $_tplProvider;
@@ -31,7 +34,7 @@ class TemplateEmailContentGenerator implements VeriCodeEmailContentGenerator{
             $subject = $this->_systemName . ' - ' . $actionName . '验证码';
         }else{
             $actionName = 'Verifying Email';
-            $this->_systemName . ' - ' . $actionName . ' - Verification Code';
+            $subject = $this->_systemName . ' - ' . $actionName . ' - Verification Code';
         }
 
         $renderedURL = TemplateUtil::quickRender($this->_linkProvider->verifyEmailLink($locale),['veriCode'=>$veriCodeEntity->getVeriCodeString()]);
@@ -54,7 +57,7 @@ class TemplateEmailContentGenerator implements VeriCodeEmailContentGenerator{
             $subject = $this->_systemName . ' - ' . $actionName . '验证码';
         }else{
             $actionName = 'Performing Important Action';
-            $this->_systemName . ' - ' . $actionName . ' - Verification Code';
+            $subject = $this->_systemName . ' - ' . $actionName . ' - Verification Code';
         }
 
         $templateArgs = [
@@ -76,7 +79,7 @@ class TemplateEmailContentGenerator implements VeriCodeEmailContentGenerator{
             $subject = $this->_systemName . ' - ' . $actionName . '验证码';
         }else{
             $actionName = 'Changing password';
-            $this->_systemName . ' - ' . $actionName . ' - Verification Code';
+            $subject = $this->_systemName . ' - ' . $actionName . ' - Verification Code';
         }
 
         $templateArgs = [
@@ -98,7 +101,7 @@ class TemplateEmailContentGenerator implements VeriCodeEmailContentGenerator{
             $subject = $this->_systemName . ' - ' . $actionName . '验证码';
         }else{
             $actionName = 'Resetting password';
-            $this->_systemName . ' - ' . $actionName . ' - Verification Code';
+            $subject = $this->_systemName . ' - ' . $actionName . ' - Verification Code';
         }
 
         $renderedURL = TemplateUtil::quickRender($this->_linkProvider->forgotPasswordLink($locale),['veriCode'=>$veriCodeEntity->getVeriCodeString()]);
@@ -121,7 +124,7 @@ class TemplateEmailContentGenerator implements VeriCodeEmailContentGenerator{
             $subject = $this->_systemName . ' - ' . $actionName . '验证码';
         }else{
             $actionName = 'Changing Email Address';
-            $this->_systemName . ' - ' . $actionName . ' - Verification Code';
+            $subject = $this->_systemName . ' - ' . $actionName . ' - Verification Code';
         }
 
         $renderedURL = TemplateUtil::quickRender($this->_linkProvider->changeEmailLink($locale),['veriCode'=>$veriCodeEntity->getVeriCodeString()]);
@@ -144,7 +147,7 @@ class TemplateEmailContentGenerator implements VeriCodeEmailContentGenerator{
             $subject = $this->_systemName . ' - ' . $actionName . '验证码';
         }else{
             $actionName = 'Changing Phone Number';
-            $this->_systemName . ' - ' . $actionName . ' - Verification Code';
+            $subject = $this->_systemName . ' - ' . $actionName . ' - Verification Code';
         }
 
         $renderedURL = TemplateUtil::quickRender($this->_linkProvider->forgotPasswordLink($locale),['veriCode'=>$veriCodeEntity->getVeriCodeString()]);
@@ -167,7 +170,7 @@ class TemplateEmailContentGenerator implements VeriCodeEmailContentGenerator{
             $subject = $this->_systemName . ' - ' . $actionName . '验证码';
         }else{
             $actionName = 'Performing Admin Action';
-            $this->_systemName . ' - ' . $actionName . ' - Verification Code';
+            $subject = $this->_systemName . ' - ' . $actionName . ' - Verification Code';
         }
 
         $templateArgs = [
@@ -189,7 +192,7 @@ class TemplateEmailContentGenerator implements VeriCodeEmailContentGenerator{
             $subject = $this->_systemName . ' - ' . $actionName . '验证码';
         }else{
             $actionName = 'Performing Important Action in 3rd-Party APP';
-            $this->_systemName . ' - ' . $actionName . ' - Verification Code';
+            $subject = $this->_systemName . ' - ' . $actionName . ' - Verification Code';
         }
 
         $templateArgs = [
@@ -211,7 +214,7 @@ class TemplateEmailContentGenerator implements VeriCodeEmailContentGenerator{
             $subject = $this->_systemName . ' - ' . $actionName . '验证码';
         }else{
             $actionName = 'Deleting Third-party APP';
-            $this->_systemName . ' - ' . $actionName . ' - Verification Code';
+            $subject = $this->_systemName . ' - ' . $actionName . ' - Verification Code';
         }
 
         $templateArgs = [
@@ -222,6 +225,62 @@ class TemplateEmailContentGenerator implements VeriCodeEmailContentGenerator{
         ];
         
         $renderedTemplate = TemplateUtil::renderTemplate($this->_tplProvider->getNormalTemplate($locale),$templateArgs,true,true);
+        return new EmailContent($subject,$renderedTemplate);
+    }
+    public function getContentForThirdAPPNotification(UserEntity $relatedUser, MaskIDEntity $relatedMaskID, APPEntity $relatedAPP, APPTokenEntity $relatedAPPToken, string $notificationTitle, string $notificationContent, ?string $locale = Locale::LOCALE_en_US): EmailContent
+    {
+        $actionName = '';
+        $subject = '';
+        if(Locale::isLocaleCloseEnough($locale,'zh')){
+            $actionName = '第三方APP(' . $relatedAPP->getDisplayName() . ')提醒';
+            $subject = '[' . $this->_systemName . ']' . $actionName . ' - ' . $notificationTitle;
+        }else{
+            $actionName = 'Third-party APP(' . $relatedAPP->getDisplayName() . ') Notification';
+            $subject = '[' . $this->_systemName . ']' . $actionName . ' - ' . $notificationTitle;
+        }
+
+        $templateArgs = [
+            'userNickname' => empty($relatedUser->getNickName()) ? $relatedUser->getUsername() : $relatedUser->getNickName(),
+            'actionName' => $actionName,
+            'userSystemName' => $this->_systemName,
+            'maskID' => $relatedMaskID->getMaskID(),
+            'maskDisplayName' => $relatedMaskID->getDisplayName(),
+            'clientID' => $relatedAPP->getClientID(),
+            'appDisplayName' => $relatedAPP->getDisplayName(),
+            'access_token' => $relatedAPPToken->getAccessToken(),
+            'title' => $notificationTitle,
+            'content' => $notificationContent
+        ];
+        
+        $renderedTemplate = TemplateUtil::renderTemplate($this->_tplProvider->getOAuthNotificationTemplate($locale),$templateArgs,true,true);
+        return new EmailContent($subject,$renderedTemplate);
+    }
+    public function getContentForThirdAPPSaleMsg(UserEntity $relatedUser, MaskIDEntity $relatedMaskID, APPEntity $relatedAPP, APPTokenEntity $relatedAPPToken, string $notificationTitle, string $notificationContent, ?string $locale = Locale::LOCALE_en_US): EmailContent
+    {
+        $actionName = '';
+        $subject = '';
+        if(Locale::isLocaleCloseEnough($locale,'zh')){
+            $actionName = '第三方APP(' . $relatedAPP->getDisplayName() . ')营销';
+            $subject = '[' . $this->_systemName . ']' . $actionName . ' - ' . $notificationTitle;
+        }else{
+            $actionName = 'Third-party APP(' . $relatedAPP->getDisplayName() . ') Sales';
+            $subject = '[' . $this->_systemName . ']' . $actionName . ' - ' . $notificationTitle;
+        }
+
+        $templateArgs = [
+            'userNickname' => empty($relatedUser->getNickName()) ? $relatedUser->getUsername() : $relatedUser->getNickName(),
+            'actionName' => $actionName,
+            'userSystemName' => $this->_systemName,
+            'maskID' => $relatedMaskID->getMaskID(),
+            'maskDisplayName' => $relatedMaskID->getDisplayName(),
+            'clientID' => $relatedAPP->getClientID(),
+            'appDisplayName' => $relatedAPP->getDisplayName(),
+            'access_token' => $relatedAPPToken->getAccessToken(),
+            'title' => $notificationTitle,
+            'content' => $notificationContent
+        ];
+        
+        $renderedTemplate = TemplateUtil::renderTemplate($this->_tplProvider->getOAuthSaleMsgTemplate($locale),$templateArgs,true,true);
         return new EmailContent($subject,$renderedTemplate);
     }
 }

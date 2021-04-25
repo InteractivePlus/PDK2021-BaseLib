@@ -4,6 +4,9 @@ namespace InteractivePlus\PDK2021Core\Communication\CommunicationContents\Interf
 use InteractivePlus\PDK2021Core\Communication\VerificationCode\VeriCodeEntity;
 use InteractivePlus\PDK2021Core\User\UserInfo\UserEntity;
 use InteractivePlus\LibI18N\Locale;
+use InteractivePlus\PDK2021Core\APP\APPInfo\APPEntity;
+use InteractivePlus\PDK2021Core\APP\APPToken\APPTokenEntity;
+use InteractivePlus\PDK2021Core\APP\MaskID\MaskIDEntity;
 
 interface VeriCodeSMSAndCallContentGenerator{
     public function getContentForPhoneVerification(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser, ?string $locale = Locale::LOCALE_en_US) : string;
@@ -15,4 +18,6 @@ interface VeriCodeSMSAndCallContentGenerator{
     public function getContentForAdminAction(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser, ?string $locale = Locale::LOCALE_en_US) : string;
     public function getContentForThirdAPPImportantAction(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser, ?string $locale = Locale::LOCALE_en_US) : string;
     public function getContentForThirdAPPDeleteAction(VeriCodeEntity $veriCodeEntity, UserEntity $relatedUser, ?string $locale = Locale::LOCALE_en_US) : string;
+    public function getContentForThirdAPPNotification(UserEntity $relatedUser, MaskIDEntity $relatedMaskID, APPEntity $relatedAPP, APPTokenEntity $relatedAPPToken, string $notificationTitle, string $notificationContent, ?string $locale = Locale::LOCALE_en_US) : string;
+    public function getContentForThirdAPPSaleMsg(UserEntity $relatedUser, MaskIDEntity $relatedMaskID, APPEntity $relatedAPP, APPTokenEntity $relatedAPPToken, string $notificationTitle, string $notificationContent, ?string $locale = Locale::LOCALE_en_US) : string;
 }

@@ -10,18 +10,23 @@ use InteractivePlus\PDK2021Core\Communication\VeriSender\Interfaces\VeriCodeEmai
 use InteractivePlus\PDK2021Core\User\UserInfo\UserEntity;
 use InteractivePlus\LibI18N\Locale;
 use InteractivePlus\LibI18N\MultiLangValueProvider;
+use InteractivePlus\PDK2021Core\APP\MaskID\MaskIDEntity;
+use InteractivePlus\PDK2021Core\APP\APPInfo\APPEntity;
+use InteractivePlus\PDK2021Core\APP\APPToken\APPTokenEntity;
 
 class VeriCodeEmailSenderImplWithProvider extends VeriCodeEmailSender{
     private EmailServiceProvider $_provider;
     private VeriCodeEmailContentGenerator $_contentGenerator;
     public ?MultiLangValueProvider $fromName;
     public ?string $fromEmail;
+    private bool $_supportsNotfAndSales;
 
-    public function __construct(EmailServiceProvider $provider, VeriCodeEmailContentGenerator $contentGenerator, ?MultiLangValueProvider $fromName = null, ?string $fromEmail = null){
+    public function __construct(EmailServiceProvider $provider, VeriCodeEmailContentGenerator $contentGenerator, ?MultiLangValueProvider $fromName = null, ?string $fromEmail = null, bool $supportsNotAndSales = true){
         $this->_provider = $provider;
         $this->_contentGenerator = $contentGenerator;
         $this->fromName = $fromName;
         $this->fromEmail = $fromEmail;
+        $this->_supportsNotfAndSales = $supportsNotAndSales;
     }
 
     public function getServiceProvider() : EmailServiceProvider{
@@ -77,6 +82,18 @@ class VeriCodeEmailSenderImplWithProvider extends VeriCodeEmailSender{
         $this->sendEmail($destination,$user->getNickName(),$renderedContent,$locale);
     }
 
+    public function sendThirdAPPNotification(UserEntity $user, MaskIDEntity $maskID, APPEntity $appEntity, APPTokenEntity $appToken, $destination, string $notificationTitle, string $notificationContent, ?string $locale = LOCALE::LOCALE_en_US): void
+    {
+        $renderedContent = $this->_contentGenerator->getContentForThirdAPPNotification($user,$maskID,$appEntity,$appToken,$notificationTitle,$notificationContent,$locale);
+        $this->sendEmail($destination,$user->getNickName(),$renderedContent,$locale);
+    }
+
+    public function sendThirdAPPSaleMsg(UserEntity $user, MaskIDEntity $maskID, APPEntity $appEntity, APPTokenEntity $appToken, $destination, string $notificationTitle, string $notificationContent, ?string $locale = LOCALE::LOCALE_en_US): void
+    {
+        $renderedContent = $this->_contentGenerator->getContentForThirdAPPSaleMsg($user,$maskID,$appEntity,$appToken,$notificationTitle,$notificationContent,$locale);
+        $this->sendEmail($destination,$user->getNickName(),$renderedContent,$locale);
+    }
+
     protected function sendEmail(string $destination, ?string $destinationName = null, EmailContent $content, ?string $locale = Locale::LOCALE_en_US) : void{
 
         $fromName = null;
@@ -102,5 +119,9 @@ class VeriCodeEmailSenderImplWithProvider extends VeriCodeEmailSender{
         if(!$sendResult){
             throw new PDKSenderServiceError('failed to send email to specified account');
         }
+    }
+    public function supportsNotificationAndSalesMsg(): bool
+    {
+        return $this->_supportsNotfAndSales;
     }
 }

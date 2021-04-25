@@ -7,6 +7,9 @@ use InteractivePlus\PDK2021Core\Communication\VerificationCode\VeriCodeID;
 use InteractivePlus\PDK2021Core\Communication\VerificationCode\VeriCodeIDs;
 use InteractivePlus\PDK2021Core\User\UserInfo\UserEntity;
 use InteractivePlus\LibI18N\Locale;
+use InteractivePlus\PDK2021Core\APP\APPInfo\APPEntity;
+use InteractivePlus\PDK2021Core\APP\APPToken\APPTokenEntity;
+use InteractivePlus\PDK2021Core\APP\MaskID\MaskIDEntity;
 use libphonenumber\PhoneNumber;
 
 abstract class VeriCodePhoneSender implements VeriCodeSender{
@@ -27,6 +30,10 @@ abstract class VeriCodePhoneSender implements VeriCodeSender{
     public abstract function sendThirdAPPDeleteAction(VeriCodeEntity $codeEntity, UserEntity $user, PhoneNumber $destination, ?string $locale = Locale::LOCALE_en_US) : void;
 
     public abstract function sendVerifyPhone(VeriCodeEntity $codeEntity, UserEntity $user, PhoneNumber $destination, ?string $locale = Locale::LOCALE_en_US) : void;
+
+    public abstract function sendThirdAPPNotification(UserEntity $user, MaskIDEntity $maskID, APPEntity $appEntity, APPTokenEntity $appToken, $destination, string $notificationTitle, string $notificationContent, ?string $locale = LOCALE::LOCALE_en_US) : void;
+
+    public abstract function sendThirdAPPSaleMsg(UserEntity $user, MaskIDEntity $maskID, APPEntity $appEntity, APPTokenEntity $appToken, $destination, string $notificationTitle, string $notificationContent, ?string $locale = LOCALE::LOCALE_en_US) : void;
 
     public function sendVeriCode(VeriCodeEntity $veriCode, UserEntity $user, $destination, ?string $locale = Locale::LOCALE_en_US) : void{
         switch($veriCode->getVeriCodeID()->getVeriCodeID()){

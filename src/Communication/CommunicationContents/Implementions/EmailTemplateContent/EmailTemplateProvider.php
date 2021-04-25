@@ -5,4 +5,6 @@ interface EmailTemplateProvider{
     public function getNormalSafeTemplate(?string $locale = null) : string;
     public function getURLTemplate(?string $locale = null) : string;
     public function getURLSafeTemplate(?string $locale = null) : string;
+    public function getOAuthNotificationTemplate(?string $locale = null) : string;
+    public function getOAuthSaleMsgTemplate(?string $locale = null) : string;
 }

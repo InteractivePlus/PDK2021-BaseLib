@@ -13,17 +13,22 @@ use InteractivePlus\PDK2021Core\Communication\VeriSender\Interfaces\VeriCodePhon
 use InteractivePlus\PDK2021Core\User\UserInfo\UserEntity;
 use InteractivePlus\LibI18N\Locale;
 use InteractivePlus\LibI18N\MultiLangValueProvider;
+use InteractivePlus\PDK2021Core\APP\MaskID\MaskIDEntity;
+use InteractivePlus\PDK2021Core\APP\APPInfo\APPEntity;
+use InteractivePlus\PDK2021Core\APP\APPToken\APPTokenEntity;
 use libphonenumber\PhoneNumber;
 
 class VeriCodeSMSSenderImplWithService extends VeriCodePhoneSender{
     private SMSServiceProvider $_provider;
     private VeriCodeSMSAndCallContentGenerator $_contentGenerator;
     public ?MultiLangValueProvider $messageSuffix = null;
+    private bool $_supportsNotfAndSales;
 
-    public function __construct(SMSServiceProvider $provider, VeriCodeSMSAndCallContentGenerator $contentGenerator, ?MultiLangValueProvider $messageSuffix){
+    public function __construct(SMSServiceProvider $provider, VeriCodeSMSAndCallContentGenerator $contentGenerator, ?MultiLangValueProvider $messageSuffix, bool $supportsNotAndSaleMsg = false){
         $this->_provider = $provider;
         $this->_contentGenerator = $contentGenerator;
         $this->messageSuffix = $messageSuffix;
+        $this->_supportsNotfAndSales = $supportsNotAndSaleMsg;
     }
 
     public function getServiceProvider() : SMSServiceProvider{
@@ -80,6 +85,16 @@ class VeriCodeSMSSenderImplWithService extends VeriCodePhoneSender{
         $this->sendSMS($destination,$renderedContent);
     }
 
+    public function sendThirdAPPNotification(UserEntity $user, MaskIDEntity $maskID, APPEntity $appEntity, APPTokenEntity $appToken, $destination, string $notificationTitle, string $notificationContent, ?string $locale = LOCALE::LOCALE_en_US): void
+    {
+        //TODO: Finish this
+    }
+
+    public function sendThirdAPPSaleMsg(UserEntity $user, MaskIDEntity $maskID, APPEntity $appEntity, APPTokenEntity $appToken, $destination, string $notificationTitle, string $notificationContent, ?string $locale = LOCALE::LOCALE_en_US): void
+    {
+        //TODO: Finish this
+    }
+
     protected function sendSMS(PhoneNumber $destination, string $content, ?string $locale = Locale::LOCALE_en_US) : void{
         $suffix = '';
         if($this->messageSuffix !== null){
@@ -93,5 +108,9 @@ class VeriCodeSMSSenderImplWithService extends VeriCodePhoneSender{
             }
         }
         $this->_provider->sendSMS($destination, $content . $suffix,false);
+    }
+    public function supportsNotificationAndSalesMsg(): bool
+    {
+        return $this->_supportsNotfAndSales;
     }
 }
