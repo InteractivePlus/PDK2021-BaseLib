@@ -12,7 +12,8 @@ abstract class AuthCodeStorage{
     public abstract function updateAuthCodeEntity(AuthCodeEntity $entity) : void;
     public abstract function useAuthCode(string $authCode) : void;
     public abstract function searchAuthCodeEntity(?string $authCode = null, int $createTimeStart = -1, int $createTimeEnd = -1, int $expireTimeStart = -1, int $expireTimeEnd = -1, ?string $relatedMaskID = null, int $relatedAPPUID = APPSystemConstants::NO_APP_RELATED_APPUID, int $dataOffset = 0, int $dataCountLimit = -1) : MultipleResult;
-    public abstract function getAPPEntityCount(?string $authCode = null, int $createTimeStart = -1, int $createTimeEnd = -1, int $expireTimeStart = -1, int $expireTimeEnd = -1, ?string $relatedMaskID = null, int $relatedAPPUID = APPSystemConstants::NO_APP_RELATED_APPUID) : int;
+    public abstract function getAuthCodeEntityCount(?string $authCode = null, int $createTimeStart = -1, int $createTimeEnd = -1, int $expireTimeStart = -1, int $expireTimeEnd = -1, ?string $relatedMaskID = null, int $relatedAPPUID = APPSystemConstants::NO_APP_RELATED_APPUID) : int;
+    public abstract function clearAuthCode(?string $authCode = null, int $createTimeStart = -1, int $createTimeEnd = -1, int $expireTimeStart = -1, int $expireTimeEnd = -1, ?string $relatedMaskID = null, int $relatedAPPUID = APPSystemConstants::NO_APP_RELATED_APPUID, int $dataOffset = 0, int $dataCountLimit = -1) : void;
     public function addAuthCodeEntity(AuthCodeEntity $entity, bool $withAuthCodeReroll = true) : ?AuthCodeEntity{
         $returnEntity = $entity;
         while($this->checkAuthCodeExist($returnEntity->getAuthCodeStr())){
@@ -24,4 +25,5 @@ abstract class AuthCodeStorage{
         $this->__addAuthCodeEntity($returnEntity);
         return $returnEntity;
     }
+    
 }
