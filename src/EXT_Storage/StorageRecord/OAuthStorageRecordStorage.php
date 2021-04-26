@@ -5,7 +5,7 @@ use InteractivePlus\PDK2021Core\Base\Constants\APPSystemConstants;
 use InteractivePlus\PDK2021Core\Base\DataOperations\MultipleResult;
 
 abstract class OAuthStorageRecordStorage{
-    protected abstract function addOAuthStorageRecord(OAuthStorageRecordEntity $entity) : void;
+    public abstract function addOAuthStorageRecord(OAuthStorageRecordEntity $entity) : void;
     public abstract function checkOAuthStorageRecordExist(string $mask_id, string $client_id) : bool;
     public abstract function checkOAuthStorageRecordExistByAPPUID(string $mask_id, int $appuid) : bool;
     public abstract function getOAuthStorageRecord(string $mask_id, string $client_id) : ?OAuthStorageRecordEntity;

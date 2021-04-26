@@ -13,8 +13,8 @@ class APPPermission{
     
     public function __construct(
         int $maxDataRecursionLevel = 3, 
-        int $maxCompressedDataLength = 65535, 
-        int $maxUncompressedDataLength = 65535*2, 
+        int $maxCompressedDataLength = 256, 
+        int $maxUncompressedDataLength = 256*2, 
         int $maxDataRecordNumber = 1000, //-1 = Unlimited
         array $allowedScopes = array(APPTokenScopes::SCOPE_BASIC_INFO()->getScopeName(),APPTokenScopes::SCOPE_SEND_NOTIFICATIONS()->getScopeName())
     )
@@ -29,12 +29,15 @@ class APPPermission{
         if(!self::checkMaxRecursionLevel($assocArray,$this->maxDataRecursionLevel)){
             return null;
         }
-        $jsonEncoded = json_encode($assocArray);
-        if(strlen($jsonEncoded) > $this->maxUncompressedDataLength){
+        if(empty($assocArray)){
+            return '';
+        }
+        $jsonEncoded = serialize($assocArray);
+        if(strlen($jsonEncoded) > $this->maxUncompressedDataLength && $this->maxUncompressedDataLength >= 0){
             return null;
         }
         $compressedData = gzcompress($jsonEncoded);
-        if(strlen($compressedData) > $this->maxCompressedDataLength){
+        if(strlen($compressedData) > $this->maxCompressedDataLength && $this->maxCompressedDataLength >= 0){
             return null;
         }
         return $compressedData;
@@ -44,7 +47,7 @@ class APPPermission{
             return array();
         }
         try{
-            return json_decode(gzuncompress($compressedData),true);
+            return unserialize(gzuncompress($compressedData));
         }catch(\Exception $e){
             return array();
         }
@@ -59,11 +62,11 @@ class APPPermission{
         );
     }
     public static function fromAssocArray(array $data) : APPPermission{
-        $maxRLevel = 0;
-        $maxCompressedLen = 0;
-        $maxUncompressedLen = 0;
-        $maxRecordNum = 0;
-        $scopes = array();
+        $maxRLevel = 3;
+        $maxCompressedLen = 256;
+        $maxUncompressedLen = 256*2;
+        $maxRecordNum = 1000;
+        $scopes = array(APPTokenScopes::SCOPE_BASIC_INFO()->getScopeName());
         foreach($data as $dataKey => $dataVal){
             switch($dataKey){
                 case 'maxRecursionLevel':
