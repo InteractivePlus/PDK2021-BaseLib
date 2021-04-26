@@ -16,7 +16,7 @@ class APPPermission{
         int $maxCompressedDataLength = 256, 
         int $maxUncompressedDataLength = 256*2, 
         int $maxDataRecordNumber = 1000, //-1 = Unlimited
-        array $allowedScopes = array(APPTokenScopes::SCOPE_BASIC_INFO()->getScopeName(),APPTokenScopes::SCOPE_SEND_NOTIFICATIONS()->getScopeName())
+        array $allowedScopes = array(APPTokenScopes::SCOPE_BASIC_INFO()->getScopeName(),APPTokenScopes::SCOPE_STORE_DATA()->getScopeName())
     )
     {
         $this->maxDataRecursionLevel = $maxDataRecursionLevel;

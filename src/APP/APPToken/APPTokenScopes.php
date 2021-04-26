@@ -37,12 +37,25 @@ class APPTokenScopes{
         }
         return self::$SCOPE_SEND_SALES;
     }
+
+    private static ?APPTokenScope $SCOPE_STORE_DATA = null;
+    public static function SCOPE_STORE_DATA() : APPTokenScope{
+        if(self::$SCOPE_STORE_DATA === null){
+            self::$SCOPE_STORE_DATA = new APPTokenScope(
+                'store_data',
+                new MultiLangValueProvider('Store Data On Cloud',array('zh'=>'在云端储存数据','en'=>'Store Data On Cloud')),
+                new MultiLangValueProvider('Granting this scope allows the APP to store data on our end on your behalf',array('zh'=>'授予此权限会让APP有权以你的名义在我们的云端储存数据','en'=>'Granting this scope allows the APP to store data on our end on your behalf'))
+            );
+        }
+        return self::$SCOPE_STORE_DATA;
+    }
     
     public static function isValidScope(string $scopeValue) : bool{
         switch(strtolower($scopeValue)){
             case self::SCOPE_BASIC_INFO()->getScopeName():
             case self::SCOPE_SEND_NOTIFICATIONS()->getScopeName():
             case self::SCOPE_SEND_SALES()->getScopeName():
+            case self::SCOPE_STORE_DATA()->getScopeName():
                 return true;
             default:
                 return false;
@@ -56,6 +69,8 @@ class APPTokenScopes{
                 return self::SCOPE_SEND_NOTIFICATIONS();
             case self::SCOPE_SEND_SALES()->getScopeName():
                 return self::SCOPE_SEND_SALES();
+            case self::SCOPE_STORE_DATA()->getScopeName():
+                return self::SCOPE_STORE_DATA();
             default:
                 return null;
         }
