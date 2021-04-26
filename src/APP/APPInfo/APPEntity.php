@@ -16,6 +16,7 @@ class APPEntity{
     public int $createTime;
     public int $ownerUID;
     private ?APPSystemFormatSetting $_formatSetting = null;
+    private APPPermission $_permission;
 
     public static function fromDatabase(
         int $appuid, 
@@ -26,9 +27,10 @@ class APPEntity{
         ?string $redirectURI, 
         int $createTime, 
         int $ownerUID, 
-        ?APPSystemFormatSetting $formatSetting
+        ?APPSystemFormatSetting $formatSetting,
+        APPPermission $permission
     ) : APPEntity{
-        $newAPP = new APPEntity($appuid,$displayName,$client_id,$client_secret,$client_type,$redirectURI,$createTime,$ownerUID,$formatSetting);
+        $newAPP = new APPEntity($appuid,$displayName,$client_id,$client_secret,$client_type,$redirectURI,$createTime,$ownerUID,$formatSetting,$permission);
         $newAPP->setClientType($client_type);
         return $newAPP;
     }
@@ -39,17 +41,18 @@ class APPEntity{
         ?string $redirectURI, 
         int $createTime, 
         int $ownerUID, 
-        ?APPSystemFormatSetting $formatSetting
+        ?APPSystemFormatSetting $formatSetting,
+        APPPermission $permission
     ) : APPEntity{
         if(!empty($displayName) && $formatSetting !== null && !$formatSetting->checkAPPDisplayName($displayName)){
             throw new PDKInnerArgumentError('displayName');
         }
-        $newAPP = new APPEntity(APPSystemConstants::NO_APP_RELATED_APPUID,$displayName,APPFormat::generateAPPID(),APPFormat::generateAPPSecert(),$client_type,$redirectURI,$createTime,$ownerUID,$formatSetting);
+        $newAPP = new APPEntity(APPSystemConstants::NO_APP_RELATED_APPUID,$displayName,APPFormat::generateAPPID(),APPFormat::generateAPPSecert(),$client_type,$redirectURI,$createTime,$ownerUID,$formatSetting,$permission);
         $newAPP->setClientType($client_type);
         return $newAPP;
     }
 
-    private function __construct(int $appuid, ?string $displayName, string $client_id, string $client_secret, int $client_type, ?string $redirectURI, int $createTime, int $ownerUID, ?APPSystemFormatSetting $formatSetting){
+    private function __construct(int $appuid, ?string $displayName, string $client_id, string $client_secret, int $client_type, ?string $redirectURI, int $createTime, int $ownerUID, ?APPSystemFormatSetting $formatSetting, APPPermission $permission){
         $this->_appuid = $appuid;
         $this->_displayName = $displayName;
         $this->_client_id = $client_id;
@@ -59,6 +62,7 @@ class APPEntity{
         $this->createTime = $createTime;
         $this->ownerUID = $ownerUID;
         $this->_formatSetting = $formatSetting;
+        $this->_permission = $permission;
     }
 
     public function getAPPUID() : int{
@@ -152,6 +156,14 @@ class APPEntity{
     }
     public function setFormatClass(?APPSystemFormatSetting $class = null) : void{
         $this->_formatSetting = $class;
+    }
+
+    public function getPermission() : APPPermission{
+        return $this->_permission;
+    }
+
+    public function setPermission(APPPermission $permission) : void{
+        $this->_permission = $permission;
     }
 
 }
