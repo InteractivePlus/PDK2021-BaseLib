@@ -19,6 +19,7 @@ use InteractivePlus\PDK2021Core\Communication\VerificationCode\VeriCodeIDs;
 use InteractivePlus\PDK2021Core\Communication\VerificationCode\VeriCodeStorage;
 use InteractivePlus\PDK2021Core\Communication\VeriSender\Interfaces\VeriCodeEmailSender;
 use InteractivePlus\PDK2021Core\Communication\VeriSender\Interfaces\VeriCodePhoneSender;
+use InteractivePlus\PDK2021Core\EXT_Storage\StorageRecord\OAuthStorageRecordStorage;
 use InteractivePlus\PDK2021Core\User\Login\TokenEntity;
 use InteractivePlus\PDK2021Core\User\Login\TokenEntityStorage;
 use InteractivePlus\PDK2021Core\User\UserInfo\UserEntity;
@@ -38,6 +39,7 @@ class PDKCore{
     private APPTokenEntityStorage $_appTokenEntityStorage;
     private AuthCodeStorage $_appAuthCodeStorage;
     private MaskIDEntityStorage $_maskIDEntityStorage;
+    private ?OAuthStorageRecordStorage $_extOauthStorageRecordStorage;
 
     public function __construct(
         LoggerStorage $logger,
@@ -51,7 +53,8 @@ class PDKCore{
         APPEntityStorage $appEntityStorage,
         APPTokenEntityStorage $appTokenEntityStorage,
         AuthCodeStorage $appAuthCodeStorage,
-        MaskIDEntityStorage $maskIDEntityStorage
+        MaskIDEntityStorage $maskIDEntityStorage,
+        ?OAuthStorageRecordStorage $oAuthStorageRecordStorage = null
     ){
         if($veriCodeEmailSender === null && $veriCodeSMSSender === null && $veriCodeCallSender === null){
             throw new PDKInnerArgumentError('veriCodeEmailSender|veriCodeSMSSender|veriCodeCallSender','There should be at least one vericode sender that is not null');
@@ -68,6 +71,7 @@ class PDKCore{
         $this->_appTokenEntityStorage = $appTokenEntityStorage;
         $this->_appAuthCodeStorage = $appAuthCodeStorage;
         $this->_maskIDEntityStorage = $maskIDEntityStorage;
+        $this->_extOauthStorageRecordStorage = $oAuthStorageRecordStorage;
     }
 
     public function getLogger() : LoggerStorage{
@@ -142,6 +146,10 @@ class PDKCore{
 
     public function getMaskIDEntityStorage() : MaskIDEntityStorage{
         return $this->_maskIDEntityStorage;
+    }
+
+    public function getEXTOAuthStorageRecordStorage() : ?OAuthStorageRecordStorage{
+        return $this->_extOauthStorageRecordStorage;
     }
 
     public function createAndSendVerificationEmail(string $emailAddr, UserEntity $user, int $currentTime, int $vericodeAvailableDuration, ?string $remoteAddr) : ?PDKException{
