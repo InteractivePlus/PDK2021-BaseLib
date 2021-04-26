@@ -4,7 +4,7 @@
     "type": "library",
     "license": "MIT",
     "require":{
-        "php": ">=7.2.0",
+        "php": ">=7.4.0",
         "psr/log": "~1.1",
         "giggsey/libphonenumber-for-php": "^8",
         "interactiveplus/lib-i18n":"~1.0",
