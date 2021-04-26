@@ -25,6 +25,18 @@ class APPPermission{
         $this->maxDataRecordNumber = $maxDataRecordNumber;
         $this->allowedScopes = $allowedScopes;
     }
+    public function allowScope(string $scope) : bool{
+        return in_array(strtolower($scope),$this->allowedScopes);
+    }
+    public function filterScopes(array $scopeList) : array{
+        $newArray = [];
+        foreach($scopeList as $scope){
+            if($this->allowScope($scope)){
+                $newArray[] = $scope;
+            }
+        }
+        return $newArray;
+    }
     public function getCompressedData(array $assocArray) : ?string{
         if(!self::checkMaxRecursionLevel($assocArray,$this->maxDataRecursionLevel)){
             return null;
