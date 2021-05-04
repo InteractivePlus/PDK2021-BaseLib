@@ -4,6 +4,7 @@ namespace InteractivePlus\PDK2021Core\EXT_Ticket\TicketRecord;
 use InteractivePlus\PDK2021Core\Base\Constants\APPSystemConstants;
 use InteractivePlus\PDK2021Core\Base\Constants\UserSystemConstants;
 use InteractivePlus\PDK2021Core\Base\DataOperations\MultipleResult;
+use InteractivePlus\PDK2021Core\EXT_Ticket\OAuthTicketFormatSetting;
 
 abstract class OAuthTicketRecordStorage{
     public abstract function addOAuthTicketRecord(OAuthTicketRecordEntity $entity) : void;
@@ -47,4 +48,5 @@ abstract class OAuthTicketRecordStorage{
         int $dataOffset = 0, 
         int $dataCountLimit = -1
     ) : void;
+    public abstract function getFormatSetting() : OAuthTicketFormatSetting;
 }
