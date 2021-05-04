@@ -7,6 +7,22 @@ class OAuthTicketFormatSettingImpl implements OAuthTicketFormatSetting{
     private int $_contentMaxLen;
     private int $_responderNameMinLen;
     private int $_responderNameMaxLen;
+    public function __construct(
+        int $titleMinLen,
+        int $titleMaxLen,
+        int $contentMinLen,
+        int $contentMaxLen,
+        int $responderNameMinLen,
+        int $responderNameMaxLen
+    )
+    {
+        $this->_titleMinLen = $titleMinLen;
+        $this->_titleMaxLen = $titleMaxLen;
+        $this->_contentMinLen = $contentMinLen;
+        $this->_contentMaxLen = $contentMaxLen;
+        $this->_responderNameMinLen = $responderNameMinLen;
+        $this->_responderNameMaxLen = $responderNameMaxLen;
+    }
     public function getTitleMinLen() : int{
         return $this->_titleMinLen;
     }
