@@ -5,7 +5,7 @@ class OAuthTicketFormat{
     public static function getTicketIDByteLength() : int{
         return self::TICKET_ID_BYTE_LENGTH;
     }
-    public static function getTicketIDLength() : string{
+    public static function getTicketIDLength() : int{
         return self::TICKET_ID_BYTE_LENGTH * 2;
     }
     public static function isValidTicketID(string $ticketID) : bool{
