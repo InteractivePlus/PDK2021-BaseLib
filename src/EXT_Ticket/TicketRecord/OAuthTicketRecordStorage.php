@@ -7,10 +7,11 @@ use InteractivePlus\PDK2021Core\Base\DataOperations\MultipleResult;
 use InteractivePlus\PDK2021Core\EXT_Ticket\OAuthTicketFormatSetting;
 
 abstract class OAuthTicketRecordStorage{
-    public abstract function addOAuthTicketRecord(OAuthTicketRecordEntity $entity) : void;
+    protected abstract function __addOAuthTicketRecord(OAuthTicketRecordEntity $entity) : void;
     public abstract function checkOAuthTicketRecordExist(string $ticket_id) : bool;
     public abstract function getOAuthTicketRecord(string $ticket_id) : ?OAuthTicketRecordEntity;
     public abstract function updateOAuthTicketRecord(OAuthTicketRecordEntity $entity) : void;
+    public abstract function updateOAuthTicketResponses(OAuthTicketRecordEntity $entity) : void;
     public abstract function searchOAuthTicketRecordEntity(
         int $createTimeStart = -1,
         int $createTimeEnd = -1, 
@@ -49,4 +50,16 @@ abstract class OAuthTicketRecordStorage{
         int $dataCountLimit = -1
     ) : void;
     public abstract function getFormatSetting() : OAuthTicketFormatSetting;
+    public function addOAuthTicketRecord(OAuthTicketRecordEntity $entity, bool $allowTicketIDReroll) : ?OAuthTicketRecordEntity{
+        if($this->checkOAuthTicketRecordExist($entity->getTicketID())){
+            if(!$allowTicketIDReroll){
+                return null;
+            }
+            while($this->checkOAuthTicketRecordExist($entity->getTicketID())){
+                $entity->doTicketIDReroll();
+            }
+        }
+        $this->__addOAuthTicketRecord($entity);
+        return $entity;
+    }
 }
