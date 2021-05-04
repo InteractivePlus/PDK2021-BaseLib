@@ -17,7 +17,7 @@ abstract class OAuthTicketRecordStorage{
         int $createTimeEnd = -1, 
         int $lastUpdateStart = -1, 
         int $lastUpdateEnd = -1, 
-        int $realatedUID = UserSystemConstants::NO_USER_RELATED_UID,
+        int $relatedUID = UserSystemConstants::NO_USER_RELATED_UID,
         ?string $relatedMaskID = null,
         ?string $relatedClientID = null,
         int $relatedAPPUID = APPSystemConstants::NO_APP_RELATED_APPUID, 
@@ -25,23 +25,23 @@ abstract class OAuthTicketRecordStorage{
         int $dataOffset = 0, 
         int $dataCountLimit = -1
     ) : MultipleResult;
-    public abstract function getOAuthStorageRecordEntityCount(
+    public abstract function getOAuthTicketRecordEntityCount(
         int $createTimeStart = -1,
         int $createTimeEnd = -1, 
         int $lastUpdateStart = -1, 
         int $lastUpdateEnd = -1, 
-        int $realatedUID = UserSystemConstants::NO_USER_RELATED_UID,
+        int $relatedUID = UserSystemConstants::NO_USER_RELATED_UID,
         ?string $relatedMaskID = null,
         ?string $relatedClientID = null,
         int $relatedAPPUID = APPSystemConstants::NO_APP_RELATED_APPUID, 
         ?string $relatedAccessToken = null
     ) : int;
-    public abstract function clearAuthCode(
+    public abstract function clearTicketRecord(
         int $createTimeStart = -1,
         int $createTimeEnd = -1, 
         int $lastUpdateStart = -1, 
         int $lastUpdateEnd = -1, 
-        int $realatedUID = UserSystemConstants::NO_USER_RELATED_UID,
+        int $relatedUID = UserSystemConstants::NO_USER_RELATED_UID,
         ?string $relatedMaskID = null,
         ?string $relatedClientID = null,
         int $relatedAPPUID = APPSystemConstants::NO_APP_RELATED_APPUID, 
