@@ -7,14 +7,14 @@ use InteractivePlus\PDK2021Core\EXT_Ticket\OAuthTicketFormatSetting;
 class OAuthTicketSingleContent{
     private string $_contentStr;
     public bool $isTicketCreatorContent;
-    private string $_responderName;
+    private ?string $_responderName;
     public int $respondTime;
     public int $lastEditTime;
     private OAuthTicketFormatSetting $_formatSetting;
     public function __construct(
         string $contentStr,
         bool $isTicketCreatorContent,
-        string $responderName,
+        ?string $responderName,
         int $respondTime,
         int $lastEditTime,
         OAuthTicketFormatSetting $formatSetting
@@ -37,11 +37,15 @@ class OAuthTicketSingleContent{
         $this->_contentStr = $contentStr;
     }
 
-    public function getResponderName() : string{
+    public function getResponderName() : ?string{
         return $this->_responderName;
     }
 
-    public function setResponderName(string $name) : void{
+    public function setResponderName(?string $name) : void{
+        if(empty($name)){
+            $this->_responderName = null;
+            return;
+        }
         if(!$this->getFormatSetting()->checkResponderName($name)){
             throw new PDKInnerArgumentError('name');
         }
