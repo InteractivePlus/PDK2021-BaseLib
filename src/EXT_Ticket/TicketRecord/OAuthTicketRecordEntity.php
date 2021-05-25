@@ -19,6 +19,8 @@ class OAuthTicketRecordEntity{
     public bool $isUrgent;
     public int $createTime;
     public int $lastUpdateTime;
+    public bool $isResolved;
+    public bool $isClosed;
     private OAuthTicketFormatSetting $_formatSetting;
     public function __construct(
         string $ticketTitle,
@@ -32,6 +34,8 @@ class OAuthTicketRecordEntity{
         bool $isUrgent,
         int $createTime,
         int $lastUpdateTime,
+        bool $isResolved,
+        bool $isClosed,
         OAuthTicketFormatSetting $formatSetting
     )
     {
@@ -47,6 +51,8 @@ class OAuthTicketRecordEntity{
         $this->isUrgent = $isUrgent;
         $this->createTime = $createTime;
         $this->lastUpdateTime = $lastUpdateTime;
+        $this->isResolved = $isResolved;
+        $this->isClosed = $isClosed;
     }
     public function getTicketTitle() : string{
         return $this->_ticketTitle;
