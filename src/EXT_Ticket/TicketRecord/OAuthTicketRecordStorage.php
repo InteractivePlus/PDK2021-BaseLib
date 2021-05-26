@@ -20,6 +20,7 @@ abstract class OAuthTicketRecordStorage{
         int $relatedUID = UserSystemConstants::NO_USER_RELATED_UID,
         ?string $relatedMaskID = null,
         ?string $relatedClientID = null,
+        ?string $title = null,
         int $relatedAPPUID = APPSystemConstants::NO_APP_RELATED_APPUID, 
         ?string $relatedAccessToken = null,
         int $dataOffset = 0, 
@@ -33,6 +34,7 @@ abstract class OAuthTicketRecordStorage{
         int $relatedUID = UserSystemConstants::NO_USER_RELATED_UID,
         ?string $relatedMaskID = null,
         ?string $relatedClientID = null,
+        ?string $title = null,
         int $relatedAPPUID = APPSystemConstants::NO_APP_RELATED_APPUID, 
         ?string $relatedAccessToken = null
     ) : int;
@@ -44,6 +46,7 @@ abstract class OAuthTicketRecordStorage{
         int $relatedUID = UserSystemConstants::NO_USER_RELATED_UID,
         ?string $relatedMaskID = null,
         ?string $relatedClientID = null,
+        ?string $title = null,
         int $relatedAPPUID = APPSystemConstants::NO_APP_RELATED_APPUID, 
         ?string $relatedAccessToken = null,
         int $dataOffset = 0, 
